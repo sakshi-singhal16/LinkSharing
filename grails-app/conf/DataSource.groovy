@@ -26,7 +26,7 @@ environments {
             username = "root"
             password = ""
             dbCreate = "update"
-            url = "jdbc:mysql://localhost:3306/my_app_db"
+            url = "jdbc:mysql://localhost:3306/linksharing"
         }
     }
     test {

@@ -1,6 +1,6 @@
 package com.tothenew.linksharing
 
-class TestController {
+class Test {
 
     def index() {
         println "hi------------"
