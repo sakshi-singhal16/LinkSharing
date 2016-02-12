@@ -30,6 +30,6 @@ class User {
     static mapping = { photo(sqlType: 'longblob') }
 
     String getName() {
-        "${firstName} ${lastName}"
+        [firstName, lastName].findAll { it }.join(' ')
     }
 }

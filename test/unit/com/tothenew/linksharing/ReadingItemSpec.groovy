@@ -12,9 +12,22 @@ class ReadingItemSpec extends Specification {
     def setup() {
     }
 
-    def cleanup() {
-    }
+    def "test reading item validations"() {
+        given:
+        ReadingItem readingItem = new ReadingItem(resource: testResource, user: testUser, isRead: testReadFlag)
 
-    void "test something"() {
+        when:
+        Boolean receivedResult = readingItem.validate()
+
+        then:
+        receivedResult == expectedResult
+
+        where:
+        testResource       | testUser   | testReadFlag | expectedResult
+        null               | new User() | true         | false
+        new LinkResource() | null       | true         | false
+        new LinkResource() | new User() | null         | false
+        new LinkResource() | new User() | true         | true
+
     }
 }

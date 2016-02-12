@@ -1,14 +1,15 @@
 package com.tothenew.linksharing
 
+import com.tothenew.linksharing.Enums.Visibility
+
 class Topic {
     String topicName
     User createdBy
     Date dateCreated
     Date lastUpdated
-    enum visibility
-    {
-        PUBLIC, PRIVATE
-    }
+
+    Visibility visibility
+
     static hasMany = [resources: Resource, subscriptions: Subscription]
 
     static constraints = {

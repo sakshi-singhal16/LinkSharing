@@ -12,9 +12,23 @@ class DocumentResourceSpec extends Specification {
     def setup() {
     }
 
-    def cleanup() {
-    }
 
-    void "test something"() {
+    def "test document resource validation"() {
+        given:
+        DocumentResource documentResource = new DocumentResource(createdBy: user, topic: topic, description: "desc", filePath: testPath)
+
+        when:
+        Boolean receivedResult = documentResource.validate()
+
+
+        then:
+        expectedResult == receivedResult
+
+        where:
+        testPath   | topic       | user       | expectedResult
+        null       | new Topic() | new User() | false
+        ""         | new Topic() | new User() | false
+        "/filepath/path/" | new Topic() | new User() | true
+
     }
 }

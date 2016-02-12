@@ -1,20 +1,42 @@
 package com.tothenew.linksharing
 
+import com.tothenew.linksharing.Enums.Visibility
 import grails.test.mixin.TestFor
 import spock.lang.Specification
+import spock.lang.Unroll
 
-/**
- * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
- */
 @TestFor(Topic)
 class TopicSpec extends Specification {
+    Topic topic
 
     def setup() {
+        topic = new Topic()
     }
 
-    def cleanup() {
+    @Unroll("Executing #sno")
+    def "test topic validations"() {
+        given:
+        topic.topicName = testName
+        topic.createdBy = testAuthor
+        topic.visibility = visibility
+
+        when:
+        Boolean receivedResult = topic.validate()
+
+
+        then:
+        receivedResult == expectedResult
+
+        where:
+        sno | testName | testAuthor | visibility         | expectedResult
+        1   | null     | new User() | Visibility.PRIVATE | false
+        2   | ""       | new User() | Visibility.PRIVATE | false
+        3   | "Grails" | null       | Visibility.PRIVATE | false
+        4   | "Grails" | new User() | null               | false
+        5   | "Grails" | new User() | Visibility.PRIVATE | true
+
+
     }
 
-    void "test something"() {
-    }
+
 }

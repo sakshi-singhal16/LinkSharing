@@ -12,9 +12,25 @@ class LinkResourceSpec extends Specification {
     def setup() {
     }
 
-    def cleanup() {
-    }
+    def "test lik resource validations"() {
 
-    void "test something"() {
+        given:
+        LinkResource linkResource = new LinkResource(createdBy: user, topic: topic, description: "desc", url: testurl)
+
+        when:
+        Boolean receivedResult = linkResource.validate()
+
+
+        then:
+        expectedResult == receivedResult
+
+        where:
+        testurl                 | topic       | user       | expectedResult
+        null                    | new Topic() | new User() | false
+        ""                      | new Topic() | new User() | false
+        "url"                   | new Topic() | new User() | false
+        "http://www.google.com" | new Topic() | new User() | true
+
+
     }
 }
