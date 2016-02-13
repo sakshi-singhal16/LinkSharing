@@ -10,6 +10,7 @@
 // if (System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
+grails.config.locations = ["file:${userHome}/.grails/config.groovy"]
 
 grails.project.groupId = "com.tothenew.linksharing" // change this to alter the default package name and Maven publishing destination
 
@@ -99,9 +100,9 @@ environments {
 log4j.main = {
     // Example of changing the log pattern for the default console appender:
     //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+//    appenders {
+//        console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+//    }
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -117,3 +118,4 @@ log4j.main = {
             "com.tothenew.linksharing.controllers.testController"
 
 }
+grails.var = "local"

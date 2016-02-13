@@ -3,7 +3,6 @@ package com.tothenew.linksharing
 class ResourceRating {
 
     Resource resource
-    User user
     int rating
     Date dateCreated
     Date lastUpdated

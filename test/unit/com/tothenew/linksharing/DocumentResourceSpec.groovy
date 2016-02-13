@@ -2,6 +2,7 @@ package com.tothenew.linksharing
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
+import spock.lang.Unroll
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
@@ -12,7 +13,12 @@ class DocumentResourceSpec extends Specification {
     def setup() {
     }
 
+    void "test"() {
+        expect:
+        true
+    }
 
+    @Unroll("Executing test no. #sno for document resource validations")
     def "test document resource validation"() {
         given:
         DocumentResource documentResource = new DocumentResource(createdBy: user, topic: topic, description: "desc", filePath: testPath)
@@ -25,10 +31,10 @@ class DocumentResourceSpec extends Specification {
         expectedResult == receivedResult
 
         where:
-        testPath   | topic       | user       | expectedResult
-        null       | new Topic() | new User() | false
-        ""         | new Topic() | new User() | false
-        "/filepath/path/" | new Topic() | new User() | true
+        sno | testPath          | topic       | user       | expectedResult
+        1   | null              | new Topic() | new User() | false
+        2   | ""                | new Topic() | new User() | false
+        3   | "/filepath/path/" | new Topic() | new User() | true
 
     }
 }

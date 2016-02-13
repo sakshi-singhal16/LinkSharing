@@ -3,13 +3,15 @@ package com.tothenew.linksharing
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 
-/**
- * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
- */
 @TestFor(ReadingItem)
 class ReadingItemSpec extends Specification {
 
     def setup() {
+    }
+
+    void "test"() {
+        expect:
+        true
     }
 
     def "test reading item validations"() {
@@ -30,4 +32,5 @@ class ReadingItemSpec extends Specification {
         new LinkResource() | new User() | true         | true
 
     }
+
 }

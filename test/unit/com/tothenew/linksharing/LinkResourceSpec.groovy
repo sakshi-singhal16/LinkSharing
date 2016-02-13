@@ -2,17 +2,21 @@ package com.tothenew.linksharing
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
+import spock.lang.Unroll
 
-/**
- * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
- */
 @TestFor(LinkResource)
 class LinkResourceSpec extends Specification {
 
     def setup() {
     }
 
-    def "test lik resource validations"() {
+    void "test"() {
+        expect:
+        true
+    }
+
+    @Unroll("Executing test no. #sno for link resource validations")
+    def "test link resource validations"() {
 
         given:
         LinkResource linkResource = new LinkResource(createdBy: user, topic: topic, description: "desc", url: testurl)
@@ -25,11 +29,11 @@ class LinkResourceSpec extends Specification {
         expectedResult == receivedResult
 
         where:
-        testurl                 | topic       | user       | expectedResult
-        null                    | new Topic() | new User() | false
-        ""                      | new Topic() | new User() | false
-        "url"                   | new Topic() | new User() | false
-        "http://www.google.com" | new Topic() | new User() | true
+        sno | testurl                 | topic       | user       | expectedResult
+        1   | null                    | new Topic() | new User() | false
+        2   | ""                      | new Topic() | new User() | false
+        3   | "url"                   | new Topic() | new User() | false
+        4   | "http://www.google.com" | new Topic() | new User() | true
 
 
     }

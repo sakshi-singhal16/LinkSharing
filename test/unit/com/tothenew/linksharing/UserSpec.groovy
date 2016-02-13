@@ -11,7 +11,6 @@ class UserSpec extends Specification {
 
     User user
 
-
     def setup() {
         user = new User()
     }
@@ -72,7 +71,7 @@ class UserSpec extends Specification {
 
     }
 
-
+    @Unroll("Tesing get name method for  #sno")
     def "test get name"() {
         given:
         user.firstName = fn
@@ -90,12 +89,11 @@ class UserSpec extends Specification {
         receivedResult == expectedResult
 
         where:
-        fn       | ln        | expectedResult
-        null     | "singhal" | "singhal"
-        "sakshi" | null      | "sakshi"
-        "sakshi" | "singhal" | "sakshi singhal"
+        sno | fn       | ln        | expectedResult
+        1   | null     | "singhal" | "singhal"
+        2   | "sakshi" | null      | "sakshi"
+        3   | "sakshi" | "singhal" | "sakshi singhal"
 
     }
-
 
 }

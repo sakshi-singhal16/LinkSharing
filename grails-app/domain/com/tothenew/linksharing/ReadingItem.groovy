@@ -1,8 +1,7 @@
 package com.tothenew.linksharing
 
 class ReadingItem {
-    Resource resource
-    User user
+
     Boolean isRead
     Date dateCreated
     Date lastUpdated

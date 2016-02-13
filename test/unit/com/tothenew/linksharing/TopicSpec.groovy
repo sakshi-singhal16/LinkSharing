@@ -13,7 +13,12 @@ class TopicSpec extends Specification {
         topic = new Topic()
     }
 
-    @Unroll("Executing #sno")
+    void "test"() {
+        expect:
+        true
+    }
+
+    @Unroll("Executing test no. #sno for topic validations")
     def "test topic validations"() {
         given:
         topic.topicName = testName
@@ -37,6 +42,5 @@ class TopicSpec extends Specification {
 
 
     }
-
 
 }
