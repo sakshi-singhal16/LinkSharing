@@ -10,6 +10,8 @@ dataSource {
 }
 hibernate {
     cache.use_second_level_cache = true
+    format_sql = true
+//    use_sql_comments = true
     cache.use_query_cache = false
 //    cache.region.factory_class = 'org.hibernate.cache.SingletonEhCacheRegionFactory' // Hibernate 3
     cache.region.factory_class = 'org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory' // Hibernate 4
@@ -25,8 +27,10 @@ environments {
             url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"*/
             username = "root"
             password = ""
-            dbCreate = "update"
+            dbCreate = "create-drop"
+            logSql = true
             url = "jdbc:mysql://localhost:3306/linksharing"
+
         }
     }
     test {

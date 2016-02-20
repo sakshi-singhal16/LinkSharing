@@ -1,20 +1,39 @@
 package com.tothenew.linksharing
 
+import com.tothenew.linksharing.Enums.Seriousness
 import com.tothenew.linksharing.Enums.Visibility
 
 class Topic {
-    String topicName
-    User createdBy
-    Date dateCreated
-    Date lastUpdated
+	String topicName
+	User createdBy
+	Date dateCreated
+	Date lastUpdated
 
-    Visibility visibility
+	Visibility visibility
 
-    static hasMany = [resources: Resource, subscriptions: Subscription]
+	static hasMany = [resources: Resource, subscriptions: Subscription]
 
-    static constraints = {
-        topicName blank: false, nullable: false, unique: 'createdBy'
-        createdBy nullable: false
+	static constraints = {
+		topicName blank: false, nullable: false, unique: 'createdBy'
+		createdBy nullable: false
 
-    }
+	}
+
+	String toString() {
+		"Topic ${topicName}"
+	}
+
+	def afterInsert() {
+		Topic.withNewSession {
+			Subscription subscription = new Subscription(user: this.createdBy, topic: this, seriousness: Seriousness.VERY_SERIOUS).save()
+
+			log.info("${this.createdBy.name} subscribed to ${this.topicName}")
+
+		}
+
+
+	}
+
+
 }
+

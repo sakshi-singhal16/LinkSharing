@@ -115,7 +115,8 @@ log4j.main = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate',
-            "com.tothenew.linksharing.controllers.testController"
+            'grails.app'
+    info 'grails.app'
 
 }
 grails.var = "local"

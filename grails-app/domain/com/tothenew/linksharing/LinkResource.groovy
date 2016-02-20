@@ -6,4 +6,8 @@ class LinkResource extends Resource {
     static constraints = {
         url url: true, nullable: false
     }
+
+    String toString() {
+        "Link Resource --> $url"
+    }
 }
