@@ -1,6 +1,9 @@
+import com.tothenew.linksharing.Constants.Constants
 import com.tothenew.linksharing.DocumentResource
+import com.tothenew.linksharing.Enums.Seriousness
 import com.tothenew.linksharing.Enums.Visibility
 import com.tothenew.linksharing.LinkResource
+import com.tothenew.linksharing.ReadingItem
 import com.tothenew.linksharing.Resource
 import com.tothenew.linksharing.Subscription
 import com.tothenew.linksharing.Topic
@@ -13,15 +16,18 @@ class BootStrap {
 	def init = { servletContext -> //println "Changed value: ${grailsApplication.config.grails.var}"
 		List<User> users = createUserAndAdmin()
 		List<Topic> topics = createTopics(users)
-		List<Resource> documentResources = createResources(topics)
-		//List<Subscription> subscriptions=subscribeTopics(users, topics)
+		List<Resource> resources = createResources(topics)
+		subscribeTopics(users, topics)
+		createReadingItems(users, topics)
 	}
 
 	List<User> createUserAndAdmin() {
 		if (User.count() == 0) {
 			List<User> list = []
-			User user = new User(firstName: "test", lastName: "user", userName: "tuser", password: "password", email: "test@test.com", isAdmin: false)
-			User admin = new User(firstName: "test", lastName: "admin", userName: "tadmin", password: "password", email: "admin@test.com", isAdmin: true)
+			User user = new User(firstName: "test", lastName: "user", userName: "tuser",
+					password: Constants.DEFAULT_PASSWORD, email: "test@test.com", isAdmin: false, isActive: true)
+			User admin = new User(firstName: "test", lastName: "admin", userName: "tadmin",
+					password: Constants.DEFAULT_PASSWORD, email: "admin@test.com", isAdmin: true, isActive: false)
 			list.add(user)
 			list.add(admin)
 
@@ -48,10 +54,10 @@ class BootStrap {
 			List<Topic> topics = []
 			users.each { User user ->
 				1.upto(5) {
-					Topic topic = new Topic(topicName: "Topic${it}", visibility: Visibility.PUBLIC, createdBy: user)
+					Topic topic = new Topic(topicName: "U${user.id}Topic${it}", visibility: Visibility.PUBLIC, createdBy: user)
 					topics.add(topic)
 					if (topic.save())
-						log.info "---------${topic.topicName} added for $user--------\n"
+						log.info "---------$topic added for $user--------\n"
 					else
 						log.error("error creating $topic for user $user")
 				}
@@ -70,9 +76,9 @@ class BootStrap {
 			topics.each { Topic topic ->
 				2.times {
 					Resource documentResource = new DocumentResource(createdBy: topic.createdBy, topic: topic,
-							description: "doc1 description of ${topic.topicName} ", filePath: "path/a/b")
+							description: "doc$it description of ${topic.topicName} ", filePath: "path/a/b")
 					Resource linkResource = new LinkResource(createdBy: topic.createdBy, topic: topic,
-							description: "link1 description of${topic.topicName} ", url: "http://www.google.com")
+							description: "link$it description of${topic.topicName} ", url: "http://www.google.com")
 
 					resources.add(documentResource)
 					resources.add(linkResource)
@@ -95,14 +101,41 @@ class BootStrap {
 		}
 	}
 
-//	List<Subscription> subscribeTopics(List<User> users, List<Topic> topics )
-//	{
-//		users.each { User user ->
-//			topics.each {
-//
-//			}
-//		}
-//	}
+	void subscribeTopics(List<User> users, List<Topic> topics) {
+		topics.each { Topic topic ->
+			users.each {
+				Subscription subscription1 = Subscription.findByTopicAndUser(topic, it)
+				if (!subscription1) {
+					if (topic.createdBy != it) {
+						Subscription subscription = new Subscription(topic: topic, user: it, seriousness: Seriousness.VERY_SERIOUS)
+						if (subscription.save())
+							log.info("-----Subscription added for $topic for user $it")
+					}
+				} else {
+					log.error("Subscription for $topic already exists for $it")
+				}
+			}
+		}
+	}
+
+	void createReadingItems(users, topics) {
+		users.each { User user ->
+			topics.each { Topic topic ->
+				if (Subscription.findByTopicAndUser(topic, user)) {
+					List<Resource> resources1 = Resource.findAllByTopicAndCreatedByNotEqual(topic, user)
+					resources1.each { Resource resource ->
+						ReadingItem readingItem = new ReadingItem(topic: topic, resource: resource, isRead: false)
+						if (readingItem.save(flush: true))
+							log.info("********** $user has reading item -- ${resource.id}")
+						else
+							log.error("!!!Error saving $user reading item -- ${resource.id}")
+
+					}
+				}
+			}
+		}
+	}
+
 	def destroy = {
 	}
 }

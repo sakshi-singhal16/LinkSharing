@@ -9,91 +9,104 @@ import spock.lang.Unroll
 @TestFor(User)
 class UserSpec extends Specification {
 
-    User user
+	User user
 
-    def setup() {
-        user = new User()
-    }
+	def setup() {
+		user = new User()
+	}
 
-    void "test"() {
-        expect:
-        true
-    }
+	void "test"() {
+		expect:
+		true
+	}
 
-    @Unroll("Executing #sno")
-    def "test user validations"() {
-        given:
-        User user = new User(firstName: fn,
-                lastName: ln, password: pwd, email: em, userName: uname)
+	@Unroll("Executing #sno")
+	def "test user validations"() {
+		given:
+		User user = new User(firstName: fn,
+				lastName: ln, password: pwd, email: em, userName: uname)
 
-        when:
-        Boolean result = user.validate()
+		when:
+		Boolean result = user.validate()
 
-        then:
-        result == expectedResult
+		then:
+		result == expectedResult
 
-        where:
-        sno | fn       | ln        | pwd        | em               | uname | expectedResult
-        1   | null     | "singhal" | "password" | "sakshi@ttn.com" | "ss"  | false
-        2   | ""       | "singhal" | "password" | "sakshi@ttn.com" | "ss"  | false
-        3   | "sakshi" | null      | "password" | "sakshi@ttn.com" | "ss"  | false
-        4   | "sakshi" | ""        | "password" | "sakshi@ttn.com" | "ss"  | false
-        5   | "sakshi" | "singhal" | null       | "sakshi@ttn.com" | "ss"  | false
-        6   | "sakshi" | "singhal" | ""         | "sakshi@ttn.com" | "ss"  | false
-        7   | "sakshi" | "singhal" | "p"        | "sakshi@ttn.com" | "ss"  | false
-        8   | "sakshi" | "singhal" | "password" | null             | "ss"  | false
-        9   | "sakshi" | "singhal" | "password" | ""               | "ss"  | false
-        10  | "sakshi" | "singhal" | "password" | "sakshi@ttn.com" | null  | false
-        11  | "sakshi" | "singhal" | "password" | "sakshi@ttn.com" | ""    | false
-        12  | "sakshi" | "singhal" | "password" | "sakshi@ttn.com" | "ss"  | true
+		where:
+		sno | fn       | ln        | pwd        | em               | uname | expectedResult
+		1   | null     | "singhal" | "password" | "sakshi@ttn.com" | "ss"  | false
+		2   | ""       | "singhal" | "password" | "sakshi@ttn.com" | "ss"  | false
+		3   | "sakshi" | null      | "password" | "sakshi@ttn.com" | "ss"  | false
+		4   | "sakshi" | ""        | "password" | "sakshi@ttn.com" | "ss"  | false
+		5   | "sakshi" | "singhal" | null       | "sakshi@ttn.com" | "ss"  | false
+		6   | "sakshi" | "singhal" | ""         | "sakshi@ttn.com" | "ss"  | false
+		7   | "sakshi" | "singhal" | "p"        | "sakshi@ttn.com" | "ss"  | false
+		8   | "sakshi" | "singhal" | "password" | null             | "ss"  | false
+		9   | "sakshi" | "singhal" | "password" | ""               | "ss"  | false
+		10  | "sakshi" | "singhal" | "password" | "sakshi@ttn.com" | null  | false
+		11  | "sakshi" | "singhal" | "password" | "sakshi@ttn.com" | ""    | false
+		12  | "sakshi" | "singhal" | "password" | "sakshi@ttn.com" | "ss"  | true
 
-    }
+	}
 
-    def "email id of user should be unique"() {
-        given:
-        User user = new User(firstName: "sakshi", lastName: "singhal", email: "sakshi@tothenew.com", password: "sakshi", userName: "ss")
+	def "email id of user should be unique"() {
+		given:
+		User user = new User(firstName: "sakshi", lastName: "singhal", email: "sakshi@tothenew.com", password: "sakshi", userName: "ss")
 
-        when:
-        user.save()
-
-
-        then:
-        user.count() == 1  //count is static method, works on both Class and object
-
-        when:
-        User user2 = new User(firstName: "priyanka", lastName: "gupta", email: "sakshi@tothenew.com", password: "sakshi", userName: "pg")
-        user2.save()
-
-        then:
-        user.count() == 1
-        user2.errors.allErrors.size() == 1
-        user2.errors.getFieldErrorCount("email") == 1
-
-    }
-
-    @Unroll("Tesing get name method for  #sno")
-    def "test get name"() {
-        given:
-        user.firstName = fn
-        user.lastName = ln
-        user.email = "abc@ttn.com"
-        user.userName = "ss"
-        user.password = "password"
+		when:
+		user.save()
 
 
-        when:
-        String receivedResult = user.getName()
+		then:
+		user.count() == 1  //count is static method, works on both Class and object
+
+		when:
+		User user2 = new User(firstName: "priyanka", lastName: "gupta", email: "sakshi@tothenew.com", password: "sakshi", userName: "pg")
+		user2.save()
+
+		then:
+		user.count() == 1
+		user2.errors.allErrors.size() == 1
+		user2.errors.getFieldErrorCount("email") == 1
+
+	}
+
+	@Unroll("Tesing get name method for  #sno")
+	def "test get name"() {
+		given:
+		user.firstName = fn
+		user.lastName = ln
+		user.email = "abc@ttn.com"
+		user.userName = "ss"
+		user.password = "password"
 
 
-        then:
-        receivedResult == expectedResult
+		when:
+		String receivedResult = user.getName()
 
-        where:
-        sno | fn       | ln        | expectedResult
-        1   | null     | "singhal" | "singhal"
-        2   | "sakshi" | null      | "sakshi"
-        3   | "sakshi" | "singhal" | "sakshi singhal"
 
-    }
+		then:
+		receivedResult == expectedResult
+
+		where:
+		sno | fn       | ln        | expectedResult
+		1   | null     | "singhal" | "singhal"
+		2   | "sakshi" | null      | "sakshi"
+		3   | "sakshi" | "singhal" | "sakshi singhal"
+
+	}
+
+	def "Test toString method of User class"() {
+		given:
+		user.firstName = "test"
+		user.lastName = "user"
+
+		when:
+		String s = "hello $user"
+
+		then:
+		s == "hello User --> test user"
+
+	}
 
 }

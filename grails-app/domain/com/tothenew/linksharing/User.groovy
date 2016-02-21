@@ -14,7 +14,7 @@ class User {
 	Date lastUpdated
 
 
-	static transients = ['name']
+	static transients = ['name', 'confirmPassword']
 	static hasMany = [topics: Topic, resources: Resource, subscriptions: Subscription, readingItems: ReadingItem, resourceRatings: ResourceRating]
 
 	static constraints = {
@@ -25,6 +25,7 @@ class User {
 		photo nullable: true
 		isActive nullable: true
 		isAdmin nullable: true
+		//confirmPassword validator: {}
 
 	}
 	static mapping = { photo(sqlType: 'longblob') }

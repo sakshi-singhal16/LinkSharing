@@ -20,7 +20,7 @@ class Topic {
 	}
 
 	String toString() {
-		"Topic ${topicName}"
+		"Topic --> ${topicName}"
 	}
 
 	def afterInsert() {
