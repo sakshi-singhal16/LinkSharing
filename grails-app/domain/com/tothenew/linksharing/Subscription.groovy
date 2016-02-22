@@ -2,12 +2,13 @@ package com.tothenew.linksharing
 
 import com.tothenew.linksharing.Enums.Seriousness
 
+
 class Subscription {
 
     Date dateCreated
     Date lastUpdated
 
-    Seriousness seriousness
+	Seriousness seriousness = Seriousness.SERIOUS
 
     static belongsTo = [user: User, topic: Topic]
     static constraints = {

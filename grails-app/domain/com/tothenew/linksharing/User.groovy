@@ -12,6 +12,7 @@ class User {
 	Boolean isActive
 	Date dateCreated
 	Date lastUpdated
+	String confirmPassword
 
 
 	static transients = ['name', 'confirmPassword']
@@ -25,16 +26,27 @@ class User {
 		photo nullable: true
 		isActive nullable: true
 		isAdmin nullable: true
-		//confirmPassword validator: {}
-
+		confirmPassword bindable: true, nullable: true, validator: { val, obj ->
+			if (val) {
+				if (val != obj.password)
+					return false
+			}
+		}
 	}
-	static mapping = { photo(sqlType: 'longblob') }
+	static mapping = {
+		sort(id: 'desc')
+		photo(sqlType: 'longblob')
+	}
 
 	String getName() {
 		[firstName, lastName].findAll { it }.join(' ')
 	}
 
+
 	String toString() {
 		"User --> $name"
 	}
+
 }
+
+

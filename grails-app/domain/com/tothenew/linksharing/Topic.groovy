@@ -1,7 +1,5 @@
 package com.tothenew.linksharing
 
-import com.tothenew.linksharing.Enums.Seriousness
-import com.tothenew.linksharing.Enums.Visibility
 
 class Topic {
 	String topicName
@@ -33,7 +31,9 @@ class Topic {
 
 
 	}
-
+	static mapping = {
+		sort("topicName")
+	}
 
 }
 

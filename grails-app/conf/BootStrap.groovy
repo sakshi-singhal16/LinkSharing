@@ -1,7 +1,6 @@
 import com.tothenew.linksharing.Constants.Constants
 import com.tothenew.linksharing.DocumentResource
-import com.tothenew.linksharing.Enums.Seriousness
-import com.tothenew.linksharing.Enums.Visibility
+
 import com.tothenew.linksharing.LinkResource
 import com.tothenew.linksharing.ReadingItem
 import com.tothenew.linksharing.Resource
@@ -25,11 +24,13 @@ class BootStrap {
 
 	List<User> createUserAndAdmin() {
 		if (User.count() == 0) {
+
 			List<User> list = []
-			User user = new User(firstName: "test", lastName: "user", userName: "tuser",
-					password: Constants.DEFAULT_PASSWORD, email: "test@test.com", isAdmin: false, isActive: true)
-			User admin = new User(firstName: "test", lastName: "admin", userName: "tadmin",
-					password: Constants.DEFAULT_PASSWORD, email: "admin@test.com", isAdmin: true, isActive: false)
+			User user = new User(firstName: "test", lastName: "user", userName: "tuser", password: Constants.DEFAULT_PASSWORD,
+					email: "test@test.com", isAdmin: false, isActive: true, confirmPassword: Constants.DEFAULT_PASSWORD)
+
+			User admin = new User(firstName: "test", lastName: "admin", userName: "tadmin", password: Constants.DEFAULT_PASSWORD,
+					email: "admin@test.com", isAdmin: true, isActive: false)
 			list.add(user)
 			list.add(admin)
 

@@ -1,6 +1,6 @@
 package com.tothenew.linksharing
 
-import com.tothenew.linksharing.Enums.Seriousness
+
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 import spock.lang.Unroll
