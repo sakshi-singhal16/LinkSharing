@@ -5,6 +5,7 @@ import com.tothenew.linksharing.Enums.Visibility
 import com.tothenew.linksharing.LinkResource
 import com.tothenew.linksharing.ReadingItem
 import com.tothenew.linksharing.Resource
+import com.tothenew.linksharing.ResourceRating
 import com.tothenew.linksharing.Subscription
 import com.tothenew.linksharing.Topic
 import com.tothenew.linksharing.User
@@ -18,7 +19,8 @@ class BootStrap {
 		List<Topic> topics = createTopics(users)
 		List<Resource> resources = createResources(topics)
 		subscribeTopics(users, topics)
-		createReadingItems(users, topics)
+		List<ReadingItem> readingItems = createReadingItems(users, topics)
+		createResourceRatings(readingItems)
 	}
 
 	List<User> createUserAndAdmin() {
@@ -118,24 +120,36 @@ class BootStrap {
 		}
 	}
 
-	void createReadingItems(users, topics) {
+	List<ReadingItem> createReadingItems(users, topics) {
+		List<ReadingItem> readingItems = []
 		users.each { User user ->
 			topics.each { Topic topic ->
 				if (Subscription.findByTopicAndUser(topic, user)) {
 					List<Resource> resources1 = Resource.findAllByTopicAndCreatedByNotEqual(topic, user)
 					resources1.each { Resource resource ->
-						ReadingItem readingItem = new ReadingItem(topic: topic, resource: resource, isRead: false)
-						if (readingItem.save(flush: true))
+						ReadingItem readingItem = new ReadingItem(user: user, resource: resource, isRead: false)
+						if (readingItem.save()) {
+							readingItems.add(readingItem)
 							log.info("********** $user has reading item -- ${resource.id}")
-						else
+						} else
 							log.error("!!!Error saving $user reading item -- ${resource.id}")
 
 					}
+
 				}
 			}
 		}
+		readingItems
 	}
 
+	void createResourceRatings(List<ReadingItem> readingItems) {
+		readingItems.each {
+			if (it.isRead == false) {
+				ResourceRating resourceRating = new ResourceRating(resource: it.resource, user: it.user, rating: 3)
+				resourceRating.save()
+			}
+		}
+	}
 	def destroy = {
 	}
 }
