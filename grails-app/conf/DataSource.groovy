@@ -7,6 +7,10 @@ dataSource {
     pooled = true
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = org.hibernate.dialectalect.MySQL5InnoDBDialect
+    username = "root"
+    password = ""
+    dbCreate = "create"
+
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -25,9 +29,6 @@ environments {
         dataSource {
             /*dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"*/
-            username = "root"
-            password = ""
-            dbCreate = "create"
             logSql = true
             url = "jdbc:mysql://localhost:3306/linksharing"
 

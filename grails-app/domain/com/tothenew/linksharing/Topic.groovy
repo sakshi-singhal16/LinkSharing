@@ -1,5 +1,9 @@
 package com.tothenew.linksharing
 
+import com.tothenew.linksharing.Enums.Seriousness
+import com.tothenew.linksharing.Enums.Visibility
+import com.tothenew.linksharing.VO.TopicVO
+
 
 class Topic {
 	String topicName
@@ -32,8 +36,20 @@ class Topic {
 
 	}
 	static mapping = {
-		sort("topicName")
+		sort topicName: "desc"
 	}
 
+/*	static List<TopicVO> getTrendingTopics() {
+		List result = Resource.createCriteria().list(){
+			projections {
+				createAlias('topic','t')
+				groupProperty('t')
+				count('id', 'resourceCount')
+			}
+			order("resourceCount", "desc")
+			order("t.topicName", "desc")
+		}
+
+	}*/
 }
 

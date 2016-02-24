@@ -5,8 +5,8 @@ public enum Seriousness {
 	VERY_SERIOUS,
 	CASUAL;
 
-	Seriousness convertToEnum(String s) {
-		return Seriousness[s];
+	static Seriousness convertToEnum(String s) {
+		return Seriousness[s.toUpperCase()];
 
 	}
 }

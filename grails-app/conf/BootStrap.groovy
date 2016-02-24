@@ -1,6 +1,7 @@
 import com.tothenew.linksharing.Constants.Constants
 import com.tothenew.linksharing.DocumentResource
-
+import com.tothenew.linksharing.Enums.Seriousness
+import com.tothenew.linksharing.Enums.Visibility
 import com.tothenew.linksharing.LinkResource
 import com.tothenew.linksharing.ReadingItem
 import com.tothenew.linksharing.Resource
@@ -30,7 +31,7 @@ class BootStrap {
 					email: "test@test.com", isAdmin: false, isActive: true, confirmPassword: Constants.DEFAULT_PASSWORD)
 
 			User admin = new User(firstName: "test", lastName: "admin", userName: "tadmin", password: Constants.DEFAULT_PASSWORD,
-					email: "admin@test.com", isAdmin: true, isActive: false)
+					email: "admin@test.com", isAdmin: true, isActive: true)
 			list.add(user)
 			list.add(admin)
 
@@ -57,7 +58,7 @@ class BootStrap {
 			List<Topic> topics = []
 			users.each { User user ->
 				1.upto(5) {
-					Topic topic = new Topic(topicName: "U${user.id}Topic${it}", visibility: Visibility.PUBLIC, createdBy: user)
+					Topic topic = new Topic(topicName: "U${user.id}Topic${it}", createdBy: user, visibility: Visibility.PUBLIC)
 					topics.add(topic)
 					if (topic.save())
 						log.info "---------$topic added for $user--------\n"

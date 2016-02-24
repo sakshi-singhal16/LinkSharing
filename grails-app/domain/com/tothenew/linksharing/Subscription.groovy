@@ -17,4 +17,8 @@ class Subscription {
 
 
     }
+
+	String toString() {
+		"Subscription --> $user for $topic"
+	}
 }
