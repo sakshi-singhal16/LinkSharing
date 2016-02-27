@@ -32,24 +32,35 @@ class Topic {
 			log.info("${this.createdBy.name} subscribed to ${this.topicName}")
 
 		}
-
-
 	}
 	static mapping = {
 		sort topicName: "desc"
 	}
 
-/*	static List<TopicVO> getTrendingTopics() {
-		List result = Resource.createCriteria().list(){
+	static List<TopicVO> getTrendingTopics() {
+		List result = Resource.createCriteria().list() {
+
+
 			projections {
-				createAlias('topic','t')
-				groupProperty('t')
+				createAlias('topic', 't')
+				groupProperty('t.id')
+				property('t.topicName')
+				property('t.visibility')
+				property('t.createdBy')
 				count('id', 'resourceCount')
 			}
+			maxResults 5
+			eq('t.visibility', Visibility.PUBLIC)
 			order("resourceCount", "desc")
 			order("t.topicName", "desc")
 		}
+		List<TopicVO> topicVOList = []
+		result.each {
+			topicVOList.add(new TopicVO(id: it[0], name: it[1], visibility: it[2], createdBy: it[3], count: it[4]))
 
-	}*/
+
+		}
+		topicVOList
+	}
 }
 

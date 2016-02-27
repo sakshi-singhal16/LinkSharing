@@ -12,4 +12,8 @@ class TopicVO {
 	Visibility visibility
 	Integer count
 	User createdBy
+
+	String toString() {
+		"${id}--> topic name: $name, $visibility"
+	}
 }

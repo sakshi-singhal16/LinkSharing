@@ -9,7 +9,7 @@ dataSource {
     dialect = org.hibernate.dialectalect.MySQL5InnoDBDialect
     username = "root"
     password = ""
-    dbCreate = "create"
+    dbCreate = "update"
 
 }
 hibernate {

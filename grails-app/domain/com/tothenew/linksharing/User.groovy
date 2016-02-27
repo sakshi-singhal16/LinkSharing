@@ -15,7 +15,7 @@ class User {
 	String confirmPassword
 
 
-	static transients = ['name', 'confirmPassword']
+	static transients = ['name', 'confirmPassword', 'subscribedTopics']
 	static hasMany = [topics: Topic, resources: Resource, subscriptions: Subscription, readingItems: ReadingItem, resourceRatings: ResourceRating]
 
 	static constraints = {
@@ -47,6 +47,14 @@ class User {
 		"User --> $name"
 	}
 
+	List<Topic> getSubscribedTopics() {
+		List<Topic> subscribedTopics = Subscription.createCriteria().list {
+			projections {
+				property('topic')
+			}
+			eq('user', this)
+		}
+		subscribedTopics
+	}
+
 }
-
-
