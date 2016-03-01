@@ -4,10 +4,10 @@
     </div>
 
     <div class="panel-body">
-        <g:form class="form-horizontal" controller="user" action="register">
+        <g:form class="form-horizontal" controller="login" action="register">
 
             <div class="form-group">
-                <label class="control-label col-sm-4">First Name*</label>
+                <label class="control-label col-sm-4">First Name</label>
 
                 <div class="col-sm-8">
                     <g:field type="text" class="form-control" name="firstName"/>
@@ -23,7 +23,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-4">Email*</label>
+                <label class="control-label col-sm-4">Email</label>
 
                 <div class="col-sm-8">
                     <g:field type="email" class="form-control" name="email"/>
@@ -31,7 +31,15 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-4" for="email">Password*</label>
+                <label class="control-label col-sm-4">User Name</label>
+
+                <div class="col-sm-8">
+                    <g:field type="text" class="form-control" name="userName"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="email">Password</label>
 
                 <div class="col-sm-8">
                     <g:field type="password" class="form-control" name="password"/>
@@ -39,7 +47,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-4">Confirm password*</label>
+                <label class="control-label col-sm-4">Confirm password</label>
 
                 <div class="col-sm-8">
                     <g:field type="password" class="form-control" name="confirmPassword"/>
@@ -48,7 +56,7 @@
 
 
             <div class="form-group">
-                <label class="control-label col-sm-4">Photo*</label>
+                <label class="control-label col-sm-4">Photo</label>
 
                 <div class="col-sm-8">
                     <input type="file" id="photo">

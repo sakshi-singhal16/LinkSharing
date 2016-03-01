@@ -4,7 +4,7 @@
     </div>
 
     <div class="panel-body">
-        <g:form class="form-horizontal" controller="login" action="loginHandler">
+        <g:form class="form-horizontal" controller="login" action="login">
             <div class="form-group">
                 <label class="control-label col-sm-4" for="userName">Username*</label>
 
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <g:actionSubmit name="login" type="submit" value="Login" action="loginHandler"/>
+                    <g:actionSubmit name="login" type="submit" value="Login" action="login"/>
                 </div>
             </div>
         </g:form>

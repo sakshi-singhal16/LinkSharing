@@ -8,12 +8,12 @@ import com.tothenew.linksharing.User
  */
 class TopicVO {
 	Long id
-	String name
+	String topicName
 	Visibility visibility
 	Integer count
 	User createdBy
 
 	String toString() {
-		"${id}--> topic name: $name, $visibility"
+		"${id}--> topic name: $topicName, $visibility"
 	}
 }

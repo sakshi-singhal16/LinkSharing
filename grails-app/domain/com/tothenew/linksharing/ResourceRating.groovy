@@ -13,4 +13,5 @@ class ResourceRating {
         user nullable: false
         rating range: 1..5
     }
+
 }

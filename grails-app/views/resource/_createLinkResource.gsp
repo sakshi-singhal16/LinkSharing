@@ -30,7 +30,8 @@
 
                         <div class="col-sm-8">
                             <div class="dropdown">
-                                <g:select name="topic" from="${subscribedTopics}"/>
+                                <g:select name="topicId" from="${subscribedTopics}" optionKey="id"
+                                          optionValue="${{ it }}" noSelection="['': '--Select a topic--']"/>
                             </div>
                         </div>
                     </div>

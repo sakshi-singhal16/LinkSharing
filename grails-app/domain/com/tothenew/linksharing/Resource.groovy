@@ -49,4 +49,9 @@ abstract class Resource {
 
 		new RatingInfoVO(totalVotes: result[0], totalScore: result[1], avgScore: result[2])
 	}
+
+	List<Resource> getTopPosts() {
+		List
+	}
+
 }

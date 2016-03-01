@@ -27,21 +27,21 @@ class BootStrap {
 		if (User.count() == 0) {
 
 			List<User> list = []
-			User user = new User(firstName: "test", lastName: "user", userName: "tuser", password: Constants.DEFAULT_PASSWORD,
+			User user = new User(firstName: "test", lastName: "user", userName: "tUser", password: Constants.DEFAULT_PASSWORD,
 					email: "test@test.com", isAdmin: false, isActive: true, confirmPassword: Constants.DEFAULT_PASSWORD)
 
-			User admin = new User(firstName: "test", lastName: "admin", userName: "tadmin", password: Constants.DEFAULT_PASSWORD,
+			User admin = new User(firstName: "test", lastName: "admin", userName: "tAdmin", password: Constants.DEFAULT_PASSWORD,
 					email: "admin@test.com", isAdmin: true, isActive: true)
 			list.add(user)
 			list.add(admin)
 
 			list.each {
 				try {
-					if (it.save(flush: true, failOnError: true))
-						log.info "user ${it.id} saved successfully"
+					it.save(flush: true, failOnError: true)
+					log.info "user ${it.id} saved successfully"
 				}
 				catch (ValidationException e) {
-					log.error "Error in saving user object ${it.id}: ${e.message}"
+					log.error "Error in saving user object ${it}: ${e.message}"
 				}
 				list
 			}
@@ -58,7 +58,7 @@ class BootStrap {
 			List<Topic> topics = []
 			users.each { User user ->
 				1.upto(5) {
-					Topic topic = new Topic(topicName: "U${user.id}Topic${it}", createdBy: user, visibility: Visibility.PUBLIC)
+					Topic topic = new Topic(topicName: "User${user.id}Topic${it}", createdBy: user, visibility: Visibility.PUBLIC)
 					topics.add(topic)
 					if (topic.save())
 						log.info "---------$topic added for $user--------\n"
@@ -135,9 +135,7 @@ class BootStrap {
 							log.info("********** $user has reading item -- ${resource.id}")
 						} else
 							log.error("!!!Error saving $user reading item -- ${resource.id}")
-
 					}
-
 				}
 			}
 		}
