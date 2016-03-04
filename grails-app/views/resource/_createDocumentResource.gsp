@@ -7,13 +7,15 @@
             </div>
 
             <div class="modal-body">
-                <form class="form-horizontal">
+                <g:form class="form-horizontal" controller="documentResource" action="save">
 
                     <div class="form-group">
-                        <label class="control-label col-sm-4">Document</label>
+                        <label class="control-label col-sm-4">File Path</label>
 
                         <div class="col-sm-8">
-                            <input type="file" id="document">
+                            %{--<g:uploadForm name="fileUpload">--}%
+                            <input type="file" name="filePath">
+                            %{--</g:uploadForm>--}%
                         </div>
                     </div>
 
@@ -21,7 +23,7 @@
                         <label class="control-label col-sm-4">Description</label>
 
                         <div class="col-sm-8">
-                            <textarea class="form-control" id="linkDesc" rows="3" cols="10"></textarea>
+                            <g:textArea class="form-control" name="description" rows="3" cols="10"/>
                         </div>
                     </div>
 
@@ -30,27 +32,21 @@
 
                         <div class="col-sm-8">
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Topic
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="#">Grails</a></li>
-                                    <li><a href="#">MEAN</a></li>
-                                    <li><a href="#">AMC</a></li>
-                                </ul>
+                                <g:select name="topicId" from="${subscribedTopics}" optionKey="id"
+                                          optionValue="${{ it }}" noSelection="['': '--Select a topic--']"/>
+
                             </div>
                         </div>
                     </div>
 
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Share</button>
+                        <g:actionSubmit action="save" type="submit" name="createDoc" value="Create"
+                                        class="btn btn-block btn-primary"/>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     </div>
 
-                </form>
+                </g:form>
             </div><!--.modal-body-->
         </div>
     </div>

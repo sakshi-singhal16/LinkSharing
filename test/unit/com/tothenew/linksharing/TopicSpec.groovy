@@ -51,7 +51,7 @@ class TopicSpec extends Specification {
 		String s = "$topic"
 
 		then:
-		s == "Topic --> Grails"
+		s == "TopicCO --> Grails"
 
 	}
 }

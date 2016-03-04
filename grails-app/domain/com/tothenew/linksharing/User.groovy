@@ -1,5 +1,6 @@
 package com.tothenew.linksharing
 
+
 class User {
 
 	String userName
@@ -15,7 +16,7 @@ class User {
 	String confirmPassword
 
 
-	static transients = ['name', 'confirmPassword', 'subscribedTopics']
+	static transients = ['name', 'confirmPassword', 'subscribedTopics', 'readingItems']
 	static hasMany = [topics: Topic, resources: Resource, subscriptions: Subscription, readingItems: ReadingItem, resourceRatings: ResourceRating]
 
 	static constraints = {
@@ -55,5 +56,21 @@ class User {
 			eq('user', this)
 		}
 		subscribedTopics
+	}
+
+	List<ReadingItem> getReadingItems() {
+		List<ReadingItem> readingItems = ReadingItem.createCriteria().list {
+
+			eq('user', this)
+		}
+	}
+
+	Boolean canDeleteResource(Long resourceId) {
+		Resource resource = Resource.get(resourceId)
+		if (resource.createdBy == this || this.isAdmin)
+			true
+		else
+			false
+
 	}
 }

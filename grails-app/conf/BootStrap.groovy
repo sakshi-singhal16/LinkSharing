@@ -58,7 +58,7 @@ class BootStrap {
 			List<Topic> topics = []
 			users.each { User user ->
 				1.upto(5) {
-					Topic topic = new Topic(topicName: "User${user.id}Topic${it}", createdBy: user, visibility: Visibility.PUBLIC)
+					Topic topic = new Topic(topicName: "User${user.id}TopicCO${it}", createdBy: user, visibility: Visibility.PUBLIC)
 					topics.add(topic)
 					if (topic.save())
 						log.info "---------$topic added for $user--------\n"
@@ -68,7 +68,7 @@ class BootStrap {
 			}
 			topics
 		} else {
-			log.error("Topic table not empty")
+			log.error("TopicCO table not empty")
 			Topic.list()
 		}
 	}

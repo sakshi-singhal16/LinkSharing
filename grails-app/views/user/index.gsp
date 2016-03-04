@@ -6,7 +6,65 @@
 </head>
 
 <body>
-%{--<g:render template="/topic/createTopic"/>--}%
-user dashboard
+<div class="container">
+
+    <div class="col-md-5">
+
+        <div>
+            <div class="panel-primary">
+                <div class="panel-body" style="border: solid 2px">
+                    <g:render template="show" model="${userObj}"/> %{--to show user summary--}%
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="panel-primary" style="margin-top: 20px">
+                <div class="panel-heading">
+                    Subscriptions
+                </div>
+
+                <div class="panel-body">
+                    <g:each in="${subscribedTopics}" var="topic">
+                        <g:set var="topicObj" value="${topic}" scope="request"/>
+                        <g:render template="/topic/show" model="${topicObj}"/>
+                    </g:each>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="panel-primary" style="margin-top: 20px">
+                <div class="panel-heading">
+                    Trending Topics
+                </div>
+
+                <div class="panel-body">
+                    <g:each in="${trendingTopics}" var="topic">
+                        <g:set var="topicObj" value="${topic}"/>
+                        <g:render template="/topic/show" model="${topicObj}"/>
+                    </g:each>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-7">
+        <div class="panel panel-primary">
+
+            <div class="panel-heading">Inbox
+            </div>
+
+            <div class="panel-body">
+                <g:each in="${readingItems}" var="readingItem">
+                    <g:set var="readingItemObj" value="${readingItem}"/>
+                    <g:render template="/readingItem/show" model="${readingItemObj}"/>
+                </g:each>
+            </div>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>

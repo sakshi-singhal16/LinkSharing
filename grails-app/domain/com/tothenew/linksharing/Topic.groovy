@@ -13,6 +13,8 @@ class Topic {
 
 	Visibility visibility
 
+	static transients = ['subscribedUsers']
+
 	static hasMany = [resources: Resource, subscriptions: Subscription]
 
 	static constraints = {
@@ -38,6 +40,18 @@ class Topic {
 		sort topicName: "desc"
 	}
 
+	List getSubscribedUsers() {
+		List users = Subscription.createCriteria().list {
+			projections {
+				property('user')
+			}
+			'topic' {
+				eq('id', this.id)
+			}
+		}
+		users
+	}
+
 	static List<TopicVO> getTrendingTopics() {
 		List result = Resource.createCriteria().list() {
 
@@ -57,8 +71,7 @@ class Topic {
 		}
 		List<TopicVO> topicVOList = []
 		result.each {
-			topicVOList.add(new TopicVO(id: it[0], name: it[1], visibility: it[2], createdBy: it[3], count: it[4]))
-
+			topicVOList.add(new TopicVO(id: it[0], topicName: it[1], visibility: it[2], createdBy: it[3], count: it[4]))
 
 		}
 		topicVOList

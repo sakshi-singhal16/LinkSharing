@@ -23,7 +23,9 @@
 
             <div>
                 <div class="col-md-7">
-                    <g:link href="#">Forgot Password</g:link>
+                    <a id="openModal" href="#forgotPasswordModal" data-toggle="modal">
+                        Forgot Password
+                    </a>
                 </div>
 
                 <div class="col-md-4">
@@ -33,3 +35,4 @@
         </g:form>
     </div>
 </div>
+<g:render template="/user/forgotPassword"/>

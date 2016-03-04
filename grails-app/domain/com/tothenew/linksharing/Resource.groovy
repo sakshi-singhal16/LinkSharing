@@ -1,6 +1,7 @@
 package com.tothenew.linksharing
 
 import com.tothenew.linksharing.CO.ResourceSearchCO
+import com.tothenew.linksharing.Enums.Visibility
 import com.tothenew.linksharing.VO.RatingInfoVO
 
 abstract class Resource {
@@ -50,8 +51,30 @@ abstract class Resource {
 		new RatingInfoVO(totalVotes: result[0], totalScore: result[1], avgScore: result[2])
 	}
 
-	List<Resource> getTopPosts() {
-		List
+	static List<Resource> getTopPosts() {
+		List result = ResourceRating.createCriteria().list {
+			projections {
+				groupProperty('resource.id')
+				count('id', 'numberOfVotes')
+			}
+			maxResults 5
+			order("numberOfVotes", "desc")
+		}
+		List<Resource> topResources = Resource.getAll(result.collect { it[0] })
+		topResources
 	}
 
+	static List<Resource> getRecentPosts() {
+		List<Resource> result = Resource.createCriteria().list {
+			'topic' {
+				eq('visibility', Visibility.PUBLIC)
+			}
+			maxResults 5
+			order("lastUpdated", "desc")
+		}
+		result
+		/*
+		List<Resource> topResources=Resource.getAll(result.collect {it[0]})
+		topResources*/
+	}
 }
