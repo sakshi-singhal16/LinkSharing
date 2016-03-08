@@ -76,4 +76,13 @@ class Topic {
 		}
 		topicVOList
 	}
+
+	Boolean isPublic() {
+		(this.visibility == Visibility.PUBLIC)
+	}
+
+	Boolean canBeViewedBy(User user) {
+		User creator = this.createdBy
+		(this.visibility == Visibility.PUBLIC || user == creator || user.isAdmin)
+	}
 }

@@ -80,7 +80,7 @@
     <g:render template="/topic/createTopic"/>
     <g:render template="/topic/inviteToTopic"/>
     <g:render template="/resource/createLinkResource"/>
-    <g:render template="/resource/createDocumentResource"/>
+    <g:render template="/documentResource/create"/>
 
 </g:if>
 <g:else>

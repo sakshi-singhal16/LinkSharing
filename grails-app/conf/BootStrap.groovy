@@ -27,11 +27,11 @@ class BootStrap {
 		if (User.count() == 0) {
 
 			List<User> list = []
-			User user = new User(firstName: "test", lastName: "user", userName: "tUser", password: Constants.DEFAULT_PASSWORD,
-					email: "test@test.com", isAdmin: false, isActive: true, confirmPassword: Constants.DEFAULT_PASSWORD)
+			User user = new User(firstName: "Pawan", lastName: "Kumar", userName: "pk", password: Constants.DEFAULT_PASSWORD,
+					email: "pk@test.com", isAdmin: false, isActive: true, confirmPassword: Constants.DEFAULT_PASSWORD)
 
-			User admin = new User(firstName: "test", lastName: "admin", userName: "tAdmin", password: Constants.DEFAULT_PASSWORD,
-					email: "admin@test.com", isAdmin: true, isActive: true)
+			User admin = new User(firstName: "Nisha", lastName: "Gupta", userName: "ng", password: Constants.DEFAULT_PASSWORD,
+					email: "ng@test.com", isAdmin: true, isActive: true)
 			list.add(user)
 			list.add(admin)
 
@@ -58,7 +58,7 @@ class BootStrap {
 			List<Topic> topics = []
 			users.each { User user ->
 				1.upto(5) {
-					Topic topic = new Topic(topicName: "User${user.id}TopicCO${it}", createdBy: user, visibility: Visibility.PUBLIC)
+					Topic topic = new Topic(topicName: "User${user.id}Topic${it}", createdBy: user, visibility: Visibility.PUBLIC)
 					topics.add(topic)
 					if (topic.save())
 						log.info "---------$topic added for $user--------\n"
@@ -68,7 +68,7 @@ class BootStrap {
 			}
 			topics
 		} else {
-			log.error("TopicCO table not empty")
+			log.error("Topic table not empty")
 			Topic.list()
 		}
 	}
@@ -80,9 +80,11 @@ class BootStrap {
 			topics.each { Topic topic ->
 				2.times {
 					Resource documentResource = new DocumentResource(createdBy: topic.createdBy, topic: topic,
-							description: "doc$it description of ${topic.topicName} ", filePath: "path/a/b")
+							description: "This is document$it under ${topic.topicName}. It also has some description about it.",
+							filePath: "home/dir/file")
 					Resource linkResource = new LinkResource(createdBy: topic.createdBy, topic: topic,
-							description: "link$it description of${topic.topicName} ", url: "http://www.google.com")
+							description: "This is link$it under ${topic.topicName}. It also has some description about it.",
+							url: "http://www.google.com")
 
 					resources.add(documentResource)
 					resources.add(linkResource)
@@ -130,7 +132,7 @@ class BootStrap {
 					List<Resource> resources1 = Resource.findAllByTopicAndCreatedByNotEqual(topic, user)
 					resources1.each { Resource resource ->
 						ReadingItem readingItem = new ReadingItem(user: user, resource: resource, isRead: false)
-						if (readingItem.save()) {
+						if (readingItem.save(flush: true)) {
 							readingItems.add(readingItem)
 							log.info("********** $user has reading item -- ${resource.id}")
 						} else

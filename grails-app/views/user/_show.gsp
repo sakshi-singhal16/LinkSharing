@@ -1,7 +1,6 @@
 <div>
     <div class="col-md-3">
-        <div class="glyphicon glyphicon-userObj col-md-1" style="font-size:70px;">
-        </div>
+        <ls:userImage userId="${userObj?.id}" height="64" width="64"/>
     </div>
 
     <div class="col-md-8 col-md-offset-1">
@@ -30,17 +29,13 @@
 
         <div class="row">
             <div class="col-md-5">
-                50
+                <ls:subscriptionCount userId="${userObj.id}"/>
             </div>
 
             <div class="col-md-3 col-md-offset-2">
-                30
+                <ls:topicCount userId="${userObj.id}"/>
             </div>
         </div>
 
     </div>
 </div>
-%{--
-<div>
-User info panel
-</div>--}%

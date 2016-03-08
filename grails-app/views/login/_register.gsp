@@ -1,4 +1,4 @@
-<div class="panel panel-primary">
+<div class="panel panel-info">
     <div class="panel-heading">
         Register
     </div>
@@ -63,9 +63,8 @@
                 </div>
             </div>
 
-            <div class="col-md-7"></div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 col-md-offset-3">
                 <g:submitButton name="register" type="submit" class="btn btn-sm-primary" value="Register"/>
             </div>
 

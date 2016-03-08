@@ -1,9 +1,17 @@
 package com.tothenew.linksharing
 
+import grails.util.Holders
+import org.springframework.beans.factory.annotation.Autowired
+
 class UtilController {
 
+	def UtilService
+	def newBean
+	def newBeanUsingConst
+	@Autowired
+	Person beanByType
+
 	def index() {
-		//log.error ("Error in util controller")
 		//render(grailsApplication.config.grails.var)
 		int x = 2
 		List l = [1, 2, 3, 4]
@@ -23,16 +31,10 @@ class UtilController {
 	}
 
 	def testUser() {
-		User user = new User(firstName: "test", lastName: "user",
-				userName: "testuser1", password: "default",
-		)
-		if (user.validate()) {
-			user.save()
-		} else {
-			render user.errors.allErrors.collect {
-				it //message(error:it )
-			}
-		}
-
+		/*def c= Holders.applicationContext.getBean('newBean')
+		render "$c.....${c.properties}"
+		render ("${UtilService.testUser()}")
+		render ("${newBean.age}")*/
+		UtilService.email()
 	}
 }

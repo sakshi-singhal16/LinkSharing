@@ -13,4 +13,8 @@ class ReadingItem {
         user nullable: false
         isRead nullable: false
     }
+
+    String toString() {
+        "Reading Item --> $user for $resource"
+    }
 }

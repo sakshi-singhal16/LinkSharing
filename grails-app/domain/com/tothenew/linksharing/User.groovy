@@ -16,7 +16,7 @@ class User {
 	String confirmPassword
 
 
-	static transients = ['name', 'confirmPassword', 'subscribedTopics', 'readingItems']
+	static transients = ['name', 'confirmPassword', 'subscribedTopics', 'readingItems', 'score']
 	static hasMany = [topics: Topic, resources: Resource, subscriptions: Subscription, readingItems: ReadingItem, resourceRatings: ResourceRating]
 
 	static constraints = {
@@ -72,5 +72,30 @@ class User {
 		else
 			false
 
+	}
+
+	Boolean isSubscribed(Long topicId) {
+		Subscription result = Subscription.createCriteria().get {
+			eq('user', this)
+			'topic' {
+				eq('id', topicId)
+			}
+		}
+		if (result)
+			true
+		else
+			false
+	}
+
+	int getScore(Long resourceId) {
+		int rating = ResourceRating.createCriteria().get {
+			projections {
+				property('rating')
+			}
+			eq('user', this)
+			'resource' {
+				eq('id', resourceId)
+			}
+		}
 	}
 }

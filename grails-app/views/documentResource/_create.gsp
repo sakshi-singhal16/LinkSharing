@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <div id="shareDocumentModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -7,15 +8,14 @@
             </div>
 
             <div class="modal-body">
-                <g:form class="form-horizontal" controller="documentResource" action="save">
+                <g:form class="form-horizontal" controller="documentResource" action="save"
+                        enctype="multipart/form-data">
 
                     <div class="form-group">
                         <label class="control-label col-sm-4">File Path</label>
 
                         <div class="col-sm-8">
-                            %{--<g:uploadForm name="fileUpload">--}%
-                            <input type="file" name="filePath">
-                            %{--</g:uploadForm>--}%
+                            <input type="file" name="docResource"/>
                         </div>
                     </div>
 
@@ -32,7 +32,7 @@
 
                         <div class="col-sm-8">
                             <div class="dropdown">
-                                <g:select name="topicId" from="${subscribedTopics}" optionKey="id"
+                                <g:select name="topic" from="${subscribedTopics}" optionKey="id"
                                           optionValue="${{ it }}" noSelection="['': '--Select a topic--']"/>
 
                             </div>
@@ -40,11 +40,11 @@
                     </div>
 
 
-                    <div class="modal-footer">
-                        <g:actionSubmit action="save" type="submit" name="createDoc" value="Create"
-                                        class="btn btn-block btn-primary"/>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    </div>
+                %{--<div class="modal-footer">--}%
+                    <g:submitButton type="submit" name="createDoc" value="Create"
+                                    class="btn btn-block btn-primary"/>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                %{--</div>--}%
 
                 </g:form>
             </div><!--.modal-body-->

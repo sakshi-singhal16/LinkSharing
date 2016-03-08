@@ -22,6 +22,7 @@ abstract class Resource {
 	static transients = ['ratingInfo']
 	static mapping = {
 		description(type: 'text')
+//		tablePerHierarchy(false)
 	}
 	static namedQueries = {
 		search { ResourceSearchCO co ->
@@ -76,5 +77,22 @@ abstract class Resource {
 		/*
 		List<Resource> topResources=Resource.getAll(result.collect {it[0]})
 		topResources*/
+	}
+
+	Boolean canBeViewedBy(User user) {
+		this.topic.canBeViewedBy(user)
+	}
+
+	static String getResourceType(Long resourceId) {
+		Resource resource = Resource.get(resourceId)
+		if (resource instanceof DocumentResource)
+			return "DocumentResource"
+		else
+			return "LinkResource"
+
+	}
+
+	void deleteFile() {
+		log.info "**************This is implemented in DocumentResource class**********"
 	}
 }
