@@ -33,7 +33,11 @@ abstract class Resource {
 					if (co.visibility) {
 						eq('visibility', co.visibility)
 					}
+
 				}
+
+				ilike('description', "%${co.q}%")
+
 			}
 		}
 	}

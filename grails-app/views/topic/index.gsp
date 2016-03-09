@@ -45,14 +45,19 @@
     <div class="col-md-5 col-md-offset-1">
         <div class="panel-primary">
             <div class="panel-heading">
-                Posts: "${topicObj.topicName}"
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group">
-                        <a class="glyphicon glyphicon-search " style="font-size:20px"></a>
-                        <input type="text" class="form-control" placeholder="Search">
-                        <input type="button" class="btn btn-primary" value="Search">
-                    </div>
-                </form>
+                <div class="col-md-3">
+                    Posts: "${topicObj.topicName}"
+                </div>
+
+                <div class="col-md-7 col-md-offset-2">
+                    <g:form class="navbar-form" role="search" controller="resource" action="search">
+                        <div class="form-group">
+                            <g:field type="text" name="q" class="form-control" placeholder="Search"/>
+                            <g:hiddenField name="topicId" value="${topicObj.id}"/>
+                            <g:submitButton type="submit" name="search" class="btn btn-primary" value="Search"/>
+                        </div>
+                    </g:form>
+                </div>
             </div>
 
             <div class="panel-body">

@@ -13,7 +13,7 @@ class DocumentResource extends Resource {
 	}
 
 	String toString() {
-		"Document Resource --> $filePath"
+		"Document Resource --> $filePath\n $description"
 	}
 
 	String getFileName() {

@@ -19,44 +19,43 @@
 <body>
 <g:if test="${session.user}">
     <nav class="navbar navbar-default">
-        <!-- NAVBAR HEADER -->
         <div class="navbar-header">
+            %{--<div class="col-md-12">--}%
             <a class="navbar-brand" href="#">
+
                 <div class="text-primary h3">Link Sharing</div>
             </a>
+            %{--</div>--}%
         </div>
 
         <ul class="navbar navbar-right list list-inline">
-            <!--SEARCH BAR-->
             <li>
-                <form class="navbar-form navbar-right" role="search">
+                <g:form class="navbar-form navbar-right" role="search" controller="resource" action="search"
+                        params="[topicId: null]">
                     <div class="form-group">
-                        <a class="glyphicon glyphicon-search " style="font-size:20px"></a>
-                        <input type="text" class="form-control" placeholder="Search">
-                        <input type="button" class="btn btn-primary" value="Search">
+                        <g:field type="text" class="form-control" placeholder="Search" name="q"/>
+                        <g:submitButton name="search" type="submit" class="btn btn-default" value="Search"/>
                     </div>
-                </form>
+                </g:form>
             </li>
 
-            <!-- ICONS-->
             <li>
-                <span class="fa fa-weixin" style="font-size:25px" data-toggle="modal" data-target="#createTopicModal"
+                <span class="fa fa-weixin" style="font-size:20px" data-toggle="modal" data-target="#createTopicModal"
                       title="Create new topic"></span>
             </li>
             <li>
-                <span class="glyphicon glyphicon-envelope" style="font-size:25px" data-toggle="modal"
-                      data-target="#inviteModal" title="Invite"></span>
-            </li>
-            <li>
-                <span class="fa fa-link " style="font-size:25px" data-toggle="modal" data-target="#shareLinkModal"
+                <span class="fa fa-link " style="font-size:20px" data-toggle="modal" data-target="#shareLinkModal"
                       title="Create link resource"></span>
             </li>
             <li>
-                <span class="glyphicon glyphicon-folder-open" style="font-size:25px" data-toggle="modal"
+                <span class="glyphicon glyphicon-envelope" style="font-size:20px" data-toggle="modal"
+                      data-target="#inviteModal" title="Invite"></span>
+            </li>
+            <li>
+                <span class="glyphicon glyphicon-folder-open" style="font-size:20px" data-toggle="modal"
                       data-target="#shareDocumentModal" title="Create document resource"></span>
             </li>
 
-            <!-- DROPDOWN-->
             <li>
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
@@ -87,21 +86,26 @@
     <nav class="navbar navbar-default">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">
-                <div class="text-primary">Link Sharing</div>
+
+                <div class="text-primary h3">Link Sharing</div>
             </a>
+
         </div>
 
-        <form class="navbar-form navbar-right" role="search">
-            <div class="form-group">
-                <a class="glyphicon glyphicon-search " style="font-size:20px"></a>
-                <input type="text" class="form-control" placeholder="Search">
-                <input type="button" class="btn btn-primary" value="Search">
-            </div>
-        </form>
+        <div class="navbar">
+
+            <g:form class="navbar-form navbar-right" role="search" controller="resource" action="search"
+                    params="[topicId: null]">
+                <div class="form-group">
+                    <g:field type="text" class="form-control" placeholder="Search posts.." name="q"/>
+                    <g:submitButton name="search" type="submit" class="btn btn-default" value="Search"/>
+                </div>
+            </g:form>
+        </div>
+
     </nav>
 
 
-    <div class="col-md-7">
 </g:else>
 
 <g:layoutBody/>

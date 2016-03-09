@@ -18,6 +18,10 @@ class Subscription {
 
     }
 
+	static mapping = {
+		user lazy: false
+		topic lazy: false
+	}
 	String toString() {
 		"Subscription --> $user for $topic"
 	}
