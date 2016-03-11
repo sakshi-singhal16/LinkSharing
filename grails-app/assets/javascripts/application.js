@@ -10,12 +10,33 @@
 //= require_self
 //=require bootstrap
 
-if (typeof jQuery !== 'undefined') {
-	(function($) {
-		$('#spinner').ajaxStart(function() {
-			$(this).fadeIn();
-		}).ajaxStop(function() {
-			$(this).fadeOut();
-		});
-	})(jQuery);
+function successHandler(result) {
+    if (result) {
+        var jsonResponseDiv = $(".jsonResponse");
+
+        if (result.message) {
+
+            jsonResponseDiv.text(result.message);
+            jsonResponseDiv.addClass("alert alert-success");
+        }
+        else {
+            jsonResponseDiv.text(result.error);
+            jsonResponseDiv.addClass("alert alert-danger");
+        }
+        jsonResponseDiv.css({'display': 'block'})
+    }
 }
+
+$(document).ready(function () {
+
+    $("#seriousness").change(function () {
+        $.ajax({
+            url: "/subscription/update",
+            data: {topicId: $(this).attr('topicId'), seriousness: $(this).val()},
+            success: successHandler
+        });
+
+    });
+});
+
+

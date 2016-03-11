@@ -1,5 +1,7 @@
 package com.tothenew.linksharing
 
+import com.tothenew.linksharing.Enums.Seriousness
+
 
 class User {
 
@@ -30,7 +32,7 @@ class User {
 		confirmPassword bindable: true, nullable: true, validator: { val, obj ->
 			if (val) {
 				if (val != obj.password)
-					return false
+					g.message('com.tothenew.linksharing.User.confirmPassword.matches.password')
 			}
 		}
 	}
@@ -63,6 +65,7 @@ class User {
 
 			eq('user', this)
 		}
+		readingItems
 	}
 
 	Boolean canDeleteResource(Long resourceId) {
@@ -97,5 +100,15 @@ class User {
 				eq('id', resourceId)
 			}
 		}
+	}
+
+	Seriousness getSubscription(Topic topic) {
+		Subscription subscription = Subscription.findByTopic(topic)
+		subscription.seriousness
+	}
+
+
+	boolean equals(User user) {
+		(this.id == user.id)
 	}
 }

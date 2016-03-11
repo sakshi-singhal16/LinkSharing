@@ -37,10 +37,10 @@
 
                     <div class="row">
                         <div class="col-md-3 col-md-offset-6">
-                            <g:form controller="resourceRating" action="save"
-                                    params="[resourceId: resource.id]">
-                                <g:select from="${1..5}" name="rating" value="${session.user.getScore(resource.id)}"/>
-                                <g:submitButton name="rating" value="Submit"/>
+                            <g:form controller="resourceRating" action="save" params="[resourceId: resource.id]">
+                                <g:select from="${1..5}" name="newRating"
+                                          value="${session.user.getScore(resource.id)}"/>
+                                <g:submitButton name="rate" value="Rate"/>
                             </g:form>
                         </div>
 
@@ -61,8 +61,7 @@
                     <div class="col-md-6 col-md-offset-3 ">
                         <ls:canDeleteResource userId="${session.user.id}" resourceId="${resource.id}"/>
                         <a href="#">Edit ||</a>
-                        <a href="#">Download ||</a>
-                        <a href="#">View full site ||</a>
+                        <ls:showResourceTags id="${resource.id}"/>
                     </div>
                 </div>
 
@@ -71,7 +70,7 @@
 
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-5">
         <div class="panel-primary" style="margin-top: 20px">
             <div class="panel-heading">
                 Trending Topics
@@ -81,6 +80,7 @@
                 <g:each in="${trendingTopics}" var="topic">
                     <g:set var="topicObj" value="${topic}"/>
                     <g:render template="/topic/show" model="${topicObj}"/>
+                    <hr/>
                 </g:each>
             </div>
         </div>

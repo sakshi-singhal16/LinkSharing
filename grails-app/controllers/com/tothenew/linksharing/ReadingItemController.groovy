@@ -1,5 +1,7 @@
 package com.tothenew.linksharing
 
+import grails.converters.JSON
+
 
 class ReadingItemController {
 
@@ -9,9 +11,9 @@ class ReadingItemController {
 		if (ReadingItem.executeUpdate("update ReadingItem set isRead=:flag where resource=:resourceObj",
 				[flag: isRead, resourceObj:resource]) == 1) {
 //			render (view: 'markIsRead', model: [id: readingItemId, isRead: isRead])
-			render "update successful, resource id $resourceId"
+			render([message: 'Status changed successfully'] as JSON)
 		} else
-			render "could not update"
+			render([error: 'Error while updating status'] as JSON)
 		//render "updated $resourceId, $isRead"
 	}
 }

@@ -8,7 +8,7 @@
 <div class="container">
     <div class="col-md-6">
 
-        <ls:showTrendingTopics posts="${trendingTopics}"/>
+        <ls:showTrendingTopics topics="${trendingTopics}"/>
         <ls:showTopPosts posts="${topPosts}"/>
 
     </div>

@@ -14,6 +14,19 @@ class UserController {
 				model: [subscribedTopics: subscribedTopics, userObj: user, trendingTopics: trendingTopics, readingItems: readingItems])
 	}
 
+	def register(User user) {
+		user.isActive = true
+		user.isAdmin = false
+		if (user.save(flush: true)) {
+			session.user = user
+			redirect(controller: 'user', action: 'index')
+		} else {
+//			render("Could not save user")
+//			redirect (controller: 'login', action: 'index',params: [user:user])
+			render(view: '/login/index', model: [user: user])
+		}
+	}
+
 	def image(Long id) {
 		User user = User.get(id)
 		byte[] image

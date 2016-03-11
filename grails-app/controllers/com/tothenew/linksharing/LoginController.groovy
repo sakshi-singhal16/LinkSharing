@@ -29,16 +29,6 @@ class LoginController {
 		}
 	}
 
-	def register(User user) {
-		user.isActive = true
-		user.isAdmin = false
-		if (user.save(flush: true)) {
-			session.user = user
-			redirect(controller: 'user', action: 'index')
-		} else {
-			render("Could not save user")
-		}
-	}
 
 	def logout() {
 		session.invalidate()

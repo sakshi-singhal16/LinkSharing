@@ -20,6 +20,9 @@ class UtilController {
 
 	}
 
+	def actionWithNoView() {
+
+	}
 	def save(User user) {
 		//render("form saved")-
 		if (user?.hasErrors())

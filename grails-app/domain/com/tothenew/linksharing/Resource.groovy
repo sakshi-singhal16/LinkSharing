@@ -99,4 +99,19 @@ abstract class Resource {
 	void deleteFile() {
 		log.info "**************This is implemented in DocumentResource class**********"
 	}
+
+	/*def afterInsert() {
+		Resource.withNewSession {
+			List<User> subscribedUsers = this.topic.getSubscribedUsers()
+			subscribedUsers.each {
+
+				ReadingItem readingItem = new ReadingItem(isRead: false, user: it, resource: this)
+				if (it == this.createdBy) {
+					readingItem.isRead = true
+				}
+				readingItem.save(flush: true)
+				log.info("--------${readingItem} saved!!!!!!!!!!!!")
+			}
+		}
+	}*/
 }

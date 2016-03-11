@@ -21,18 +21,5 @@ class DocumentResource extends Resource {
 		)
 	}
 
-	def afterInsert() {
-		DocumentResource.withNewSession {
-			List<User> subscribedUsers = this.topic.getSubscribedUsers()
-			subscribedUsers.each {
 
-				ReadingItem readingItem = new ReadingItem(isRead: false, user: it, resource: this)
-				if (it == this.createdBy) {
-					readingItem.isRead = true
-				}
-				readingItem.save(flush: true)
-				log.info("--------${readingItem} saved!!!!!!!!!!!!")
-			}
-		}
-	}
 }

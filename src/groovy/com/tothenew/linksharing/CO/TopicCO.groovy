@@ -1,6 +1,5 @@
 package com.tothenew.linksharing.CO
 
-import com.tothenew.linksharing.Enums.Visibility
 import com.tothenew.linksharing.User
 
 /**

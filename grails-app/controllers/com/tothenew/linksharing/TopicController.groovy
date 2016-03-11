@@ -4,13 +4,14 @@ import com.tothenew.linksharing.CO.ResourceSearchCO
 import com.tothenew.linksharing.CO.TopicCO
 import com.tothenew.linksharing.Enums.Visibility
 
-
 class TopicController {
 	def index(Long id) {
 		Topic topic=Topic.get(id)
+
 //		render("$topic")
 		List<User> subscribedUsers=topic.getSubscribedUsers()
-		render (view: 'index', model: [users:subscribedUsers, topicObj: topic])
+		List<Resource> posts = Resource.findAllByTopic(topic)
+		render(view: 'index', model: [users: subscribedUsers, topicObj: topic, posts: posts])
 	}
 
 	def show(ResourceSearchCO co) {

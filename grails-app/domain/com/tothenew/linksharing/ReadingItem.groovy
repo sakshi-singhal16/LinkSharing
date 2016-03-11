@@ -2,19 +2,23 @@ package com.tothenew.linksharing
 
 class ReadingItem {
 
+    User user
+    User reader
     Boolean isRead
     Date dateCreated
     Date lastUpdated
-    static belongsTo = [user: User, resource: Resource]
+    static belongsTo = [resource: Resource]
 
 
     static constraints = {
-        resource nullable: false, unique: 'user'
-        user nullable: false
+//        resource nullable: false, unique: 'user'
+//        user(unique: 'resource')
+        reader nullable: true
         isRead nullable: false
+//        user nullable: true
     }
 
     String toString() {
-        "Reading Item --> $user for $resource"
+        "Reading Item --> $reader for $resource"
     }
 }

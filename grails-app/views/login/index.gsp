@@ -7,6 +7,19 @@
 
 <body>
 <div class="container">
+    <g:hasErrors bean="${user}">
+
+        <div class="alert alert-danger">
+            <ul>Error in form!
+                <g:eachError>
+                    <li>
+                        <g:message error="${it}"/>
+                    </li>
+                </g:eachError>
+            </ul>
+        </div>
+    </g:hasErrors>
+
     <div class="col-md-6">
 
         <div class="panel panel-info">
@@ -27,8 +40,8 @@
     </div>
 
     <div class="col-md-6">
-        <g:render template="/login/login"/>
-        <g:render template="register"/>
+        <g:render template="/login/login" bean="${user}"/>
+        <g:render template="/login/register"/>
     </div>
 </div>
 </body>

@@ -3,10 +3,8 @@ package com.tothenew.linksharing
 import grails.transaction.Transactional
 import org.springframework.web.multipart.MultipartFile
 
-class DocumentResourceController {
-	def grailsApplication
+class DocumentResourceController extends ResourceController {
 
-	@Transactional
 	def save(DocumentResource documentResource) {
 		UUID fileName = UUID.randomUUID()
 		String path = "/home/sakshi/${grailsApplication.config.linksharing.documents.folderPath}/${fileName}"
@@ -23,10 +21,10 @@ class DocumentResourceController {
 			myFile.transferTo(file)
 			render "Done uploading!!!------------------<br/>"
 
-			if (documentResource.save(flush: true)) {
+			if (documentResource.save()) {
 				flash.message = "$documentResource saved"
+				addToReadingItems(documentResource.id)
 				render(flash.message)
-
 			} else {
 				flash.error = "could not save document resource"
 				redirect(controller: 'user', action: 'index')
@@ -51,7 +49,14 @@ class DocumentResourceController {
 			render "Resource not found!!"
 		}
 	}
-	def delete(){
 
+	def delete(Long resourceId) {
+		Resource documentResource = Resource.get(resourceId)
+		File file = new File("${documentResource.filePath}")
+		if (file.delete()) {
+			render "File successfully deleted!"
+		} else {
+			render("error deleting file!")
+		}
 	}
 }

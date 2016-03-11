@@ -15,10 +15,10 @@ class ApplicationFilters {
 
 			}
 		}
-		/*sessionCheck(controller: '*', controllerExclude: 'login') {
+		sessionCheck(controller: '*', controllerExclude: 'login|console|topic|util') {
 			before = {
-				if (!session.user)
-					redirect(controller: 'login', action: 'index')
+//				if (!session.user)
+//					redirect(controller: 'login', action: 'index')
 
 			}
 			after = { Map model ->
@@ -28,6 +28,6 @@ class ApplicationFilters {
 
 			}
 
-		}*/
+		}
 	}
 }

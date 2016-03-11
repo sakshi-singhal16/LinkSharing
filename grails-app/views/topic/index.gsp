@@ -11,14 +11,15 @@
         <div class="row">
             <div class="panel-info">
                 <div class="panel-body" style="border: solid 2px">
+
                     <g:render template="show" model="${topicObj}"/>
                     <div class="col-md-4 col-md-offset-4">
                         <div class="row">
-                            <g:select from="${com.tothenew.linksharing.Enums.Seriousness.values()}" name="seriousness"/>
-                            <a hr="#" class="glyphicon glyphicon-envelope"></a>
+                            %{--<g:select from="${com.tothenew.linksharing.Enums.Seriousness.values()}" name="seriousness"/>--}%
+                            %{--<a hr="#" class="glyphicon glyphicon-envelope"></a>--}%
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
@@ -42,7 +43,7 @@
 
     </div>
 
-    <div class="col-md-5 col-md-offset-1">
+    <div class="col-md-6">
         <div class="panel-primary">
             <div class="panel-heading">
                 <div class="col-md-3">
@@ -61,9 +62,9 @@
             </div>
 
             <div class="panel-body">
-                <g:each in="${users}" var="user">
-                    <g:set var="userObj" value="${user}"/>
-                    <g:render template="/user/show" model="${userObj}"/>
+                <g:each in="${posts}" var="post">
+                    <g:set var="resourceObj" value="${post}"/>
+                    <g:render template="/resource/show" model="${resourceObj}"/>
                     <hr/>
                 </g:each>
             </div>

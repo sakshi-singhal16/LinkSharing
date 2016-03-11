@@ -41,15 +41,8 @@ class Topic {
 	}
 
 	List getSubscribedUsers() {
-		List users = Subscription.createCriteria().list {
-			projections {
-				property('user')
-			}
-			'topic' {
-				eq('id', this.id)
-			}
-		}
-		users
+		List<Subscription> subscriptionList = Subscription.findAllByTopic(this)
+		subscriptionList.collect({ it.user })
 	}
 
 	static List<TopicVO> getTrendingTopics() {

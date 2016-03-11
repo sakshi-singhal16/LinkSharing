@@ -24,8 +24,8 @@
 
             <div class="panel-body">
                 <g:each in="${subscribedTopics}" var="topic">
-                    <g:set var="topicObj" value="${topic}" scope="request"/>
-                    <g:render template="/topic/show" model="${topicObj}"/>
+                %{--<g:set var="topicObj" value="${topic}" scope="request"/>--}%
+                    <g:render template="/topic/show" model="[topicObj: topic]"/>
                     <hr/>
                 </g:each>
             </div>

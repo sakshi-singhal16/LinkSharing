@@ -1,5 +1,8 @@
 package com.tothenew.linksharing
 
+import com.tothenew.linksharing.Enums.Seriousness
+import com.tothenew.linksharing.Enums.Visibility
+
 
 class ApplicationTagLib {
 	//static defaultEncodeAs = [taglib: 'html']
@@ -58,11 +61,12 @@ class ApplicationTagLib {
 
 	def showResourceTags = { attrs ->
 		String type = Resource.getResourceType(attrs.id)
+
 		if (type == "DocumentResource")
 			out << link(controller: 'documentResource', action: 'download', params: [resourceId: attrs.id], '|| Download ||')
 		else {
-			String url = attrs.url
-			out << link(href: url, '|| View full site ||', target: '_blank')
+			Resource resource = Resource.get(attrs.id)
+			out << link(uri: resource.url, '|| View full site ||', target: '_blank')
 		}
 	}
 
@@ -90,5 +94,24 @@ class ApplicationTagLib {
 	}
 	def userImage = { attrs ->
 		out << "<img src=\"/user/image/${attrs.userId}\" width=\"${attrs.width}\" height\"${attrs.height}\"/>"
+	}
+
+	def canUpdateTopic = { attrs ->
+		Topic topic = Topic.get(attrs.id)
+		User user = session.user
+		List values = Visibility.values()
+		if (topic.createdBy == user || user?.isAdmin) {
+
+			out << g.select(from: values, name: 'visibility', id: 'visibility')
+			out << "<div class=\"glyphicon glyphicon-edit\"></div>" << "<div class=\"glyphicon glyphicon-trash\"></div>"
+		}
+
+
+	}
+	def showSeriousness = { attrs ->
+		User user = session.user
+		Topic topic = Topic.get(attrs.id)
+		List values = Seriousness.values()
+		out << g.select(from: values, value: user?.getSubscription(topic), name: 'seriousness', id: 'seriousness')
 	}
 }

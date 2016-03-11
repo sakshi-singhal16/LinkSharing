@@ -21,7 +21,7 @@
     <nav class="navbar navbar-default">
         <div class="navbar-header">
             %{--<div class="col-md-12">--}%
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
 
                 <div class="text-primary h3">Link Sharing</div>
             </a>
@@ -85,7 +85,7 @@
 <g:else>
     <nav class="navbar navbar-default">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
 
                 <div class="text-primary h3">Link Sharing</div>
             </a>
@@ -107,8 +107,15 @@
 
 
 </g:else>
+<div class="container">
 
-<g:layoutBody/>
+    <div class="jsonResponse" style="display:none"></div>
+
+    <g:layoutBody/>
+</div>
+
+<asset:javascript src="application.js"/>
+%{--<g:layoutBody/>--}%
 
 </body>
 </html>

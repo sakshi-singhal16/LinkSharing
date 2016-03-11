@@ -15,12 +15,18 @@ import javax.xml.bind.ValidationException
 class BootStrap {
 	def grailsApplication
 	def init = { servletContext -> //println "Changed value: ${grailsApplication.config.grails.var}"
-		List<User> users = createUserAndAdmin()
-		List<Topic> topics = createTopics(users)
-		List<Resource> resources = createResources(topics)
-		subscribeTopics(users, topics)
-		List<ReadingItem> readingItems = createReadingItems(users, topics)
-		createResourceRatings(readingItems)
+
+		if (!User.findByFirstName("Pawan")) {
+
+			List<User> users = createUserAndAdmin()
+			List<Topic> topics = createTopics(users)
+			List<Resource> resources = createResources(topics)
+
+
+			subscribeTopics(users, topics)
+//			List<ReadingItem> readingItems = createReadingItems(users, topics)
+//			createResourceRatings(readingItems)
+		}
 	}
 
 	List<User> createUserAndAdmin() {
@@ -131,7 +137,7 @@ class BootStrap {
 				if (Subscription.findByTopicAndUser(topic, user)) {
 					List<Resource> resources1 = Resource.findAllByTopicAndCreatedByNotEqual(topic, user)
 					resources1.each { Resource resource ->
-						ReadingItem readingItem = new ReadingItem(user: user, resource: resource, isRead: false)
+						ReadingItem readingItem = new ReadingItem(reader: user, resource: resource, isRead: false)
 						if (readingItem.save(flush: true)) {
 							readingItems.add(readingItem)
 							log.info("********** $user has reading item -- ${resource.id}")

@@ -4,13 +4,13 @@
     </div>
 
     <div class="panel-body">
-        <g:form class="form-horizontal" controller="login" action="register">
+        <g:form class="form-horizontal" controller="user" action="register">
 
             <div class="form-group">
                 <label class="control-label col-sm-4">First Name</label>
 
                 <div class="col-sm-8">
-                    <g:field type="text" class="form-control" name="firstName"/>
+                    <g:field type="text" class="form-control" name="firstName" value="${user?.firstName}"/>
                 </div>
             </div>
 
@@ -18,7 +18,7 @@
                 <label class="control-label col-sm-4">Last Name</label>
 
                 <div class="col-sm-8">
-                    <g:field type="text" class="form-control" name="lastName"/>
+                    <g:field type="text" class="form-control" name="lastName" value="${user?.lastName}"/>
                 </div>
             </div>
 
@@ -26,7 +26,7 @@
                 <label class="control-label col-sm-4">Email</label>
 
                 <div class="col-sm-8">
-                    <g:field type="email" class="form-control" name="email"/>
+                    <g:field type="email" class="form-control" name="email" value="${user?.email}"/>
                 </div>
             </div>
 
@@ -34,7 +34,7 @@
                 <label class="control-label col-sm-4">User Name</label>
 
                 <div class="col-sm-8">
-                    <g:field type="text" class="form-control" name="userName"/>
+                    <g:field type="text" class="form-control" name="userName" value="${user?.email}"/>
                 </div>
             </div>
 
