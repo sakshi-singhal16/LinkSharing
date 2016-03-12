@@ -30,7 +30,7 @@ class Topic {
 	def afterInsert() {
 		Topic.withNewSession {
 			Subscription subscription = new Subscription(user: this.createdBy, topic: this, seriousness: Seriousness.VERY_SERIOUS)
-					.save()
+			subscription.save()
 
 			log.info("${this.createdBy.name} subscribed to ${this.topicName}")
 

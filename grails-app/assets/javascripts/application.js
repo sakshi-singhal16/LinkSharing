@@ -18,10 +18,16 @@ function successHandler(result) {
 
             jsonResponseDiv.text(result.message);
             jsonResponseDiv.addClass("alert alert-success");
+            setTimeout(function () {
+                location.reload()
+            }, 2000)
+
         }
         else {
             jsonResponseDiv.text(result.error);
             jsonResponseDiv.addClass("alert alert-danger");
+            setTimeout(function () {
+            }, 2000)
         }
         jsonResponseDiv.css({'display': 'block'})
     }
@@ -32,11 +38,41 @@ $(document).ready(function () {
     $("#seriousness").change(function () {
         $.ajax({
             url: "/subscription/update",
-            data: {topicId: $(this).attr('topicId'), seriousness: $(this).val()},
+            data: {id: $(this).attr('topicId'), seriousness: $(this).val()},
             success: successHandler
         });
 
     });
+
+    $("#v").change(function () {
+        $.ajax({
+            url: "/topic/update",
+            data: {topicName: $(this).attr('topicName'), id: $(this).attr('topicId'), visibility: $(this).val()},
+            success: successHandler
+        });
+
+    });
+    /*$("#createTopic").click(function () {
+     //alert( $('#v').val() )
+     $.ajax({
+     url: "/topic/save",
+     data: {topicName: $('#topicName').val(), visibility: $('#visibility').val()},
+     success: successHandler
+     });
+     });*/
+
+    $(".subscribe").click(function () {
+        $.ajax({
+            url: "/subscription/save",
+            data: {topicId: $(this).attr('topicId')},
+            success: successHandler
+        });
+    });
+    $(".unsubscribe").click(function () {
+        $.ajax({
+            url: "/subscription/delete",
+            data: {topicId: $(this).attr('topicId')},
+            success: successHandler
+        });
+    });
 });
-
-

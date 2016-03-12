@@ -4,7 +4,6 @@ import com.tothenew.linksharing.CO.LinkResourceCO
 
 class LinkResourceController extends ResourceController {
 
-	def index() {}
 
 	def save(LinkResourceCO linkResourceCO) {
 		Topic topic = Topic.get(linkResourceCO.topicId)

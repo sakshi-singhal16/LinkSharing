@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
+    <meta name="layout" content="ApplicationLayout">
     <title>Link Sharing | Search results</title>
 </head>
 
@@ -14,17 +15,27 @@
     </div>
 
     <div class="col-md-6">
-        <g:if test="${results}">
 
-            <g:each in="${results}" var="result">
-                ${result}
-                <hr/>
-            </g:each>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Search results: "${q}"
+            </div>
 
-        </g:if>
-        <g:else>
-            no results
-        </g:else>
+            <div class="panel-body">
+                <g:if test="${results}">
+
+                    <g:each in="${results}" var="result">
+                        <g:render template="/resource/show" model="[resourceObj: result]"/>
+                        <hr/>
+                    </g:each>
+                </g:if>
+                <g:else>
+                    <div class="alert-info">No matching results found</div>
+                </g:else>
+
+            </div>
+        </div>
+
     </div>
 </div>
 </body>

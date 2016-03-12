@@ -7,43 +7,35 @@
                 <h4 class="modal-title">Send Invitation</h4>
             </div>
 
-            <div class="modal-body">
-                <g:form class="form-horizontal">
+        <div class="modal-body">
+            <g:form class="form-horizontal" controller="topic" action="invite">
 
-                    <div class="form-group">
-                        <label class="control-label col-sm-4">Email</label>
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Email</label>
 
-                        <div class="col-sm-8">
-                            <g:field type="text" class="form-control" name="email"/>
+                    <div class="col-sm-8">
+                        <g:field type="text" class="form-control" name="email"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Topic</label>
+
+                    <div class="col-sm-8">
+                        <div class="dropdown">
+                            <g:select name="topicId" from="${session.user.subscribedTopics}" optionKey="id"
+                                      optionValue="${{ it }}" noSelection="['': '--Select a topic--']"/>
                         </div>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-sm-4">Topic</label>
+                </div><!--.modal-body-->
 
-                        <div class="col-sm-8">
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Topic
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="#">Grails</a></li>
-                                    <li><a href="#">MEAN</a></li>
-                                    <li><a href="#">AMC</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                </g:form>
-            </div><!--.modal-body-->
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Invite</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            </div>
+                <div>
+                    <g:submitButton name="invite" class="btn btn-default" value="Invite"/>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </g:form>
 
         </div>
     </div>

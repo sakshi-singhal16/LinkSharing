@@ -8,8 +8,6 @@ import spock.lang.Unroll
 @TestFor(DocumentResource)
 class DocumentResourceSpec extends Specification {
 
-	def setup() {
-	}
 
 	void "test"() {
 		expect:

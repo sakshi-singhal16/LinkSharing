@@ -1,6 +1,5 @@
 package com.tothenew.linksharing
 
-import grails.transaction.Transactional
 import org.springframework.web.multipart.MultipartFile
 
 class DocumentResourceController extends ResourceController {

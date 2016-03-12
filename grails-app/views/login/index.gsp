@@ -10,7 +10,7 @@
     <g:hasErrors bean="${user}">
 
         <div class="alert alert-danger">
-            <ul>Error in form!
+            <ul>Error in registration!
                 <g:eachError>
                     <li>
                         <g:message error="${it}"/>
@@ -20,6 +20,11 @@
         </div>
     </g:hasErrors>
 
+    <div class="alert alert-warning">
+        <g:if test="${message}">
+            ${message}
+        </g:if>
+    </div>
     <div class="col-md-6">
 
         <div class="panel panel-info">
@@ -28,8 +33,7 @@
 
             <div class="panel-body">
                 <g:each in="${recentPosts}" var="resource">
-                    <g:set var="resourceObj" value="${resource}" scope="request"/>
-                    <g:render template="/resource/show" model="${resourceObj}"/>
+                    <g:render template="/resource/show" model="[resourceObj: resource]"/>
                     <hr/>
                 </g:each>
             </div>

@@ -1,8 +1,6 @@
 package com.tothenew.linksharing
 
 import com.tothenew.linksharing.Enums.Seriousness
-import com.tothenew.linksharing.Subscription
-import com.tothenew.linksharing.Topic
 import grails.converters.JSON
 
 class SubscriptionController {
@@ -29,15 +27,14 @@ class SubscriptionController {
 		} else {
 			render([error: "Subscription not found!"] as JSON)
 		}
-
 	}
 
-	def delete(Long subscriptionId) {
-		Subscription subscription = Subscription.get(subscriptionId)
+	def delete(Long topicId) {
+		Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.get(topicId))
 		if (subscription) {
 			//render " $subscription"
 			if (session.user == subscription.topic.createdBy) {
-				render([error: "Can not unsubscribe a topic created by you"] as JSON)
+				render([error: "Sorry, you can not unusbscribe a self-created a topic"] as JSON)
 			} else {
 				try {
 					subscription.delete(flush: true)

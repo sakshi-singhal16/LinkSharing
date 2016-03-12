@@ -2,7 +2,6 @@ package com.tothenew.linksharing
 
 class ResourceRatingController {
 
-	def index() {}
 
 	def save(Long resourceId, int newRating) {
 

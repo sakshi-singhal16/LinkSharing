@@ -6,7 +6,12 @@
     <div class="col-md-8 col-md-offset-1">
 
         <div class="row">
-            <h3>${userObj.getName()}</h3>
+            <h3><g:link controller="user"
+                        action="profile"
+                        params="[id: session.user.id, visibility: com.tothenew.linksharing.Enums.Visibility.PUBLIC, topicId: 0]">
+                ${userObj.getName()}
+            </g:link>
+            </h3>
         </div>
 
         <div class="row">

@@ -8,9 +8,7 @@ class UtilService {
 
     def mailService
 
-	def serviceMethod() {
 
-    }
     def testUser(){
         User user = new User(firstName: "test", lastName: "user",
                 userName: "testuser1", password: "default",email: "tesuser@test.com"

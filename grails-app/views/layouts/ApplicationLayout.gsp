@@ -64,7 +64,11 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Profile</a></li>
+                            <li>
+                                <g:link controller="user" action="profile"
+                                        params="[id: session.user.id, visibility: com.tothenew.linksharing.Enums.Visibility.PUBLIC, topicId: 0]">
+                                    Profile
+                                </g:link>
                             <li><a href="#">Users</a></li>
                             <li><a href="#">Action</a></li>
                             <li role="separator" class="divider"></li>
@@ -95,7 +99,7 @@
         <div class="navbar">
 
             <g:form class="navbar-form navbar-right" role="search" controller="resource" action="search"
-                    params="[topicId: null]">
+                    params="[topicId: 0]">
                 <div class="form-group">
                     <g:field type="text" class="form-control" placeholder="Search posts.." name="q"/>
                     <g:submitButton name="search" type="submit" class="btn btn-default" value="Search"/>
@@ -105,7 +109,6 @@
 
     </nav>
 
-
 </g:else>
 <div class="container">
 
@@ -114,7 +117,6 @@
     <g:layoutBody/>
 </div>
 
-<asset:javascript src="application.js"/>
 %{--<g:layoutBody/>--}%
 
 </body>

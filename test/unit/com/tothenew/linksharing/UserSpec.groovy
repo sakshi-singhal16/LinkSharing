@@ -12,9 +12,7 @@ class UserSpec extends Specification {
 
 	User user
 
-	def setup() {
-		user = new User()
-	}
+
 
 	void "test"() {
 		expect:
@@ -123,8 +121,7 @@ class UserSpec extends Specification {
 			subscription = new Subscription(topic: topic, user: user, seriousness: Seriousness.SERIOUS)
 		}
 
-		def cleanup() {
-		}
+
 
 		def "test save action"() {
 			given:
@@ -198,7 +195,7 @@ class UserSpec extends Specification {
 			subscription.save()
 
 			when:
-			controller.delete(subscription.id)
+			controller.delete(topic.id)
 
 			then:
 			response.text == "could not delete Subscription --> User --> test user for Topic --> Topic1"
@@ -210,7 +207,7 @@ class UserSpec extends Specification {
 			subscription.save()
 
 			when:
-			controller.delete(subscription.id)
+			controller.delete(topic.id)
 
 			then:
 			response.text == "could not delete Subscription --> User --> test user for Topic --> Topic1"

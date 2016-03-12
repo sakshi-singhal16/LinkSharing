@@ -10,10 +10,8 @@ class ReadingItemController {
 		Resource resource=Resource.get(resourceId)
 		if (ReadingItem.executeUpdate("update ReadingItem set isRead=:flag where resource=:resourceObj",
 				[flag: isRead, resourceObj:resource]) == 1) {
-//			render (view: 'markIsRead', model: [id: readingItemId, isRead: isRead])
 			render([message: 'Status changed successfully'] as JSON)
 		} else
 			render([error: 'Error while updating status'] as JSON)
-		//render "updated $resourceId, $isRead"
 	}
 }

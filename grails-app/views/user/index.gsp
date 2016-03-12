@@ -10,21 +10,20 @@
 
     <div class="col-md-5">
 
-        <div class="panel-primary">
-            <div class="panel-body" style="border: solid 2px">
+        <div class="panel panel-primary">
+            <div class="panel-body">
                 <g:render template="show" model="${userObj}"/>
             </div>
         </div>
 
 
-        <div class="panel-primary" style="margin-top: 20px">
+        <div class="panel panel-primary" style="margin-top: 20px">
             <div class="panel-heading">
                 Subscriptions
             </div>
 
             <div class="panel-body">
                 <g:each in="${subscribedTopics}" var="topic">
-                %{--<g:set var="topicObj" value="${topic}" scope="request"/>--}%
                     <g:render template="/topic/show" model="[topicObj: topic]"/>
                     <hr/>
                 </g:each>
@@ -43,8 +42,7 @@
 
             <div class="panel-body">
                 <g:each in="${readingItems}" var="readingItem">
-                    <g:set var="readingItemObj" value="${readingItem}"/>
-                    <g:render template="/readingItem/show" model="${readingItemObj}"/>
+                    <g:render template="/readingItem/show" model="[readingItemObj: readingItem]"/>
                     <hr/>
                 </g:each>
             </div>

@@ -23,9 +23,12 @@ class LoginController {
 				redirect(controller: 'user', action: 'index')
 			} else
 				flash.message = "Your account is not active"
+			render(view: 'index', model: [user: user])
 		} else {
 			flash.message = "User not found"
-			render(flash.message)
+//			render(flash.message)
+			render(view: 'index', model: [user: user, message: "${message(code: "invalid.user.credentials")}"])
+
 		}
 	}
 
@@ -35,7 +38,4 @@ class LoginController {
 		forward(controller: 'login', action: 'index')
 	}
 
-def tryTaglib(){
-//	render "taglib"
-}
 }

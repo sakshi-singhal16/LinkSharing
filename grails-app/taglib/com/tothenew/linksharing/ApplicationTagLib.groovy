@@ -63,10 +63,10 @@ class ApplicationTagLib {
 		String type = Resource.getResourceType(attrs.id)
 
 		if (type == "DocumentResource")
-			out << link(controller: 'documentResource', action: 'download', params: [resourceId: attrs.id], '|| Download ||')
+			out << link(class: "pull-right", controller: 'documentResource', action: 'download', params: [resourceId: attrs.id], '|| Download ||')
 		else {
 			Resource resource = Resource.get(attrs.id)
-			out << link(uri: resource.url, '|| View full site ||', target: '_blank')
+			out << link(class: "pull-right", uri: resource.url, '|| View full site ||', target: '_blank')
 		}
 	}
 
@@ -84,9 +84,11 @@ class ApplicationTagLib {
 				User user = session.user
 				if (user.isSubscribed(attrs.topicId)) {
 					Subscription subscription = Subscription.findByUserAndTopic(user, Topic.get(attrs.topicId))
-					out << link(controller: 'subscription', action: 'delete', params: [subscriptionId: subscription.id], 'Unsubscribe')
+					out << link('Unsubscribe', class: 'unsubscribe',
+							topicId: attrs.topicId)
+
 				} else {
-					out << link(controller: 'subscription', action: 'save', params: [topicId: attrs.topicId], 'Subscribe')
+					out << link(controller: 'subscription', action: 'save', params: [topicId: attrs.topicId], 'Subscribe', class: 'subscribe', topicId: attrs.topicId)
 				}
 
 			}
@@ -102,7 +104,7 @@ class ApplicationTagLib {
 		List values = Visibility.values()
 		if (topic.createdBy == user || user?.isAdmin) {
 
-			out << g.select(from: values, name: 'visibility', id: 'visibility')
+			out << g.select(from: values, name: 'visibility', id: 'v', topicName: topic.topicName, topicId: attrs.id, value: topic.visibility)
 			out << "<div class=\"glyphicon glyphicon-edit\"></div>" << "<div class=\"glyphicon glyphicon-trash\"></div>"
 		}
 
@@ -112,6 +114,6 @@ class ApplicationTagLib {
 		User user = session.user
 		Topic topic = Topic.get(attrs.id)
 		List values = Seriousness.values()
-		out << g.select(from: values, value: user?.getSubscription(topic), name: 'seriousness', id: 'seriousness')
+		out << g.select(from: values, value: user?.getSubscription(topic), name: 'seriousness', id: 'seriousness', topicId: attrs.id)
 	}
 }

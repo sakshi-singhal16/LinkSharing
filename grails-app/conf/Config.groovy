@@ -69,6 +69,16 @@ grails {
 				 "mail.smtp.socketFactory.fallback": "false"]
 	}
 
+	codenarc {
+		ruleSetFiles = "file:grails-app/conf/CodeNarcRules.groovy"
+		reports = {
+			HtmlReport('html') {                  // Report type is 'html'
+				outputFile = 'target/CodeNarcReport.html'
+				title = 'My Test Code Narc Report'
+			}
+		}
+	}
+
 }
 
 

@@ -1,8 +1,11 @@
 package com.tothenew.linksharing
 
+import com.sun.xml.internal.bind.v2.TODO
+
 class ReadingItem {
 
     User user
+    //TODO : REMOVE READER OBJECT
     User reader
     Boolean isRead
     Date dateCreated
@@ -11,11 +14,9 @@ class ReadingItem {
 
 
     static constraints = {
-//        resource nullable: false, unique: 'user'
-//        user(unique: 'resource')
+        resource nullable: false, unique: 'user'
         reader nullable: true
         isRead nullable: false
-//        user nullable: true
     }
 
     String toString() {

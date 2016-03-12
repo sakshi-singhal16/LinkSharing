@@ -28,7 +28,6 @@
 
             <div class="col-md-8 col-md-offset-2 ">
                 <ls:showResourceTags id="${readingItemObj.resource.id}"/>
-                %{--<a href="#">Mark as read ||</a>--}%
                 <ls:markAsRead isRead="${readingItemObj.isRead}" user="${session.user}"
                                id="${readingItemObj.resource.id}"/>
                 <a href="${createLink(controller: 'resource', action: 'showPostPage', params: [id: readingItemObj.resource.id])}">
@@ -38,8 +37,3 @@
         </div>
     </div>
 </div>
-
-
-%{--<div>--}%
-%{--readingItemObj information ${readingItemObj}--}%
-%{--</div>--}%

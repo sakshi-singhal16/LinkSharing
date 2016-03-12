@@ -8,8 +8,6 @@ import spock.lang.Unroll
 @TestFor(LinkResource)
 class LinkResourceSpec extends Specification {
 
-	def setup() {
-	}
 
 	void "test"() {
 		expect:

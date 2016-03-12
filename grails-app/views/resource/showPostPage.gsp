@@ -78,8 +78,7 @@
 
             <div class="panel-body">
                 <g:each in="${trendingTopics}" var="topic">
-                    <g:set var="topicObj" value="${topic}"/>
-                    <g:render template="/topic/show" model="${topicObj}"/>
+                    <g:render template="/topic/show" model="[topicObj: topic]"/>
                     <hr/>
                 </g:each>
             </div>

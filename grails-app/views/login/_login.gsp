@@ -9,7 +9,8 @@
                 <label class="control-label col-sm-4" for="userName">Username</label>
 
                 <div class="col-sm-8">
-                    <g:textField class="form-control" name="userName" placeholder="Name.."/>
+                    <g:textField class="form-control" name="userName" value="Username.."/>
+                    %{--<g:fieldError field="userName" bean="${user}" message="${message}"/>--}%
                 </div>
             </div>
 
@@ -23,7 +24,7 @@
 
             <div>
                 <div class="col-md-2 col-md-offset-3">
-                    <g:actionSubmit name="login" type="submit" value="Login" action="login"/>
+                    <g:actionSubmit class="btn btn-sm-primary" name="login" type="submit" value="Login" action="login"/>
                 </div>
 
                 <div class="col-md-4">

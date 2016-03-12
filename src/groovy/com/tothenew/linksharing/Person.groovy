@@ -10,7 +10,7 @@ class Person {
 	Person() {}
 
 	Person(String fn) {
-		println "--------------------------------------------called firstName constructor"
+//		println "--------------------------------------------called firstName constructor"
 		firstName = fn
 	}
 
@@ -20,7 +20,7 @@ class Person {
 
 	void setFirstName(String firstName) {
 		this.firstName = firstName
-		println "name set---------------------------------${firstName}"
+//		println "name set---------------------------------${firstName}"
 	}
 
 	int getAge() {
@@ -29,6 +29,6 @@ class Person {
 
 	void setAge(int age) {
 		this.age = age
-		println "age set----------------------------------${age}"
+//		println "age set----------------------------------${age}"
 	}
 }

@@ -13,22 +13,21 @@ class ResourceController {
 		Resource resource = Resource.get(resourceId)
 		List<User> subscribedUsers = resource.topic.getSubscribedUsers()
 		subscribedUsers.each {
-			println "@@@@@@@@@@@@@@@@@" + it
 
-			ReadingItem readingItem = new ReadingItem(isRead: false, user: it, resource: resource, reader: User.get(1))
+			ReadingItem readingItem = new ReadingItem(isRead: false, user: it, resource: resource)
 			readingItem.user = it
 			if (it.equals(session.user)) {
 				readingItem.isRead = true
 			}
 
-			ReadingItem readingItemSaved = readingItem.save()
+			ReadingItem readingItemSaved = readingItem.save(flush: true)
 			if (readingItemSaved)
 				log.info("--------${readingItem} saved!!!!!!!!!!!!")
 			else {
 				log.error "reading item not saved*********************************************"
 			}
-			it.addToReadingItems(readingItem)
-			//it.readingItems.add(readingItem)
+//			it.addToReadingItems(readingItem)
+			it.readingItems.add(readingItem)
 		}
 
 	}
@@ -46,9 +45,9 @@ class ResourceController {
 			List<TopicVO> trendingTopics = Topic.getTrendingTopics()
 			List<Resource> topPosts = Resource.getTopPosts()
 
-			render(view: '/shared/search', model: [results: resources, topics: trendingTopics, posts: topPosts])
+			render(view: '/shared/search', model: [results: resources, topics: trendingTopics, posts: topPosts, q: co.q])
 		} else {
-			render("Parameter q not set")
+			render(view: '/login/index', model: [message: "No search text entered"])
 		}
 	}
 

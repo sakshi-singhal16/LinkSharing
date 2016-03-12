@@ -36,11 +36,14 @@ abstract class Resource {
 
 				}
 
-				ilike('description', "%${co.q}%")
-
 			}
+			ilike('description', "%${co.q}%")
+		}
+		searchCreatedResources { User user ->
+			eq('createdBy', user)
 		}
 	}
+
 
 	RatingInfoVO getRatingInfo() {
 		List result = ResourceRating.createCriteria().get {

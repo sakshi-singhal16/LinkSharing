@@ -32,7 +32,7 @@ class User {
 		confirmPassword bindable: true, nullable: true, validator: { val, obj ->
 			if (val) {
 				if (val != obj.password)
-					g.message('com.tothenew.linksharing.User.confirmPassword.matches.password')
+					["com.tothenew.linksharing.User.confirmPassword.matches.password"]
 			}
 		}
 	}
@@ -68,7 +68,7 @@ class User {
 		readingItems
 	}
 
-	Boolean canDeleteResource(Long resourceId) {
+	boolean canDeleteResource(Long resourceId) {
 		Resource resource = Resource.get(resourceId)
 		if (resource.createdBy == this || this.isAdmin)
 			true

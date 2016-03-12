@@ -63,8 +63,7 @@
 
             <div class="panel-body">
                 <g:each in="${posts}" var="post">
-                    <g:set var="resourceObj" value="${post}"/>
-                    <g:render template="/resource/show" model="${resourceObj}"/>
+                    <g:render template="/resource/show" model="[resourceObj: post]"/>
                     <hr/>
                 </g:each>
             </div>

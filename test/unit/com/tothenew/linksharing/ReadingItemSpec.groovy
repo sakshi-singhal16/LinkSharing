@@ -6,8 +6,6 @@ import spock.lang.Specification
 @TestFor(ReadingItem)
 class ReadingItemSpec extends Specification {
 
-    def setup() {
-    }
 
     void "test"() {
         expect:

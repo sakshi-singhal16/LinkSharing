@@ -7,8 +7,6 @@ import spock.lang.Unroll
 @TestFor(ResourceRating)
 class ResourceRatingSpec extends Specification {
 
-    def setup() {
-    }
 
     void "test"() {
         expect:

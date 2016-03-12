@@ -24,8 +24,8 @@ class BootStrap {
 
 
 			subscribeTopics(users, topics)
-//			List<ReadingItem> readingItems = createReadingItems(users, topics)
-//			createResourceRatings(readingItems)
+			List<ReadingItem> readingItems = createReadingItems(users, topics)
+			createResourceRatings(readingItems)
 		}
 	}
 
@@ -137,7 +137,7 @@ class BootStrap {
 				if (Subscription.findByTopicAndUser(topic, user)) {
 					List<Resource> resources1 = Resource.findAllByTopicAndCreatedByNotEqual(topic, user)
 					resources1.each { Resource resource ->
-						ReadingItem readingItem = new ReadingItem(reader: user, resource: resource, isRead: false)
+						ReadingItem readingItem = new ReadingItem(user: user, resource: resource, isRead: false)
 						if (readingItem.save(flush: true)) {
 							readingItems.add(readingItem)
 							log.info("********** $user has reading item -- ${resource.id}")
