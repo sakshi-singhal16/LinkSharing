@@ -2,6 +2,7 @@ package com.tothenew.linksharing
 
 import com.tothenew.linksharing.CO.ResourceSearchCO
 import com.tothenew.linksharing.CO.TopicSearchCO
+import com.tothenew.linksharing.CO.Util
 import com.tothenew.linksharing.VO.TopicVO
 
 class UserController {
@@ -9,6 +10,7 @@ class UserController {
 	def topicService
 	def resourceService
 	def subscriptionService
+	def emailService
 
 	def index() {
 		List<Topic> subscribedTopics = session.user.getSubscribedTopics()
@@ -57,5 +59,23 @@ class UserController {
 				subscribedTopics: subscribedTopics,
 				postsCreated    : postsCreated,
 				resourceSearchCo: co])
+	}
+
+	def forgot(String email) {
+		User user = User.findByEmail(email)
+		Long id = user.id
+		if (user && user.isActive) {
+			String newPassword = Util.generateRandomPassword() as String
+			if (User.executeUpdate('update User set password=:newPswd where id=:id1', [newPswd: newPassword, id1: id]) == 1) {
+				render("password updated<br/>")
+				EmailDTO emailDTO = new EmailDTO(to: email, model: [newPassword: newPassword], view: "/email/_password", subject: "Link Sharing| New password")
+				emailService.sendMail(emailDTO)
+				render("email sent")
+			} else {
+				render "could not update"
+			}
+		} else {
+			render "user not active"
+		}
 	}
 }

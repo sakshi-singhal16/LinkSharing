@@ -8,7 +8,7 @@
             </div>
 
             <div class="modal-body">
-                <g:form class="form-horizontal" action="save" controller="topic">
+                <g:form class="form-horizontal" controller="user" action="forgot">
 
                     <div class="form-group">
                         <label class="control-label col-sm-4">Email:</label>
@@ -20,8 +20,8 @@
                     </div>
 
 
-                    <div class="modal-footer">
-                        <g:submitButton type="submit" name="sendPasswordLink" value="E-mail me the password link"
+                    <div>
+                        <g:submitButton type="submit" name="sendPasswordLink" value="Get new password"
                                         class="btn btn-block btn-primary"/>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     </div>
