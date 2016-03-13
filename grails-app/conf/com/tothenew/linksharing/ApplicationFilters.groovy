@@ -6,28 +6,26 @@ class ApplicationFilters {
 		all(controller: '*', action: '*') {
 			before = {
 				log.info("In filter: ${params}")
-
-			}
-			after = { Map model ->
-
-			}
-			afterView = { Exception e ->
-
 			}
 		}
-		sessionCheck(controller: '*', controllerExclude: 'login|console|topic|util') {
+		sessionCheck(controller: '*', action: 'save|delete|update|') {
 			before = {
-//				if (!session.user)
-//					redirect(controller: 'login', action: 'index')
-
+				if (!session.user)
+					redirect(controller: 'login', action: 'index')
 			}
-			after = { Map model ->
-
+		}
+		userIndex(controller: 'user', action: 'index') {
+			before = {
+				if (!session.user)
+					redirect(controller: 'login', action: 'index')
 			}
-			afterView = { Exception e ->
-
+		}
+		consoleCheck(controller: 'console', action: '*') {
+			before = {
+				if (!session.user) {
+					redirect(controller: 'login', action: 'index')
+				}
 			}
-
 		}
 	}
 }
