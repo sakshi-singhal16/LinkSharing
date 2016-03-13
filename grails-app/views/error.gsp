@@ -16,3 +16,18 @@
 		</g:else>
 	</body>
 </html>
+%{--
+<html>
+<head>
+    <asset:stylesheet src="application.css"/>
+    <meta name="layout" content="ApplicationLayout"/>
+    <title>Link Sharing | Error</title>
+
+</head>
+
+<body>
+<h1>Oops!</h1>
+
+<div class="col-md-5 col-md-offset-1 alert alert-danger">Error 500: Internal server error</div>
+</body>
+</html>--}%

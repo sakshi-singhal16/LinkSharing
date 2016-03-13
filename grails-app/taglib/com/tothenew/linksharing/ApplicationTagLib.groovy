@@ -5,10 +5,7 @@ import com.tothenew.linksharing.Enums.Visibility
 
 
 class ApplicationTagLib {
-	//static defaultEncodeAs = [taglib: 'html']
-	//static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
 	static namespace = "ls"
-	def assetResourceLocator
 	def markAsRead = { attrs ->
 		if (session.user) {
 			Boolean isRead = Boolean.valueOf(attrs.isRead)
@@ -70,14 +67,6 @@ class ApplicationTagLib {
 		}
 	}
 
-	/*def showReadingItemTags = { attrs ->
-		String type = Resource.getResourceType(attrs.id)
-		if (type == "DocumentResource")
-			out << link(controller: 'resource', action: 'show', '|| Download ||')
-		else
-			out << link(controller: 'resource', action: 'showPostPage', params: [id: attrs.id], '|| View full site ||', target: '_blank')
-	}*/
-
 	def showSubscribe = { attrs ->
 		if (attrs.topicId) {
 			if (session.user) {
@@ -105,15 +94,26 @@ class ApplicationTagLib {
 		if (topic.createdBy == user || user?.isAdmin) {
 
 			out << g.select(from: values, name: 'visibility', id: 'v', topicName: topic.topicName, topicId: attrs.id, value: topic.visibility)
-			out << "<div class=\"glyphicon glyphicon-edit\"></div>" << "<div class=\"glyphicon glyphicon-trash\"></div>"
+			out << "<div class=\"glyphicon glyphicon-edit\" id=\"editTopicIcon\" style=\"margin-left:20px\"></div>"
+			out << "<div class=\"glyphicon glyphicon-trash\"  style=\"margin-left:10px\"></div>"
 		}
-
-
 	}
 	def showSeriousness = { attrs ->
 		User user = session.user
 		Topic topic = Topic.get(attrs.id)
 		List values = Seriousness.values()
 		out << g.select(from: values, value: user?.getSubscription(topic), name: 'seriousness', id: 'seriousness', topicId: attrs.id)
+	}
+	def showActiveStatus = { attrs ->
+		User user = User.get(attrs.userId)
+		if (user.isActive)
+			out << "Yes"
+		else
+			out << "No"
+	}
+	def showActivateLink = { attrs ->
+		User user = User.get(attrs.userId)
+		out << link(controller: 'user', action: 'toggleActive', params: [userId: attrs.userId], user.isActive ? 'Deactivate' : 'Activate')
+
 	}
 }

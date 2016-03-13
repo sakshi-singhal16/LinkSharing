@@ -2,6 +2,7 @@ package com.tothenew.linksharing
 
 import com.tothenew.linksharing.CO.ResourceSearchCO
 import com.tothenew.linksharing.CO.TopicSearchCO
+import com.tothenew.linksharing.CO.UserCO
 import com.tothenew.linksharing.CO.Util
 import com.tothenew.linksharing.VO.TopicVO
 
@@ -21,9 +22,11 @@ class UserController {
 				model: [subscribedTopics: subscribedTopics, userObj: user, trendingTopics: trendingTopics, readingItems: readingItems])
 	}
 
-	def register(User user) {
-		user.isActive = true
-		user.isAdmin = false
+	def register(UserCO co) {
+		User user = new User(firstName: co.firstName, lastName: co.lastName, userName: co.userName, password: co.password,
+				confirmPassword: co.confirmPassword, email: co.email, isActive: true, isAdmin: false)
+		if (!params.pic.empty)
+			user.photo = co.pic
 		if (user.save(flush: true)) {
 			session.user = user
 			redirect(controller: 'user', action: 'index')
@@ -77,5 +80,63 @@ class UserController {
 		} else {
 			render "user not active"
 		}
+	}
+
+	def showUsers() {
+		if (session.user.isAdmin)
+			render(view: 'showUsers')
+		else {
+			redirect(controller: 'user', action: 'index')
+		}
+	}
+
+	def toggleActive(Long userId) {
+//		render "$userId------------"
+		User user = User.get(userId)
+		boolean newStatus = (!user.isActive)
+		if (User.executeUpdate('update User set isActive=:status where id=:id', [status: newStatus, id: userId]) == 1) {
+			render "User updated"
+		} else {
+			render "could not update user"
+		}
+	}
+
+	def showEditProfile() {
+		User user = session.user
+		List<Topic> topicsCreated = Topic.findAllByCreatedBy(user)
+		render(view: 'editProfile', model: [user: user, topicsCreated: topicsCreated])
+	}
+
+	def updateDetails(User newUser) {
+		/**/
+/*
+		if (newUser.photo) {
+			if (User.executeUpdate('update User set firstName=:fn,lastName=:ln,userName=:un,photo=:photo where id=:id',
+					[fn: newUser.firstName, ln: newUser.lastName, un: newUser.userName, id: session.user.id, photo: newUser.photo]) == 1) {
+				render("User details updated!")
+//				session.user=newUser
+			}
+		} else {
+			if (User.executeUpdate('update User set firstName=:fn,lastName=:ln,userName=:un where id=:id',
+					[fn: newUser.firstName, ln: newUser.lastName, un: newUser.userName, id: session.user.id]) == 1) {
+				render("User details updated!")
+//				session.user=newUser
+			} else
+				render("error updating user details!")
+		}
+*/
+
+//		render ("--------${newUser.userName}--------------")
+		User user = User.get(session.user.id)
+		user.firstName = newUser.firstName
+		user.lastName = newUser.lastName
+		user.userName = newUser.userName
+		if (newUser.photo)
+			user.photo = newUser.photo
+		if (user.save(flush: true)) {
+			render("UPdated")
+			session.user = user
+		} else
+			render("error updating")
 	}
 }

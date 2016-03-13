@@ -75,4 +75,10 @@ $(document).ready(function () {
             success: successHandler
         });
     });
+    $("#editTopicIcon").click(function () {
+        $("#editTopicForm").css({'display': 'block'})
+    })
+    $("#cancelButton").click(function () {
+        $("#editTopicForm").css({'display': 'none'})
+    })
 });

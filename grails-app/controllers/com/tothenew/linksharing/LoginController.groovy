@@ -23,7 +23,7 @@ class LoginController {
 				redirect(controller: 'user', action: 'index')
 			} else
 				flash.message = "Your account is not active"
-			render(view: 'index', model: [user: user])
+			render(view: 'index', model: [user: user, message: "${message(code: "user.account.not.active")}"])
 		} else {
 			flash.message = "User not found"
 //			render(flash.message)

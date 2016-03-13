@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-6">
                 <span>${readingItemObj.user.getName()}</span>
-                <span class="text-muted">@${readingItemObj.user.userName}, res id: ${readingItemObj.resource.id}</span>
+                <span class="text-muted">@${readingItemObj.user.userName}</span>
             </div>
             <a class="text-primary col-md-3 col-md-offset-3"
                href="${createLink(controller: 'topic', action: 'index', params: [id: readingItemObj.resource.topic.id])}">
@@ -16,7 +16,7 @@
         </div>
 
         <div class="row">
-            <div>${readingItemObj.resource.description}</div>
+            <div class="col-md-12">${readingItemObj.resource.description}</div>
         </div>
 
         <div class="row">
@@ -26,7 +26,7 @@
                 <span class="fa fa-google-plus-square"></span>
             </div>
 
-            <div class="col-md-8 col-md-offset-2 ">
+            <div class="col-md-8 col-md-offset-2">
                 <ls:showResourceTags id="${readingItemObj.resource.id}"/>
                 <ls:markAsRead isRead="${readingItemObj.isRead}" user="${session.user}"
                                id="${readingItemObj.resource.id}"/>

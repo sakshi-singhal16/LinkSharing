@@ -20,11 +20,11 @@
         </div>
     </g:hasErrors>
 
-    <div class="alert alert-warning">
-        <g:if test="${message}">
+    <g:if test="${message}">
+        <div class="alert alert-warning">
             ${message}
-        </g:if>
-    </div>
+        </div>
+    </g:if>
     <div class="col-md-6">
 
         <div class="panel panel-info">

@@ -4,7 +4,7 @@
     </div>
 
     <div class="panel-body">
-        <g:form class="form-horizontal" controller="user" action="register">
+        <g:uploadForm class="form-horizontal" controller="user" action="register" enctype="multipart/form-data">
 
             <div class="form-group">
                 <label class="control-label col-sm-4">First Name</label>
@@ -68,7 +68,7 @@
                 <g:submitButton name="register" type="submit" class="btn btn-sm-primary" value="Register"/>
             </div>
 
-        </g:form>
+        </g:uploadForm>
     </div> <!--.panel-body-->
 
 </div>

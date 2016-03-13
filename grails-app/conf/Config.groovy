@@ -141,4 +141,4 @@ log4j.main = {
 
 }
 grails.var = "local"
-linksharing.documents.folderPath = "/var/www/linksharing"
+linksharing.documents.folderPath = "var/www/linksharing"

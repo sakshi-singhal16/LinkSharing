@@ -1,4 +1,4 @@
-<div class="panel-primary" style="margin-top: 20px">
+<div class="panel panel-primary" style="margin-top: 20px">
     <div class="panel-heading">
         Trending Topics
     </div>

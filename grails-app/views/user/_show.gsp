@@ -1,17 +1,20 @@
 <div>
-    <div class="col-md-3">
+    <div class="col-md-1">
         <ls:userImage userId="${userObj?.id}" height="64" width="64"/>
     </div>
 
-    <div class="col-md-8 col-md-offset-1">
+    <div class="col-md-9 col-md-offset-2">
 
         <div class="row">
-            <h3><g:link controller="user"
-                        action="profile"
-                        params="[id: session.user.id, visibility: com.tothenew.linksharing.Enums.Visibility.PUBLIC, topicId: 0]">
-                ${userObj.getName()}
-            </g:link>
-            </h3>
+            <div class="col-md-12">
+                <h4><g:link controller="user"
+                            action="profile"
+                            params="[id: session.user.id, visibility: com.tothenew.linksharing.Enums.Visibility.PUBLIC, topicId: 0]">
+                    ${userObj.getName()}
+                </g:link>
+                </h4>
+            </div>
+
         </div>
 
         <div class="row">

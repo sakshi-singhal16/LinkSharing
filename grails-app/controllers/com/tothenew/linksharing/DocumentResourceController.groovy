@@ -31,20 +31,25 @@ class DocumentResourceController extends ResourceController {
 		}
 	}
 
-	def download(Long resourceId){
-		Resource resource=Resource.get(resourceId)
-		if(resource){
-			if(resource.canBeViewedBy(session.user)){
-				File file = new File("${resource.filePath}")
-				byte[] orderPDF = file.getBytes()
-				response.setHeader("Content-disposition", "attachment; filename=" + file.name)
-				response.contentLength = orderPDF.length
-				response.outputStream << orderPDF
-			}
-			else {
+	def download(Long resourceId) {
+		File file
+		Resource resource = Resource.get(resourceId)
+		if (resource) {
+			if (resource.canBeViewedBy(session.user)) {
+				try {
+					file = new File("${resource.filePath}")
+					byte[] orderPDF = file.getBytes()
+					response.setHeader("Content-disposition", "attachment; filename=" + file.name)
+					response.contentLength = orderPDF.length
+					response.outputStream << orderPDF
+				} catch (FileNotFoundException e) {
+					render "Error: ${e.message}"
+				}
+
+			} else {
 				render "You are not authorised to download this resource"
 			}
-		}else {
+		} else {
 			render "Resource not found!!"
 		}
 	}

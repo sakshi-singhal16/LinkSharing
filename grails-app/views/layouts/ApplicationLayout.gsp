@@ -20,12 +20,9 @@
 <g:if test="${session.user}">
     <nav class="navbar navbar-default">
         <div class="navbar-header">
-            %{--<div class="col-md-12">--}%
             <a class="navbar-brand" href="/">
-
                 <div class="text-primary h3">Link Sharing</div>
             </a>
-            %{--</div>--}%
         </div>
 
         <ul class="navbar navbar-right list list-inline">
@@ -64,13 +61,16 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <g:link controller="user" action="profile"
-                                        params="[id: session.user.id, visibility: com.tothenew.linksharing.Enums.Visibility.PUBLIC, topicId: 0]">
-                                    Profile
-                                </g:link>
-                            <li><a href="#">Users</a></li>
-                            <li><a href="#">Action</a></li>
+                        <li>
+
+                            <g:link controller="user" action="showEditProfile"
+                            params="[id: session.user.id, visibility: com.tothenew.linksharing.Enums.Visibility.PUBLIC, topicId: 0]">
+                            Profile
+                            </g:link>
+                            <g:if test="${session.user.isAdmin}">
+                                <li><a href="${createLink(controller: 'user', action: 'showUsers')}">Users</a></li>
+
+                            </g:if>
                             <li role="separator" class="divider"></li>
                             <li><a href="${createLink(controller: 'login', action: 'logout')}">Logout</a></li>
                         </ul>

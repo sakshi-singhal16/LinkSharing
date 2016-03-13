@@ -9,8 +9,8 @@
 <div class="container">
     <div class="col-md-5">
         <div class="row">
-            <div class="panel-info">
-                <div class="panel-body" style="border: solid 2px">
+            <div class="panel panel-primary">
+                <div class="panel-body">
 
                     <g:render template="show" model="${topicObj}"/>
                     <div class="col-md-4 col-md-offset-4">
@@ -26,7 +26,7 @@
 
 
         <div class="row">
-            <div class="panel-primary">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     Subscribed users: "${topicObj.topicName}"
                 </div>
@@ -44,13 +44,13 @@
     </div>
 
     <div class="col-md-6">
-        <div class="panel-primary">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="col-md-3">
                     Posts: "${topicObj.topicName}"
                 </div>
 
-                <div class="col-md-7 col-md-offset-2">
+                <div class="col-md-9">
                     <g:form class="navbar-form" role="search" controller="resource" action="search">
                         <div class="form-group">
                             <g:field type="text" name="q" class="form-control" placeholder="Search"/>

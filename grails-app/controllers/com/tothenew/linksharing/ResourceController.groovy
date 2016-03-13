@@ -47,7 +47,11 @@ class ResourceController {
 
 			render(view: '/shared/search', model: [results: resources, topics: trendingTopics, posts: topPosts, q: co.q])
 		} else {
-			render(view: '/login/index', model: [message: "No search text entered"])
+			if (!session.user)
+				render(view: '/login/index', model: [message: "No search text entered"])
+			else
+				render(view: '/user/index', model: [message: "No search text entered"])
+
 		}
 	}
 
