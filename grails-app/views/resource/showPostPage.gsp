@@ -7,13 +7,14 @@
 
 <body>
 <div class="container">
+
     <div class="col-md-7">
-        <div class="panel-primary">
-            <div class="panel-heading"></div>
+        <div class="panel panel-primary">
 
             <div class="panel-body">
                 <div class="col-md-2">
-                    <div class="glyphicon glyphicon-user" style="font-size:70px;"></div>
+                    %{--<div class="glyphicon glyphicon-user" style="font-size:70px;"></div>--}%
+                    <ls:userImage userId="${resource.createdBy.id}" height="64" width="64"/>
                 </div>
 
                 <div class="col-md-10">
@@ -38,9 +39,12 @@
                     <div class="row">
                         <div class="col-md-3 col-md-offset-6">
                             <g:form controller="resourceRating" action="save" params="[resourceId: resource.id]">
-                                <g:select from="${1..5}" name="newRating"
-                                          value="${session.user.getScore(resource.id)}"/>
-                                <g:submitButton name="rate" value="Rate"/>
+                                <g:if test="${session.user}">
+                                    <g:select from="${1..5}" name="newRating"
+                                              value="${session.user.getScore(resource.id)}"/>
+                                    <g:submitButton name="rate" value="Rate"/>
+                                </g:if>
+
                             </g:form>
                         </div>
 
@@ -48,7 +52,9 @@
                 </div>
 
                 <div class="row">
-                    ${resource.description}
+                    <div class="col-md-12">
+                        ${resource.description}
+                    </div>
                 </div>
 
                 <div class="row">
@@ -59,8 +65,12 @@
                     </div>
 
                     <div class="col-md-6 col-md-offset-3 ">
-                        <ls:canDeleteResource userId="${session.user.id}" resourceId="${resource.id}"/>
-                        <a href="#">Edit ||</a>
+                        <g:if test="${session.user}">
+                            <ls:canDeleteResource userId="${session.user.id}" resourceId="${resource.id}"/>
+                        </g:if>
+
+                        %{--<a href="#">Edit ||</a>--}%
+                        <ls:showResourceEdit/>
                         <ls:showResourceTags id="${resource.id}"/>
                     </div>
                 </div>
@@ -71,7 +81,7 @@
     </div>
 
     <div class="col-md-5">
-        <div class="panel-primary" style="margin-top: 20px">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 Trending Topics
             </div>

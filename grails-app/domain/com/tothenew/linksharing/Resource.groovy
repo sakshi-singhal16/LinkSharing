@@ -99,8 +99,9 @@ abstract class Resource {
 
 	}
 
-	void deleteFile() {
+	String deleteFile() {
 		log.info "**************This is implemented in DocumentResource class**********"
+		"in resource delete"
 	}
 
 	/*def afterInsert() {

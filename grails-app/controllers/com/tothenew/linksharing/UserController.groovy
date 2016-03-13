@@ -81,6 +81,10 @@ class UserController {
 			render "user not active"
 		}
 	}
+	/*def score(){
+		User user=User.get(1)
+		render "---------${(user).getScore(1)}"
+	}*/
 
 	def showUsers() {
 		if (session.user.isAdmin)

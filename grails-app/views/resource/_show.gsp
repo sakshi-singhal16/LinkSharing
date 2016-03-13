@@ -6,7 +6,12 @@
     <div class="col-md-10 col-md-offset-1">
         <div class="row">
             <div class="col-md-5">
-                ${resourceObj.createdBy.getName()}
+                <g:link controller="user"
+                        action="profile"
+                        params="[id: resourceObj.createdBy.id, visibility: com.tothenew.linksharing.Enums.Visibility.PUBLIC, topicId: 0]">
+
+                    ${resourceObj.createdBy.getName()}
+                </g:link>
                 <span class="text-muted">@${resourceObj.createdBy.userName}</span>
             </div>
 
@@ -30,7 +35,8 @@
             </div>
 
             <div class="col-md-4  col-md-offset-5">
-                <ls:showResourceTags id="${resourceObj.id}"/>
+                <a href="${createLink(controller: 'resource', action: 'showPostPage', params: [id: resourceObj.id])}">
+                    View Post</a>
             </div>
         </div>
     </div>

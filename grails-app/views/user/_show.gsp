@@ -9,7 +9,7 @@
             <div class="col-md-12">
                 <h4><g:link controller="user"
                             action="profile"
-                            params="[id: session.user.id, visibility: com.tothenew.linksharing.Enums.Visibility.PUBLIC, topicId: 0]">
+                            params="[id: userObj.id, visibility: com.tothenew.linksharing.Enums.Visibility.PUBLIC, topicId: 0]">
                     ${userObj.getName()}
                 </g:link>
                 </h4>

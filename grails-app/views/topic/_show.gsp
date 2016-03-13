@@ -40,7 +40,9 @@
         <div class="row">
             <div class="text-primary">
                 <div class="col-md-3">
-                    <ls:showSubscribe topicId="${topicObj.id}"/>
+                    <g:if test="${session.user}">
+                        <ls:showSubscribe topicId="${topicObj.id}"/>
+                    </g:if>
                 </div>
 
                 <div class="col-md-4 col-md-offset-1">
@@ -59,18 +61,19 @@
     </div>
 
     <div class="col-md-12">
+        <g:if test="${session.user}">
+            <div class="col-md-3">
+                <ls:showSeriousness id="${topicObj.id}"/>
+            </div>
 
-        <div class="col-md-3">
-            <ls:showSeriousness id="${topicObj.id}"/>
-        </div>
+            <div class="col-md-5 col-md-offset-1">
+                <ls:canUpdateTopic id="${topicObj.id}"/>
+            </div>
 
-        <div class="col-md-5 col-md-offset-1">
-            <ls:canUpdateTopic id="${topicObj.id}"/>
-        </div>
-
-        <div class="col-md-1">
-            <span class="glyphicon glyphicon-envelope" href="#"/>
-        </div>
+            <div class="col-md-1">
+                <span class="glyphicon glyphicon-envelope" href="#"/>
+            </div>
+        </g:if>
 
     </div>
 </div>

@@ -55,12 +55,14 @@ class DocumentResourceController extends ResourceController {
 	}
 
 	def delete(Long resourceId) {
-		Resource documentResource = Resource.get(resourceId)
-		File file = new File("${documentResource.filePath}")
-		if (file.delete()) {
-			render "File successfully deleted!"
-		} else {
-			render("error deleting file!")
+		Resource resource = Resource.get(resourceId)
+		render("${resource.deleteFile()}------------------<br/>")
+		try {
+			resource.delete(flush: true)
+			render "resource deleted"
+		}
+		catch (Exception e) {
+			log.error "Error: ${e.message}"
 		}
 	}
 }

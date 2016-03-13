@@ -1,13 +1,16 @@
 <div class="row">
     <div class="col-md-1">
-        <ls:userImage userId="${readingItemObj.user.id}" height="64" width="64"/>
+        <ls:userImage userId="${readingItemObj.resource.createdBy.id}" height="64" width="64"/>
     </div>
 
     <div class="col-md-9 col-md-offset-1">
         <div class="row">
             <div class="col-md-6">
-                <span>${readingItemObj.user.getName()}</span>
-                <span class="text-muted">@${readingItemObj.user.userName}</span>
+                <g:link controller="user"
+                        action="profile"
+                        params="[id: readingItemObj.resource.createdBy.id, visibility: com.tothenew.linksharing.Enums.Visibility.PUBLIC, topicId: 0]">
+                    ${readingItemObj.resource.createdBy.getName()}</g:link>
+                <span class="text-muted">@${readingItemObj.resource.createdBy.userName}</span>
             </div>
             <a class="text-primary col-md-3 col-md-offset-3"
                href="${createLink(controller: 'topic', action: 'index', params: [id: readingItemObj.resource.topic.id])}">

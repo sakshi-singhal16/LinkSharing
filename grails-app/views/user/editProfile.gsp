@@ -34,7 +34,7 @@
         </div>
 
         <div class="panel-body">
-            <g:uploadForm class="form-horizontal" controller="user" action="updateDetails"
+            <g:uploadForm class="form-horizontal"
                           enctype="multipart/form-data">
 
                 <div class="form-group">

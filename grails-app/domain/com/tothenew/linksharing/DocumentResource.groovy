@@ -21,5 +21,17 @@ class DocumentResource extends Resource {
 		)
 	}
 
+	@Override
+	String deleteFile() {
+		super.deleteFile()
+//		Resource documentResource = Resource.get(resourceId)
+		File file = new File("${this.filePath}")
+		if (file.delete()) {
+			"file deleted successfully"
+		} else {
+			"error deleting file"
+		}
+
+	}
 
 }

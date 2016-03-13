@@ -26,8 +26,13 @@ class ApplicationTagLib {
 	def canDeleteResource = { attrs, body ->
 		User user = User.get(attrs.userId)
 		Boolean canDelete = user.canDeleteResource(attrs.resourceId)
+		Resource resource = Resource.get(attrs.resourceId)
 		if (canDelete)
-			out << link(controller: 'resource', action: 'delete', params: [resourceId: attrs.resourceId], 'Delete ||')
+			if ((resource instanceof DocumentResource)) {
+				out << link(controller: 'documentResource', action: 'delete', params: [resourceId: attrs.resourceId], 'Delete ||')
+			} else {
+				out << link(controller: 'linkResource', action: 'delete', params: [resourceId: attrs.resourceId], 'Delete ||')
+			}
 	}
 
 	def subscriptionCount = { attrs ->
@@ -115,5 +120,9 @@ class ApplicationTagLib {
 		User user = User.get(attrs.userId)
 		out << link(controller: 'user', action: 'toggleActive', params: [userId: attrs.userId], user.isActive ? 'Deactivate' : 'Activate')
 
+	}
+	def showResourceEdit = { attrs ->
+		if (session.user)
+			out << link(controller: 'resource', action: 'edit', 'Edit')
 	}
 }

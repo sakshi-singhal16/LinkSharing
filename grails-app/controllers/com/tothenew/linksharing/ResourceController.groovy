@@ -15,8 +15,8 @@ class ResourceController {
 		subscribedUsers.each {
 
 			ReadingItem readingItem = new ReadingItem(isRead: false, user: it, resource: resource)
-			readingItem.user = it
-			if (it.equals(session.user)) {
+			User creator = readingItem.resource.createdBy
+			if (it.equals(creator)) {
 				readingItem.isRead = true
 			}
 

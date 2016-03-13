@@ -62,8 +62,8 @@ class User {
 
 	List<ReadingItem> getReadingItems() {
 		List<ReadingItem> readingItems = ReadingItem.createCriteria().list {
-
 			eq('user', this)
+			eq('isRead', false)
 		}
 		readingItems
 	}
@@ -91,14 +91,11 @@ class User {
 	}
 
 	int getScore(Long resourceId) {
-		int rating = ResourceRating.createCriteria().get {
-			projections {
-				property('rating')
-			}
-			eq('user', this)
-			'resource' {
-				eq('id', resourceId)
-			}
+		ResourceRating resourceRating = ResourceRating.findByUserAndResource(this, Resource.get(resourceId))
+		if (resourceRating) {
+			resourceRating.rating
+		} else {
+			0
 		}
 	}
 
