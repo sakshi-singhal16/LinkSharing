@@ -24,5 +24,13 @@ class LinkResourceController extends ResourceController {
 
 	def delete(Long resourceId) {
 		render "in link resource delete"
+		Resource resource = Resource.get(resourceId)
+		try {
+			resource.delete(flush: true)
+			render "resource deleted"
+		}
+		catch (Exception e) {
+			log.error "Error: ${e.message}"
+		}
 	}
 }

@@ -11,8 +11,9 @@
                 <a href="${createLink(controller: 'topic', action: 'index', params: [id: topicObj.id])}">
                     ${topicObj.topicName}</a> (${topicObj.visibility})
                 <div style="display: none" id="editTopicForm">
-                    <g:form controller="topic" action="save">
-                        <g:field name="topicName" type="text"/>
+                    <g:form controller="topic" action="editName">
+                        <g:field name="newName" type="text"/>
+                        <g:hiddenField name="topicId" value="${topicObj.id}"/>
                         <g:submitButton name="save" value="Save"/>
                         <g:submitButton name="cancelButton" value="Cancel"/>
                     </g:form>
@@ -44,6 +45,7 @@
                         <ls:showSubscribe topicId="${topicObj.id}"/>
                     </g:if>
                 </div>
+
 
                 <div class="col-md-4 col-md-offset-1">
                     <ls:subscriptionCount topicId="${topicObj.id}"/>

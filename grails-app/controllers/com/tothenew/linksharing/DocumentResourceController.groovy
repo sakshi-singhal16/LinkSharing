@@ -56,7 +56,6 @@ class DocumentResourceController extends ResourceController {
 
 	def delete(Long resourceId) {
 		Resource resource = Resource.get(resourceId)
-		render("${resource.deleteFile()}------------------<br/>")
 		try {
 			resource.delete(flush: true)
 			render "resource deleted"

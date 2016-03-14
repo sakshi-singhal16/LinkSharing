@@ -1,7 +1,6 @@
 package com.tothenew.linksharing
 
 import grails.test.mixin.TestFor
-import spock.lang.IgnoreRest
 import spock.lang.Specification
 import spock.lang.Unroll
 

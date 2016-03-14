@@ -2,8 +2,9 @@ package com.tothenew.linksharing
 
 import com.tothenew.linksharing.CO.UserSearchCO
 import com.tothenew.linksharing.Enums.Seriousness
+import groovy.transform.EqualsAndHashCode
 
-
+@EqualsAndHashCode
 class User {
 
 	String userName

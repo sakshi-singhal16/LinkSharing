@@ -86,7 +86,7 @@ class ApplicationTagLib {
 			if (session.user) {
 				User user = session.user
 				if (user.isSubscribed(attrs.topicId)) {
-					Subscription subscription = Subscription.findByUserAndTopic(user, Topic.get(attrs.topicId))
+//					Subscription subscription = Subscription.findByUserAndTopic(user, Topic.get(attrs.topicId))
 					out << link('Unsubscribe', class: 'unsubscribe', topicId: attrs.topicId)
 				} else {
 					out << link('Subscribe', class: 'subscribe', topicId: attrs.topicId)
@@ -129,7 +129,8 @@ class ApplicationTagLib {
 
 	}
 	def showResourceEdit = { attrs ->
-		if (session.user)
-			out << link(controller: 'resource', action: 'edit', 'Edit')
+		Resource resource = Resource.get(attrs.id)
+		if (session.user == resource.createdBy || session.user.isAdmin)
+			out << "<a id=\"openModal\" href=\"#editModal\" data-toggle=\"modal\">Edit</a>"
 	}
 }

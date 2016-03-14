@@ -15,6 +15,14 @@ class TopicController {
 		render(view: 'index', model: [users: subscribedUsers, topicObj: topic, posts: posts])
 	}
 
+	def editName(Long topicId, String newName) {
+		if (Topic.executeUpdate('update Topic set topicName=:name where id=:id', [name: newName, id: topicId]) == 1) {
+			render "Topic name updated"
+		} else {
+			render("error updating topic name")
+		}
+	}
+
 	def show(ResourceSearchCO co) {
 		Topic topic = Topic.read(co.topicId)
 		if (topic) {

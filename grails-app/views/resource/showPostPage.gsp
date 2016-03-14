@@ -70,7 +70,7 @@
                         </g:if>
 
                         %{--<a href="#">Edit ||</a>--}%
-                        <ls:showResourceEdit/>
+                        <ls:showResourceEdit id="${resource.id}"/>
                         <ls:showResourceTags id="${resource.id}"/>
                     </div>
                 </div>
@@ -98,3 +98,4 @@
 </div>
 </body>
 </html>
+<g:render template="edit" model="[resourceObj: resource]"/>

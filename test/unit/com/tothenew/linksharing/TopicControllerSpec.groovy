@@ -6,8 +6,6 @@ import com.tothenew.linksharing.Enums.Seriousness
 import com.tothenew.linksharing.Enums.Visibility
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
-import spock.lang.Ignore
-import spock.lang.IgnoreRest
 import spock.lang.Specification
 
 @Mock([Topic, User, Subscription])

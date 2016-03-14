@@ -36,12 +36,13 @@
                         </div>
                     </div>
 
+                    <span>
+                        <span><g:actionSubmit action="save" type="submit" name="createLink" value="Create"
+                                              class="btn btn-block btn-primary"/></span>
+                        <span><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </span>
 
-                    <div class="modal-footer">
-                        <g:actionSubmit action="save" type="submit" name="createLink" value="Create"
-                                        class="btn btn-block btn-primary"/>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    </div>
+                    </span>
                 </g:form>
             </div><!--.modal-body-->
 
