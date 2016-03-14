@@ -10,8 +10,6 @@ class TopicController {
 
 	def index(Long id) {
 		Topic topic = Topic.get(id)
-
-//		render("$topic")
 		List<User> subscribedUsers = topic.getSubscribedUsers()
 		List<Resource> posts = Resource.findAllByTopic(topic)
 		render(view: 'index', model: [users: subscribedUsers, topicObj: topic, posts: posts])
@@ -36,7 +34,6 @@ class TopicController {
 			redirect(controller: 'login', action: 'index')
 			flash.message = "Topic not found"
 		}
-
 	}
 
 	def save(TopicCO topicCO) {
@@ -75,7 +72,6 @@ class TopicController {
 		} else {
 			render("error inviting: topic not found!")
 		}
-
 	}
 
 	def join(Long topicId) {
@@ -84,6 +80,22 @@ class TopicController {
 			render("Susbcribed to topic successfully")
 		} else {
 			render("error subscribing")
+		}
+	}
+
+	def delete(Long topicId) {
+		Topic topic = Topic.get(topicId)
+		if (session.user.isAdmin || session.user == topic.createdBy) {
+			try {
+				topic.delete(flush: true)
+				render([message: "topic deleted successfully"] as JSON)
+			}
+			catch (Exception e) {
+				log.error "Error: ${e.message}"
+				render([error: "could not delete topic"] as JSON)
+			}
+		} else {
+			render "you are not authorised to delete this topic"
 		}
 	}
 }

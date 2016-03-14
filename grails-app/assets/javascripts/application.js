@@ -18,16 +18,16 @@ function successHandler(result) {
 
             jsonResponseDiv.text(result.message);
             jsonResponseDiv.addClass("alert alert-success");
-            setTimeout(function () {
+            /*            setTimeout(function () {
                 location.reload()
-            }, 2000)
+             }, 2000)*/
 
         }
         else {
             jsonResponseDiv.text(result.error);
             jsonResponseDiv.addClass("alert alert-danger");
-            setTimeout(function () {
-            }, 2000)
+            /*       setTimeout(function () {
+             }, 2000)*/
         }
         jsonResponseDiv.css({'display': 'block'})
     }
@@ -73,6 +73,14 @@ $(document).ready(function () {
             url: "/subscription/delete",
             data: {topicId: $(this).attr('topicId')},
             success: successHandler
+        });
+    });
+
+    $(".markReadStatus").click(function () {
+        $.ajax({
+            url: "/readingItem/changeIsRead",
+            data: {resourceId: $(this).attr('resourceId'), isRead: $(this).attr('isRead')},
+            success: location.reload()
         });
     });
     $("#editTopicIcon").click(function () {

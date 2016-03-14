@@ -6,13 +6,22 @@ import com.tothenew.linksharing.Enums.Visibility
 
 class ApplicationTagLib {
 	static namespace = "ls"
-	def markAsRead = { attrs ->
-		if (session.user) {
-			Boolean isRead = Boolean.valueOf(attrs.isRead)
-			out << link(controller: 'readingItem', action: 'changeIsRead', params: [isRead: !isRead, resourceId: attrs.id],
-					isRead ? 'Mark as Unread ||' : 'Mark as Read ||')
-		}
+
+	def markAsRead = {
+
+		attributes ->
+			if (session.user) {
+				Long resourceId = attributes.id
+				Boolean isRead = !attributes.isRead
+				if (attributes.isRead)
+					out << "<a href = '' class = 'markReadStatus' resourceId = ${resourceId} isRead = ${isRead}>" +
+							"Mark as unread ||</a>"
+				else
+					out << "<a href = '' class = 'markReadStatus' resourceId = ${resourceId} isRead = ${isRead}>" +
+							"Mark as read ||</a>"
+			}
 	}
+
 
 	def showTrendingTopics = { attrs ->
 		out << render(template: '/shared/trendingTopics', model: [trendingTopics: attrs.topics])
@@ -78,13 +87,10 @@ class ApplicationTagLib {
 				User user = session.user
 				if (user.isSubscribed(attrs.topicId)) {
 					Subscription subscription = Subscription.findByUserAndTopic(user, Topic.get(attrs.topicId))
-					out << link('Unsubscribe', class: 'unsubscribe',
-							topicId: attrs.topicId)
-
+					out << link('Unsubscribe', class: 'unsubscribe', topicId: attrs.topicId)
 				} else {
-					out << link(controller: 'subscription', action: 'save', params: [topicId: attrs.topicId], 'Subscribe', class: 'subscribe', topicId: attrs.topicId)
+					out << link('Subscribe', class: 'subscribe', topicId: attrs.topicId)
 				}
-
 			}
 		}
 	}
@@ -100,7 +106,8 @@ class ApplicationTagLib {
 
 			out << g.select(from: values, name: 'visibility', id: 'v', topicName: topic.topicName, topicId: attrs.id, value: topic.visibility)
 			out << "<div class=\"glyphicon glyphicon-edit\" id=\"editTopicIcon\" style=\"margin-left:20px\"></div>"
-			out << "<div class=\"glyphicon glyphicon-trash\"  style=\"margin-left:10px\"></div>"
+//			out << "<a class=\"glyphicon glyphicon-trash\"  style=\"margin-left:10px\"></div>"
+			out << link(controller: 'topic', action: 'delete', class: 'glyphicon glyphicon-trash', style: 'margin-left:10px', params: [topicId: attrs.id])
 		}
 	}
 	def showSeriousness = { attrs ->

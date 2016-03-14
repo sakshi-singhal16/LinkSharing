@@ -1,5 +1,6 @@
 package com.tothenew.linksharing
 
+import com.tothenew.linksharing.CO.UserSearchCO
 import com.tothenew.linksharing.Enums.Seriousness
 
 
@@ -41,6 +42,22 @@ class User {
 		sort id: "desc"
 	}
 
+	static namedQueries = {
+		search { UserSearchCO co ->
+			if (co.q) {
+
+				ilike('firstName', "%${co.q}%")
+				ilike('lastName', "%${co.q}%")
+				ilike('userName', "%${co.q}%")
+				ilike('email', "%${co.q}%")
+
+			}
+			if (co.isActive != null) {
+				eq('isActive', co.isActive)
+			}
+			eq('isAdmin', false)
+		}
+	}
 	String getName() {
 		[firstName, lastName].findAll { it }.join(' ')
 	}

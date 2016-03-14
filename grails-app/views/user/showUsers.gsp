@@ -13,52 +13,74 @@
         </div>
         <br/>
         <br/>
-        <table class="table table-striped table-bordered">
 
-            %{--
-                        <div class="col-md-3">
-                            Users
-                        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        Users
+                    </div>
 
-                        <div class="col-md-5">
-                            <g:form role="search">
-                                <div class="form-group">
-                                    <span>
-                                        <g:field type="text" class="form-control" placeholder="Search" name="q"/>
+                    <div class="col-xs-offset-2 col-xs-7">
+                        <g:form name="adminUsersSearchForm" class="form-inline" controller="user" action="showUsers">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <select name="isActive" id="isActive" class="btn btn-default">
+                                        <option value="${null}">All users</option>
+                                        <option value="${true}">Active users</option>
+                                        <option value="${false}">Inactive users</option>
+                                    </select>
+
+                                    &nbsp;&nbsp;&nbsp;
+
+
+
+                                    <span class="input-group-btn">
+                                        <input type="text" id="q" name="q" class="form-control input-group"
+                                               placeholder="Search users.. ">
                                     </span>
-                                    <span>
-                                        <g:submitButton name="search" type="submit" class="btn btn-default" value="Search"/>
 
+                                    <span class="input-group-btn">
+                                        <g:submitButton name="serach" class="btn btn-primary" value="Search"/>
                                     </span>
+
                                 </div>
-                            </g:form>
-                        </div>
-            --}%
+                            </div>
+                        </g:form>
+                    </div>
+                </div>
 
-            <tr class="text text-center">
-                <b>
-                    <td>Id</td>
-                    <td>Username</td>
-                    <td>Email</td>
-                    <td>FirstName</td>
-                    <td>Last Name</td>
-                    <td>Active</td>
-                    <td>Manage</td>
-                </b>
+            </div>
 
-            </tr>
-            <g:each in="${com.tothenew.linksharing.User.list()}" var="user">
-                <tr>
-                    <td>${user.id}</td>
-                    <td>${user.userName}</td>
-                    <td>${user.email}</td>
-                    <td>${user.firstName}</td>
-                    <td>${user.lastName}</td>
-                    <td><ls:showActiveStatus userId="${user.id}"/></td>
-                    <td><ls:showActivateLink userId="${user.id}"/></td>
-                </tr>
-            </g:each>
-        </table>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered">
+
+                    <thead>
+                    <tr>
+                        <g:sortableColumn property="id" title="Id"/>
+                        <g:sortableColumn property="userName" title="Username"/>
+                        <g:sortableColumn property="email" title="Email"/>
+                        <g:sortableColumn property="firstName" title="First name"/>
+                        <g:sortableColumn property="lastName" title="Last name"/>
+                        <g:sortableColumn property="isActive" title="Active"/>
+                        <th>Manage</th>
+                    </tr>
+                    </thead>
+                    <g:each in="${users}" var="user">
+                        <tr>
+                            <td>${user.id}</td>
+                            <td>${user.userName}</td>
+                            <td>${user.email}</td>
+                            <td>${user.firstName}</td>
+                            <td>${user.lastName}</td>
+                            <td><ls:showActiveStatus userId="${user.id}"/></td>
+                            <td><ls:showActivateLink userId="${user.id}"/></td>
+                        </tr>
+                    </g:each>
+                </table>
+            </div>
+        </div>
+
     </div>
 </div>
 </body>

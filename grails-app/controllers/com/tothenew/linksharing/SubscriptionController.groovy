@@ -32,7 +32,6 @@ class SubscriptionController {
 	def delete(Long topicId) {
 		Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.get(topicId))
 		if (subscription) {
-			//render " $subscription"
 			if (session.user == subscription.topic.createdBy) {
 				render([error: "Sorry, you can not unusbscribe a self-created a topic"] as JSON)
 			} else {

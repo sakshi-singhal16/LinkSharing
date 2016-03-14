@@ -8,7 +8,7 @@ class ApplicationFilters {
 				log.info("In filter: ${params}")
 			}
 		}
-		sessionCheck(controller: '*', action: 'save|delete|update|') {
+		sessionCheck(controller: '*', action: 'save|delete|update|updateDetails') {
 			before = {
 				if (!session.user)
 					redirect(controller: 'login', action: 'index')

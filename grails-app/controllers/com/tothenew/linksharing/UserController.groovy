@@ -3,6 +3,7 @@ package com.tothenew.linksharing
 import com.tothenew.linksharing.CO.ResourceSearchCO
 import com.tothenew.linksharing.CO.TopicSearchCO
 import com.tothenew.linksharing.CO.UserCO
+import com.tothenew.linksharing.CO.UserSearchCO
 import com.tothenew.linksharing.CO.Util
 import com.tothenew.linksharing.VO.TopicVO
 
@@ -81,15 +82,16 @@ class UserController {
 			render "user not active"
 		}
 	}
-	/*def score(){
-		User user=User.get(1)
-		render "---------${(user).getScore(1)}"
-	}*/
 
-	def showUsers() {
-		if (session.user.isAdmin)
-			render(view: 'showUsers')
-		else {
+	def showUsers(UserSearchCO co) {
+		if (session.user.isAdmin) {
+			if (co.q) {
+				List<User> filteredUsers = User.search(co).list()
+				render(view: 'showUsers', model: [users: filteredUsers])
+			} else {
+				render(view: 'showUsers', model: [users: User.list()])
+			}
+		} else {
 			redirect(controller: 'user', action: 'index')
 		}
 	}
@@ -112,25 +114,6 @@ class UserController {
 	}
 
 	def updateDetails(User newUser) {
-		/**/
-/*
-		if (newUser.photo) {
-			if (User.executeUpdate('update User set firstName=:fn,lastName=:ln,userName=:un,photo=:photo where id=:id',
-					[fn: newUser.firstName, ln: newUser.lastName, un: newUser.userName, id: session.user.id, photo: newUser.photo]) == 1) {
-				render("User details updated!")
-//				session.user=newUser
-			}
-		} else {
-			if (User.executeUpdate('update User set firstName=:fn,lastName=:ln,userName=:un where id=:id',
-					[fn: newUser.firstName, ln: newUser.lastName, un: newUser.userName, id: session.user.id]) == 1) {
-				render("User details updated!")
-//				session.user=newUser
-			} else
-				render("error updating user details!")
-		}
-*/
-
-//		render ("--------${newUser.userName}--------------")
 		User user = User.get(session.user.id)
 		user.firstName = newUser.firstName
 		user.lastName = newUser.lastName
@@ -138,7 +121,7 @@ class UserController {
 		if (newUser.photo)
 			user.photo = newUser.photo
 		if (user.save(flush: true)) {
-			render("UPdated")
+			render("Updated")
 			session.user = user
 		} else
 			render("error updating")
