@@ -25,9 +25,10 @@ class UserController {
 
 	def register(UserCO co) {
 		User user = new User(firstName: co.firstName, lastName: co.lastName, userName: co.userName, password: co.password,
-				confirmPassword: co.confirmPassword, email: co.email, isActive: true, isAdmin: false)
-		if (!params.pic.empty)
-			user.photo = co.pic
+				confirmPasswocrd: co.confirmPassword, email: co.email, isActive: true, isAdmin: false)
+		if (!co.photo.empty) {
+			user.photo = co.photo.bytes
+		}
 		if (user.save(flush: true)) {
 			session.user = user
 			redirect(controller: 'user', action: 'index')
@@ -83,6 +84,7 @@ class UserController {
 		}
 	}
 
+	def changePassword() {}
 	def showUsers(UserSearchCO co) {
 		if (session.user.isAdmin) {
 			if (co.q) {

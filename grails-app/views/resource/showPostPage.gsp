@@ -96,6 +96,6 @@
 
     </div>
 </div>
+<g:render template="edit" model="[resourceObj: resource]"/>
 </body>
 </html>
-<g:render template="edit" model="[resourceObj: resource]"/>

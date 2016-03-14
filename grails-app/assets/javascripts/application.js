@@ -84,9 +84,9 @@ $(document).ready(function () {
         });
     });
     $("#editTopicIcon").click(function () {
-        $("#editTopicForm").css({'display': 'block'})
+        $("#editTopicForm${topic.id}").css({'display': 'block'})
     })
     $("#cancelButton").click(function () {
-        $("#editTopicForm").css({'display': 'none'})
+        $("#editTopicForm${topic.id}").css({'display': 'none'})
     })
 });

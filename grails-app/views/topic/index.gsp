@@ -15,8 +15,6 @@
                     <g:render template="show" model="${topicObj}"/>
                     <div class="col-md-4 col-md-offset-4">
                         <div class="row">
-                            %{--<g:select from="${com.tothenew.linksharing.Enums.Seriousness.values()}" name="seriousness"/>--}%
-                            %{--<a hr="#" class="glyphicon glyphicon-envelope"></a>--}%
                         </div>
                     </div>
 
@@ -46,18 +44,20 @@
     <div class="col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-5">
                     Posts: "${topicObj.topicName}"
                 </div>
 
-                <div class="col-md-9">
-                    <g:form class="navbar-form" role="search" controller="resource" action="search">
+                    <div class="col-md-7">
+                        <g:form class="form-inline" role="search" controller="resource" action="search">
                         <div class="form-group">
                             <g:field type="text" name="q" class="form-control" placeholder="Search"/>
                             <g:hiddenField name="topicId" value="${topicObj.id}"/>
                             <g:submitButton type="submit" name="search" class="btn btn-primary" value="Search"/>
                         </div>
                     </g:form>
+                    </div>
                 </div>
             </div>
 

@@ -91,7 +91,7 @@
                     <label class="control-label col-sm-4">Password</label>
 
                     <div class="col-sm-8">
-                        <g:field type="password" class="form-control" name="password"/>
+                        <g:field type="password" class="form-control" name="newPassword"/>
                     </div>
                 </div>
 
@@ -99,7 +99,7 @@
                     <label class="control-label col-sm-4">Confirm password</label>
 
                     <div class="col-sm-8">
-                        <g:field type="password" class="form-control" name="confirmPassword"/>
+                        <g:field type="password" class="form-control" name="confirmNewPassword"/>
                     </div>
                 </div>
 

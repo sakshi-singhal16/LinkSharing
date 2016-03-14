@@ -10,12 +10,12 @@
             <div class="col-md-12">
                 <a href="${createLink(controller: 'topic', action: 'index', params: [id: topicObj.id])}">
                     ${topicObj.topicName}</a> (${topicObj.visibility})
-                <div style="display: none" id="editTopicForm">
+                <div style="display: none" id="editTopicForm${topic.id}">
                     <g:form controller="topic" action="editName">
-                        <g:field name="newName" type="text"/>
+                        <g:field name="newName" type="text" value="${topicObj.topicName}"/>
                         <g:hiddenField name="topicId" value="${topicObj.id}"/>
                         <g:submitButton name="save" value="Save"/>
-                        <g:submitButton name="cancelButton" value="Cancel"/>
+                        <button class="btn btn-primary" id="cancelButton">Cancel</button>
                     </g:form>
                 </div>
             </div>

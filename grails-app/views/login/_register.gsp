@@ -59,7 +59,7 @@
                 <label class="control-label col-sm-4">Photo</label>
 
                 <div class="col-sm-8">
-                    <input type="file" id="photo">
+                    <input type="file" name="photo">
                 </div>
             </div>
 

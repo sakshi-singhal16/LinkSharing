@@ -131,6 +131,6 @@ class ApplicationTagLib {
 	def showResourceEdit = { attrs ->
 		Resource resource = Resource.get(attrs.id)
 		if (session.user == resource.createdBy || session.user.isAdmin)
-			out << "<a id=\"openModal\" href=\"#editModal\" data-toggle=\"modal\">Edit</a>"
+			out << "<a id=\"openModal\" data-target=\"#editModal\" data-toggle=\"modal\">Edit</a>"
 	}
 }

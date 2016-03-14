@@ -12,7 +12,7 @@ class User {
 	String firstName
 	String lastName
 	String email
-	Byte[] photo
+	byte[] photo
 	Boolean isAdmin
 	Boolean isActive
 	Date dateCreated

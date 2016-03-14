@@ -16,10 +16,14 @@ class TopicController {
 	}
 
 	def editName(Long topicId, String newName) {
-		if (Topic.executeUpdate('update Topic set topicName=:name where id=:id', [name: newName, id: topicId]) == 1) {
-			render "Topic name updated"
+		if (newName != (Topic.get(topicId).topicName)) {
+			if (Topic.executeUpdate('update Topic set topicName=:name where id=:id', [name: newName, id: topicId]) == 1) {
+				render "Topic name updated"
+			} else {
+				render("error updating topic name")
+			}
 		} else {
-			render("error updating topic name")
+			"No changes made."
 		}
 	}
 
