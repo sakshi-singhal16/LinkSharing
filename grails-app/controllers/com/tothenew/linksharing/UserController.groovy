@@ -99,23 +99,26 @@ class UserController {
 
 	def showUsers(UserSearchCO co) {
 		if (session.user.isAdmin) {
-			if (co.q) {
-				List<User> filteredUsers = User.search(co).list([max: 20, sort: co.sort, order: co.order])
-				render(view: 'showUsers', model: [users: filteredUsers])
-			} else {
-				render(view: 'showUsers', model: [users: User.list()])
-			}
+			List<User> filteredUsers = User.search(co).list([max: 20, sort: co.sort, order: co.order])
+			render(view: 'showUsers', model: [users: filteredUsers])
+			/*else {
+			   render(view: 'showUsers', model: [users: User.list()])
+		   }*/
 		} else {
 			redirect(controller: 'user', action: 'index')
 		}
 	}
 
 	def toggleActive(Long userId) {
-//		render "$userId------------"
 		User user = User.get(userId)
 		boolean newStatus = (!user.isActive)
 		if (User.executeUpdate('update User set isActive=:status where id=:id', [status: newStatus, id: userId]) == 1) {
-			render "User updated"
+			if (newStatus) {
+				flash.message = "User activated"
+			} else {
+				flash.message = "User deactivated"
+			}
+			redirect(url: request.getHeader('referer'))
 		} else {
 			render "could not update user"
 		}
@@ -127,25 +130,57 @@ class UserController {
 		render(view: 'editProfile', model: [user: user, topicsCreated: topicsCreated])
 	}
 
-	def updateDetails(User newUser) {
+	def updateDetails(UserCO newUser) {
 		User user = User.get(session.user.id)
 		user.firstName = newUser.firstName
 		user.lastName = newUser.lastName
 		user.userName = newUser.userName
-		if (newUser.photo)
-			user.photo = newUser.photo
+
+		if (!newUser.photo.empty)
+			user.photo = newUser.photo.bytes
 		if (user.save(flush: true)) {
-			render("Updated")
+			flash.message = "User details updated"
 			session.user = user
 		} else
-			render("error updating")
+			flash.error = "Error updating details"
+		redirect(url: request.getHeader('referer'))
 	}
 
 	def changePassword(UpdatePasswordCO co) {
-
+		User user = User.get(session.user.id)
+		if (co.validate()) {
+			if (user.password == co.oldPassword) {
+				user.password = co.password
+				if (user.save(flush: true)) {
+					session.user = user
+					flash.message = "Password updated successfully"
+				} else {
+					flash.error = "Error saving user"
+				}
+			} else {
+				flash.error = "Please enter your correct password"
+			}
+		} else {
+			co.errors.allErrors.each {
+				flash.error = "${g.message(error: it)}\n"
+			}
+		}
+		redirect(url: request.getHeader('referer'))
 	}
 
 	def validateEmail() {
+		if (User.findByEmail(params.email))
+			true
+		else
+			false
+
+	}
+
+	def validateUserName() {
+		if (User.findByUserName(params.userName))
+			true
+		else
+			false
 
 	}
 }

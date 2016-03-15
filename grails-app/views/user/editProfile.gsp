@@ -85,13 +85,22 @@
         </div>
 
         <div class="panel-body">
-            <g:form>
+            <g:form class="form-horizontal" controller="user" action="changePassword">
+                <g:hiddenField name="id" value="${session.user.id}"/>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Current password</label>
+
+                    <div class="col-sm-8">
+                        <g:field type="password" class="form-control" name="oldPassword"/>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label class="control-label col-sm-4">Password</label>
 
                     <div class="col-sm-8">
-                        <g:field type="password" class="form-control" name="newPassword"/>
+                        <g:field type="password" class="form-control" name="password"/>
                     </div>
                 </div>
 
@@ -99,7 +108,7 @@
                     <label class="control-label col-sm-4">Confirm password</label>
 
                     <div class="col-sm-8">
-                        <g:field type="password" class="form-control" name="confirmNewPassword"/>
+                        <g:field type="password" class="form-control" name="confirmPassword"/>
                     </div>
                 </div>
 

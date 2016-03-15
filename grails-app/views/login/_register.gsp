@@ -4,7 +4,8 @@
     </div>
 
     <div class="panel-body">
-        <g:uploadForm class="form-horizontal" controller="user" action="register" enctype="multipart/form-data">
+        <g:uploadForm id="registrationForm" class="form-horizontal" controller="user" action="register"
+                      enctype="multipart/form-data">
 
             <div class="form-group">
                 <label class="control-label col-sm-4">First Name</label>
@@ -71,4 +72,53 @@
         </g:uploadForm>
     </div> <!--.panel-body-->
 
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $('#registrationForm').validate({
+                    rules: {
+                        firstName: {
+                            required: true
+                        },
+                        lastName: {
+                            required: true
+                        },
+                        email: {
+                            required: true,
+                            remote: "/user/validateEmail"
+                        },
+                        userName: {
+                            required: true,
+                            remote: {
+                                url: "/user/validateUserName",
+                                type: "post"
+
+                            }
+                        },
+                        password: {
+                            required: true,
+                            minlength: 5
+                        },
+                        confirmPassword: {
+                            required: true
+//                    matchesPassword: true
+                        }
+                    },
+                    messages: {
+                        firstName: {
+                            required: "First Name is required"
+                        },
+                        email: {
+                            remote: "Email already exists"
+                        },
+                        userName: {
+                            remote: "Username already exists"
+                        }
+                    }
+                });
+            });
+
+
+        });
+    </script>
 </div>

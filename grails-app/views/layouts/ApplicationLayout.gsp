@@ -13,72 +13,78 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <asset:stylesheet src="application.css"/>
     <asset:javascript src="application.js"/>
+    <asset:javascript src="jquery.validate.min.js"/>
     <g:layoutHead/>
 </head>
 
 <body>
 <g:if test="${session.user}">
+
     <nav class="navbar navbar-default">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">
-                <div class="text-primary h3">Link Sharing</div>
-            </a>
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
+                    <div class="text-primary h3">Link Sharing</div>
+                </a>
+            </div>
+            <ul class="navbar navbar-right list list-inline">
+                <li>
+                    <g:form class="navbar-form navbar-right" role="search" controller="resource" action="search"
+                            params="[topicId: null]">
+                        <div class="form-group">
+                            <g:field type="text" class="form-control" placeholder="Search" name="q"/>
+                            <g:submitButton name="search" type="submit" class="btn btn-default" value="Search"/>
+                        </div>
+                    </g:form>
+                </li>
+
+                <li>
+                    <span class="fa fa-weixin" style="font-size:20px" data-toggle="modal"
+                          data-target="#createTopicModal"
+                          title="Create new topic"></span>
+                </li>
+                <li>
+                    <span class="fa fa-link " style="font-size:20px" data-toggle="modal" data-target="#shareLinkModal"
+                          title="Create link resource"></span>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-envelope" style="font-size:20px" data-toggle="modal"
+                          data-target="#inviteModal" title="Invite"></span>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-folder-open" style="font-size:20px" data-toggle="modal"
+                          data-target="#shareDocumentModal" title="Create document resource"></span>
+                </li>
+
+                <li>
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">${session.user.name}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                            <li>
+
+                                <g:link controller="user" action="showEditProfile"
+                                params="[id: session.user.id, visibility: com.tothenew.linksharing.Enums.Visibility.PUBLIC, topicId: 0]">
+                                Profile
+                                </g:link>
+                                <g:if test="${session.user.isAdmin}">
+                                    <li><a href="${createLink(controller: 'user', action: 'showUsers')}">Users</a></li>
+
+                                </g:if>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="${createLink(controller: 'login', action: 'logout')}">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
         </div>
 
-        <ul class="navbar navbar-right list list-inline">
-            <li>
-                <g:form class="navbar-form navbar-right" role="search" controller="resource" action="search"
-                        params="[topicId: null]">
-                    <div class="form-group">
-                        <g:field type="text" class="form-control" placeholder="Search" name="q"/>
-                        <g:submitButton name="search" type="submit" class="btn btn-default" value="Search"/>
-                    </div>
-                </g:form>
-            </li>
-
-            <li>
-                <span class="fa fa-weixin" style="font-size:20px" data-toggle="modal" data-target="#createTopicModal"
-                      title="Create new topic"></span>
-            </li>
-            <li>
-                <span class="fa fa-link " style="font-size:20px" data-toggle="modal" data-target="#shareLinkModal"
-                      title="Create link resource"></span>
-            </li>
-            <li>
-                <span class="glyphicon glyphicon-envelope" style="font-size:20px" data-toggle="modal"
-                      data-target="#inviteModal" title="Invite"></span>
-            </li>
-            <li>
-                <span class="glyphicon glyphicon-folder-open" style="font-size:20px" data-toggle="modal"
-                      data-target="#shareDocumentModal" title="Create document resource"></span>
-            </li>
-
-            <li>
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">${session.user.name}
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                        <li>
-
-                            <g:link controller="user" action="showEditProfile"
-                            params="[id: session.user.id, visibility: com.tothenew.linksharing.Enums.Visibility.PUBLIC, topicId: 0]">
-                            Profile
-                            </g:link>
-                            <g:if test="${session.user.isAdmin}">
-                                <li><a href="${createLink(controller: 'user', action: 'showUsers')}">Users</a></li>
-
-                            </g:if>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="${createLink(controller: 'login', action: 'logout')}">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-
-        </ul>
     </nav>
     <g:render template="/topic/createTopic"/>
     <g:render template="/topic/inviteToTopic"/>
@@ -88,23 +94,26 @@
 </g:if>
 <g:else>
     <nav class="navbar navbar-default">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
 
-                <div class="text-primary h3">Link Sharing</div>
-            </a>
+                    <div class="text-primary h3">Link Sharing</div>
+                </a>
 
-        </div>
+            </div>
 
-        <div class="navbar">
+            <div class="navbar">
 
-            <g:form class="navbar-form navbar-right" role="search" controller="resource" action="search"
-                    params="[topicId: 0]">
-                <div class="form-group">
-                    <g:field type="text" class="form-control" placeholder="Search posts.." name="q"/>
-                    <g:submitButton name="search" type="submit" class="btn btn-default" value="Search"/>
-                </div>
-            </g:form>
+                <g:form class="navbar-form navbar-right" role="search" controller="resource" action="search"
+                        params="[topicId: 0]">
+                    <div class="form-group">
+                        <g:field type="text" class="form-control" placeholder="Search posts.." name="q"/>
+                        <g:submitButton name="search" type="submit" class="btn btn-default" value="Search"/>
+                    </div>
+                </g:form>
+            </div>
+
         </div>
 
     </nav>
@@ -113,21 +122,11 @@
 <div class="container">
 
     <div class="jsonResponse" style="display:none"></div>
-    <g:if test="${flash.message}">
-        <div class="row alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            ${flash.message}
-        </div>
-    </g:if>
-    <g:elseif test="${flash.error}">
-        <div class="row alert alert-error">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            ${flash.error}
-        </div>
-    </g:elseif>
+
     <div class="row">
         <g:if test="${flash.message}">
             <div class="col-xs-12 alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
                 <label><%=flash.message%></label>
             </div>
         </g:if>
@@ -136,6 +135,7 @@
     <div class="row">
         <g:if test="${flash.error}">
             <div class="col-xs-12 alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">×</button>
                 <label><%=flash.error%></label>
             </div>
         </g:if>
@@ -143,8 +143,6 @@
 
     <g:layoutBody/>
 </div>
-
-%{--<g:layoutBody/>--}%
 
 </body>
 </html>

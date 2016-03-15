@@ -10,13 +10,14 @@ import grails.validation.Validateable
 class UpdatePasswordCO {
 	String oldPassword
 	String password
+	String confirmPassword
 	Long id
 
 	User getUser() {
 		User.get(id)
 	}
 	static constraints = {
-		importFrom(User)
-		oldPassword matches: user.password
+		importFrom(User, include: ['password', 'confirmPassword'])
+//		oldPassword matches: getUser().password
 	}
 }

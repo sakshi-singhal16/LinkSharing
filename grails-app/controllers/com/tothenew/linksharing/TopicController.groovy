@@ -71,7 +71,7 @@ class TopicController {
 
 	def update(String topicName, Long id, String visibility) {
 
-		Visibility visibility1 = Visibility.convertToEnum(visibility)
+		Visibility visibility1 = Visibility.getVisibility(visibility)
 		User user = session.user
 		println("$user-----------------------------------")
 		if (Topic.executeUpdate("update Topic set visibility=:v where id=:i", [v: visibility1, i: id]) == 1) {
