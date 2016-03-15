@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <ls:showTrendingTopics topics="${trendingTopics}"/>
+        %{--<ls:showTrendingTopics topics="${trendingTopics}"/>--}%
 
     </div>
 
@@ -53,6 +53,3 @@
 
 </body>
 </html>
-
-
-

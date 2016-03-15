@@ -1,4 +1,4 @@
-<div class="panel panel-info">
+<div class="panel panel-primary">
     <div class="panel-heading">
         Login
     </div>
@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="row">
                 <div class="col-md-2 col-md-offset-3">
                     <g:actionSubmit class="btn btn-sm-primary" name="login" type="submit" value="Login" action="login"/>
                 </div>

@@ -19,7 +19,10 @@
 
                 <div class="col-md-10">
                     <div class="row">
-                        <div class="col-md-3">${resource.createdBy.getName()}</div>
+                        <g:link controller="user" action="profile"
+                                params="[id: resource.createdBy.id, visibility: com.tothenew.linksharing.Enums.Visibility.PUBLIC, topicId: 0]"
+                                class="col-md-3">
+                            ${resource.createdBy.getName()}</g:link>
 
                         <div class="col-md-3 col-md-offset-6">
                             <a href="${createLink(controller: 'topic', action: 'index', params: [id: resource.topic.id])}">
@@ -67,11 +70,14 @@
                     <div class="col-md-6 col-md-offset-3 ">
                         <g:if test="${session.user}">
                             <ls:canDeleteResource userId="${session.user.id}" resourceId="${resource.id}"/>
-                        </g:if>
 
                         %{--<a href="#">Edit ||</a>--}%
-                        <ls:showResourceEdit id="${resource.id}"/>
+                            <ls:showResourceEdit id="${resource.id}">
+                                <a id="openModal" href="#editModal" data-toggle="modal">Edit</a>
+                            </ls:showResourceEdit>
+                        </g:if>
                         <ls:showResourceTags id="${resource.id}"/>
+
                     </div>
                 </div>
 
@@ -95,7 +101,7 @@
         </div>
 
     </div>
+    <g:render template="edit" model="[resourceObj: resource]"/>
 </div>
-<g:render template="edit" model="[resourceObj: resource]"/>
 </body>
 </html>

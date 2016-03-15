@@ -8,21 +8,23 @@ class ApplicationFilters {
 				log.info("In filter: ${params}")
 			}
 		}
-		sessionCheck(controller: '*', action: 'save|delete|update|updateDetails') {
+		/*sessionCheck(controller: '*', action: 'save|delete|update|updateDetails') {
 			before = {
 				if (!session.user)
 					redirect(controller: 'login', action: 'index')
 			}
-		}
-		userIndex(controller: 'user', action: 'index') {
+		}*/
+		userIndex(controller: 'user', action: 'index', controllerExclude: 'console') {
 			before = {
-				if (!session.user)
+				if (!session.user) {
 					redirect(controller: 'login', action: 'index')
+					false
+				}
 			}
 		}
 		consoleCheck(controller: 'console', action: '*') {
 			before = {
-				if (!session.user) {
+				if (session.user) {
 					redirect(controller: 'login', action: 'index')
 				}
 			}

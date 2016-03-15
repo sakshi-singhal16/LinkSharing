@@ -16,15 +16,20 @@ class TopicController {
 	}
 
 	def editName(Long topicId, String newName) {
-		if (newName != (Topic.get(topicId).topicName)) {
-			if (Topic.executeUpdate('update Topic set topicName=:name where id=:id', [name: newName, id: topicId]) == 1) {
-				render "Topic name updated"
+		if (newName) {
+			if (newName != (Topic.get(topicId).topicName)) {
+				if (Topic.executeUpdate('update Topic set topicName=:name where id=:id', [name: newName, id: topicId]) == 1) {
+					render([message: "Topic name updated"] as JSON)
+				} else {
+					render([error: "Could not update topic name at this moment"] as JSON)
+				}
 			} else {
-				render("error updating topic name")
+				render([message: "No changes made."] as JSON)
 			}
 		} else {
-			"No changes made."
+			render([error: "No topic name entered"] as JSON)
 		}
+
 	}
 
 	def show(ResourceSearchCO co) {
@@ -49,18 +54,18 @@ class TopicController {
 	}
 
 	def save(TopicCO topicCO) {
-
-		Topic topic = new Topic(topicName: topicCO.topicName, createdBy: session.user,
-				visibility: Visibility.convertToEnum(topicCO.visibility))
-
-		if (topic.save(flush: true)) {
-			flash.message = "New topic created"
-			render([message: flash.message] as JSON)
+		if (topicCO.topicName && topicCO.visibility) {
+			Topic topic = new Topic(topicName: topicCO.topicName, createdBy: session.user,
+					visibility: Visibility.convertToEnum(topicCO.visibility))
+			if (topic.save(flush: true)) {
+				flash.message = "New topic created"
+			} else {
+				log.error("Error saving topic!")
+				flash.error = "Error saving topic!"
+				redirect(controller: 'topic', action: 'index')
+			}
 		} else {
-			log.error("Error saving topic!")
-			flash.error = "Error saving topic!"
-			render([[error: flash.error]])
-//			redirect(controller: 'user', action: 'index')
+			flash.error = "Please enter topic details"
 		}
 	}
 

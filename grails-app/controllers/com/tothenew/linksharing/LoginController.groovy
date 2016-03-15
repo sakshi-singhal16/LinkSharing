@@ -20,14 +20,14 @@ class LoginController {
 		if (user) {
 			if (user.isActive) {
 				session.user = user
+				flash.message = "Welcome, ${user.getName()}"
 				redirect(controller: 'user', action: 'index')
 			} else
-				flash.message = "Your account is not active"
-			render(view: 'index', model: [user: user, message: "${message(code: "user.account.not.active")}"])
+				flash.error = "Your account is not active"
+			render(view: 'index', model: [user: user])
 		} else {
-			flash.message = "User not found"
-//			render(flash.message)
-			render(view: 'index', model: [user: user, message: "${message(code: "invalid.user.credentials")}"])
+			flash.error = "Please enter valid user details"
+			render(view: 'index', model: [user: user])
 
 		}
 	}
@@ -35,6 +35,7 @@ class LoginController {
 
 	def logout() {
 		session.invalidate()
+		flash.message = "You have been successfully logged out"
 		forward(controller: 'login', action: 'index')
 	}
 

@@ -9,7 +9,7 @@
             </div>
 
             <div class="modal-body">
-                <g:form class="form-horizontal" action="save" controller="topic">
+                <g:form class="form-horizontal" controller="topic" action="save">
 
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="topicName">Name</label>
@@ -24,18 +24,24 @@
 
                         <div class="col-sm-8">
                             <div class="dropdown">
-                                <g:select name="visibility"
-                                          from="${com.tothenew.linksharing.Enums.Visibility.values()}"/>
-
+                                <g:select name="visibility" from="${Visibility.values()}"
+                                          noSelection="['': '-Select visibility-']"/>
                             </div>
                         </div>
                     </div>
 
 
                     <div class="modal-footer">
-                        <g:submitButton type="submit" name="createTopic" value="Create"
-                                        class="btn btn-block btn-primary"/>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <div class="row">
+                            <div class="col-md-4 col-md-offset-2">
+                                <g:submitButton type="submit" name="createTopic" value="Create Topic"
+                                                class="btn btn-block btn-primary"/>
+                            </div>
+
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
                     </div>
                 </g:form>
             </div>

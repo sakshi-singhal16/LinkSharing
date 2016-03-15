@@ -13,13 +13,11 @@ class ResourceController {
 		Resource resource = Resource.get(resourceId)
 		List<User> subscribedUsers = resource.topic.getSubscribedUsers()
 		subscribedUsers.each {
-
 			ReadingItem readingItem = new ReadingItem(isRead: false, user: it, resource: resource)
 			User creator = readingItem.resource.createdBy
 			if (it.equals(creator)) {
 				readingItem.isRead = true
 			}
-
 			ReadingItem readingItemSaved = readingItem.save(flush: true)
 			if (readingItemSaved)
 				log.info("--------${readingItem} saved!!!!!!!!!!!!")
@@ -47,10 +45,13 @@ class ResourceController {
 
 			render(view: '/shared/search', model: [results: resources, topics: trendingTopics, posts: topPosts, q: co.q])
 		} else {
-			if (!session.user)
-				render(view: '/login/index', model: [message: "No search text entered"])
-			else
-				render(view: '/user/index', model: [message: "No search text entered"])
+			flash.error = "No search text entered"
+			if (!session.user) {
+				List<Resource> topPosts = Resource.getTopPosts()
+				List<Resource> recentPosts = Resource.getRecentPosts()
+				render(view: '/login/index', model: [topPosts: topPosts, recentPosts: recentPosts])
+			} else
+				render(view: '/user/index', model: [userObj: session.user])
 
 		}
 	}
@@ -70,7 +71,6 @@ class ResourceController {
 			render "error deleting resource"
 			log.error "Error loading resource!!"
 		}
-//		render("in delete with $id")
 	}
 
 	def showPostPage(Long id) {
@@ -83,5 +83,22 @@ class ResourceController {
 			render("You are not authorized to view this resource")
 	}
 
-
+	def updateDescription(Long resourceId, String newDescription) {
+		Resource resource = Resource.get(resourceId)
+		if (newDescription) {
+			if (resource.description == newDescription) {
+				flash.message = "No changes made"
+			} else {
+				resource.description = newDescription
+				if (resource.save(flush: true)) {
+					flash.message = "Resource description updated"
+				} else {
+					flash.error = "Error updating description"
+				}
+			}
+		} else {
+			flash.message = "No description entered"
+		}
+		redirect(controller: 'resource', action: 'showPostPage', params: [id: resourceId])
+	}
 }

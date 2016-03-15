@@ -37,4 +37,14 @@ class UtilController {
 		render ("${newBean.age}")*/
 		UtilService.email()
 	}
+
+	def testResourceMethod() {
+		List<User> users = Resource.getUsersWithUnreadResources()
+		render "users"
+		users.each { User user ->
+			render "${user.unreadResources()}<br/><br/>	"
+		}
+
+
+	}
 }

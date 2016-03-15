@@ -113,6 +113,33 @@
 <div class="container">
 
     <div class="jsonResponse" style="display:none"></div>
+    <g:if test="${flash.message}">
+        <div class="row alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            ${flash.message}
+        </div>
+    </g:if>
+    <g:elseif test="${flash.error}">
+        <div class="row alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            ${flash.error}
+        </div>
+    </g:elseif>
+    <div class="row">
+        <g:if test="${flash.message}">
+            <div class="col-xs-12 alert alert-success">
+                <label><%=flash.message%></label>
+            </div>
+        </g:if>
+    </div>
+
+    <div class="row">
+        <g:if test="${flash.error}">
+            <div class="col-xs-12 alert alert-danger">
+                <label><%=flash.error%></label>
+            </div>
+        </g:if>
+    </div>
 
     <g:layoutBody/>
 </div>

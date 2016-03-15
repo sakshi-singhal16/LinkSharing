@@ -20,10 +20,15 @@
                     </div>
 
 
-                    <div>
-                        <g:submitButton type="submit" name="sendPasswordLink" value="Get new password"
-                                        class="btn btn-block btn-primary"/>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-2">
+                            <g:submitButton type="submit" name="sendPasswordLink" value="Get new password"
+                                            class="btn btn-block btn-primary"/>
+                        </div>
+
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
                     </div>
                 </g:form>
             </div>

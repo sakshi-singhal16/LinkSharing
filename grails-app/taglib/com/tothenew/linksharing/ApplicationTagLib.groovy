@@ -105,8 +105,7 @@ class ApplicationTagLib {
 		if (topic.createdBy == user || user?.isAdmin) {
 
 			out << g.select(from: values, name: 'visibility', id: 'v', topicName: topic.topicName, topicId: attrs.id, value: topic.visibility)
-			out << "<div class=\"glyphicon glyphicon-edit\" id=\"editTopicIcon\" style=\"margin-left:20px\"></div>"
-//			out << "<a class=\"glyphicon glyphicon-trash\"  style=\"margin-left:10px\"></div>"
+			out << "<div class=\"glyphicon glyphicon-edit editTopicIcon\" style=\"margin-left:20px\" topicId=\"${attrs.id}\"></div>"
 			out << link(controller: 'topic', action: 'delete', class: 'glyphicon glyphicon-trash', style: 'margin-left:10px', params: [topicId: attrs.id])
 		}
 	}
@@ -128,9 +127,10 @@ class ApplicationTagLib {
 		out << link(controller: 'user', action: 'toggleActive', params: [userId: attrs.userId], user.isActive ? 'Deactivate' : 'Activate')
 
 	}
-	def showResourceEdit = { attrs ->
+	def showResourceEdit = { attrs, body ->
 		Resource resource = Resource.get(attrs.id)
 		if (session.user == resource.createdBy || session.user.isAdmin)
-			out << "<a id=\"openModal\" data-target=\"#editModal\" data-toggle=\"modal\">Edit</a>"
+//			out << "<a id=\"openModal\" data-target=\"#editModal\" data-toggle=\"modal\">Edit</a>"
+			out << body()
 	}
 }

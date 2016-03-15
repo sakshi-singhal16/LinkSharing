@@ -1,5 +1,20 @@
 <div class="row">
 
+    <script>
+        $(document).ready(function () {
+            $(".editTopicIcon").click(function () {
+                var topicId = $(this).attr('topicId');
+                $("#editForm" + topicId).css({'display': 'block'});
+            });
+            $(".cancelTopicNameButton").click(function (e) {
+                e.preventDefault()
+                var topicId = $(this).attr('topicId');
+                $("#editForm" + topicId).css({'display': 'none'});
+            });
+        });
+
+    </script>
+
     <div class="col-md-1">
         <ls:userImage userId="${topicObj.createdBy.id}" height="64" width="64"/>
     </div>
@@ -10,14 +25,13 @@
             <div class="col-md-12">
                 <a href="${createLink(controller: 'topic', action: 'index', params: [id: topicObj.id])}">
                     ${topicObj.topicName}</a> (${topicObj.visibility})
-                <div style="display: none" id="editTopicForm${topic.id}">
-                    <g:form controller="topic" action="editName">
-                        <g:field name="newName" type="text" value="${topicObj.topicName}"/>
-                        <g:hiddenField name="topicId" value="${topicObj.id}"/>
-                        <g:submitButton name="save" value="Save"/>
-                        <button class="btn btn-primary" id="cancelButton">Cancel</button>
-                    </g:form>
+                <div style="display: none" id="editForm${topicObj.id}">
+                    <g:textField name="topicName" id="name${topicObj.id}" value="${topicObj.topicName}"/>
+                    <g:hiddenField name="topicId" id="topicId${topicObj.id}" value="${topicObj.id}"/>
+                    <button class="saveTopicNameButton btn-primary" topicId="${topicObj.id}">Save</button>
+                    <button class="cancelTopicNameButton btn-primary" topicId="${topicObj.id}">Cancel</button>
                 </div>
+
             </div>
         </div>
 
@@ -69,7 +83,7 @@
             </div>
 
             <div class="col-md-5 col-md-offset-1">
-                <ls:canUpdateTopic id="${topicObj.id}"/>
+                <ls:canUpdateTopic class="editTopicIcon" id="${topicObj.id}"/>
             </div>
 
             <div class="col-md-1">

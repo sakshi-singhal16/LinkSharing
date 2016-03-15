@@ -2,10 +2,12 @@ package com.tothenew.linksharing
 
 import com.tothenew.linksharing.CO.ResourceSearchCO
 import com.tothenew.linksharing.CO.TopicSearchCO
+import com.tothenew.linksharing.CO.UpdatePasswordCO
 import com.tothenew.linksharing.CO.UserCO
 import com.tothenew.linksharing.CO.UserSearchCO
 import com.tothenew.linksharing.CO.Util
 import com.tothenew.linksharing.VO.TopicVO
+import grails.converters.JSON
 
 class UserController {
 	def assetResourceLocator
@@ -24,16 +26,19 @@ class UserController {
 	}
 
 	def register(UserCO co) {
-		User user = new User(firstName: co.firstName, lastName: co.lastName, userName: co.userName, password: co.password,
-				confirmPasswocrd: co.confirmPassword, email: co.email, isActive: true, isAdmin: false)
+		User user = new User()
+		bindData(user, co.properties, [exclude: ['photo']])
 		if (!co.photo.empty) {
 			user.photo = co.photo.bytes
 		}
 		if (user.save(flush: true)) {
 			session.user = user
+			flash.message = "Welcome, ${user.getName()}"
 			redirect(controller: 'user', action: 'index')
 		} else {
-			render(view: '/login/index', model: [user: user])
+			List<Resource> topPosts = Resource.getTopPosts()
+			List<Resource> recentPosts = Resource.getRecentPosts()
+			render(view: '/login/index', model: [user: user, topPosts: topPosts, recentPosts: recentPosts])
 		}
 	}
 
@@ -67,28 +72,35 @@ class UserController {
 	}
 
 	def forgot(String email) {
-		User user = User.findByEmail(email)
-		Long id = user.id
-		if (user && user.isActive) {
-			String newPassword = Util.generateRandomPassword() as String
-			if (User.executeUpdate('update User set password=:newPswd where id=:id1', [newPswd: newPassword, id1: id]) == 1) {
-				render("password updated<br/>")
-				EmailDTO emailDTO = new EmailDTO(to: email, model: [newPassword: newPassword], view: "/email/_password", subject: "Link Sharing| New password")
-				emailService.sendMail(emailDTO)
-				render("email sent")
+		if (email) {
+			User user = User.findByEmail(email)
+			if (user) {
+				Long id = user.id
+				if (user.isActive) {
+					String newPassword = Util.generateRandomPassword() as String
+					if (User.executeUpdate('update User set password=:newPswd where id=:id1', [newPswd: newPassword, id1: id]) == 1) {
+						EmailDTO emailDTO = new EmailDTO(to: email, model: [newPassword: newPassword], view: "/email/_password", subject: "Link Sharing| New password")
+						emailService.sendMail(emailDTO)
+						flash.message = "Please check your inbox, '$email' for updated password"
+					} else {
+						flash.error = "Could not update password in database"
+					}
+				} else {
+					flash.error = "Your account is not active"
+				}
 			} else {
-				render "could not update"
+				flash.error = "$email is not a registered email id"
 			}
 		} else {
-			render "user not active"
+			flash.error = "Please enter an email address"
 		}
+		redirect(controller: 'login', action: 'index')
 	}
 
-	def changePassword() {}
 	def showUsers(UserSearchCO co) {
 		if (session.user.isAdmin) {
 			if (co.q) {
-				List<User> filteredUsers = User.search(co).list()
+				List<User> filteredUsers = User.search(co).list([max: 20, sort: co.sort, order: co.order])
 				render(view: 'showUsers', model: [users: filteredUsers])
 			} else {
 				render(view: 'showUsers', model: [users: User.list()])
@@ -127,5 +139,13 @@ class UserController {
 			session.user = user
 		} else
 			render("error updating")
+	}
+
+	def changePassword(UpdatePasswordCO co) {
+
+	}
+
+	def validateEmail() {
+
 	}
 }

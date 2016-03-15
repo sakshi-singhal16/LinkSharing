@@ -46,12 +46,12 @@ class User {
 	static namedQueries = {
 		search { UserSearchCO co ->
 			if (co.q) {
-
-				ilike('firstName', "%${co.q}%")
-				ilike('lastName', "%${co.q}%")
-				ilike('userName', "%${co.q}%")
-				ilike('email', "%${co.q}%")
-
+				or {
+					ilike('firstName', "%${co.q}%")
+					ilike('lastName', "%${co.q}%")
+					ilike('userName', "%${co.q}%")
+					ilike('email', "%${co.q}%")
+				}
 			}
 			if (co.isActive != null) {
 				eq('isActive', co.isActive)
@@ -59,6 +59,7 @@ class User {
 			eq('isAdmin', false)
 		}
 	}
+
 	String getName() {
 		[firstName, lastName].findAll { it }.join(' ')
 	}
@@ -125,5 +126,20 @@ class User {
 
 	boolean equals(User user) {
 		(this.id == user.id)
+	}
+
+	List<Resource> unreadResources() {
+
+//		println ">>>>>" + this.properties
+		ReadingItem.createCriteria().list {
+
+			projections {
+				property('resource')
+			}
+			eq('isRead', false)
+			eq('user', this)
+		}
+
+
 	}
 }

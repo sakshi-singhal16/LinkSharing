@@ -13,13 +13,11 @@
 function successHandler(result) {
     if (result) {
         var jsonResponseDiv = $(".jsonResponse");
-
         if (result.message) {
-
             jsonResponseDiv.text(result.message);
             jsonResponseDiv.addClass("alert alert-success");
             /*            setTimeout(function () {
-                location.reload()
+             location.reload()
              }, 2000)*/
 
         }
@@ -83,10 +81,21 @@ $(document).ready(function () {
             success: location.reload()
         });
     });
-    $("#editTopicIcon").click(function () {
-        $("#editTopicForm${topic.id}").css({'display': 'block'})
-    })
-    $("#cancelButton").click(function () {
-        $("#editTopicForm${topic.id}").css({'display': 'none'})
-    })
+    $(".saveTopicNameButton").click(function () {
+        var topicId = $(this).attr('topicId')
+        $.ajax({
+            url: "/topic/editName",
+            data: {topicId: topicId, newName: $("#name" + topicId).val()},
+            success: function (result) {
+                successHandler(result)
+                setTimeout(function () {
+                    location.reload()
+                }, 2000)
+            }
+        });
+    });
+
+    $('#openModal').click(function () {
+        $('#editdModal').modal()
+    });
 });
