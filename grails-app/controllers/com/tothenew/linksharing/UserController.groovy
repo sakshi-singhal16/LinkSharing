@@ -7,6 +7,7 @@ import com.tothenew.linksharing.CO.UserCO
 import com.tothenew.linksharing.CO.UserSearchCO
 import com.tothenew.linksharing.CO.Util
 import com.tothenew.linksharing.VO.TopicVO
+import grails.converters.JSON
 
 class UserController {
 	def assetResourceLocator
@@ -157,7 +158,7 @@ class UserController {
 					flash.error = "Error saving user"
 				}
 			} else {
-				flash.error = "Please enter your correct password"
+				flash.error = "Please enter your current password correctly"
 			}
 		} else {
 			co.errors.allErrors.each {

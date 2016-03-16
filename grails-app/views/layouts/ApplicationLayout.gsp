@@ -69,7 +69,7 @@
 
                                 <g:link controller="user" action="showEditProfile"
                                 params="[id: session.user.id, visibility: com.tothenew.linksharing.Enums.Visibility.PUBLIC, topicId: 0]">
-                                Profile
+                                Edit Profile
                                 </g:link>
                                 <g:if test="${session.user.isAdmin}">
                                     <li><a href="${createLink(controller: 'user', action: 'showUsers')}">Users</a></li>

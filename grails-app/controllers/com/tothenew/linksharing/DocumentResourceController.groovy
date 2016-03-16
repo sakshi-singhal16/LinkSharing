@@ -45,14 +45,14 @@ class DocumentResourceController extends ResourceController {
 					response.contentLength = orderPDF.length
 					response.outputStream << orderPDF
 				} catch (FileNotFoundException e) {
-					render "Error: ${e.message}"
+					flash.error = "Oops! File does not exist anymore"
 				}
-
 			} else {
-				render "You are not authorised to download this resource"
+				flash.error = "You are not authorised to download this resource"
 			}
+			redirect(url: request.getHeader('referer'))
 		} else {
-			render "Resource not found!!"
+			flash.error = "Resource not found!!"
 		}
 	}
 
