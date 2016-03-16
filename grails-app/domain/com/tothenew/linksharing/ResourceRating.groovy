@@ -14,4 +14,8 @@ class ResourceRating {
         rating range: 1..5
     }
 
+    String toString() {
+        ""
+    }
+
 }

@@ -7,7 +7,6 @@ import com.tothenew.linksharing.CO.UserCO
 import com.tothenew.linksharing.CO.UserSearchCO
 import com.tothenew.linksharing.CO.Util
 import com.tothenew.linksharing.VO.TopicVO
-import grails.converters.JSON
 
 class UserController {
 	def assetResourceLocator

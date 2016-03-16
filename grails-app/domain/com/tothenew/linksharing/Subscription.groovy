@@ -23,6 +23,6 @@ class Subscription {
 		topic lazy: false
 	}
 	String toString() {
-		"Subscription --> $user for $topic"
+		"$user subscribed to $topic"
 	}
 }

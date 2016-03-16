@@ -20,6 +20,6 @@ class ReadingItem {
     }
 
     String toString() {
-        "Reading Item --> $reader for $resource"
+        "$user has a reading item for $resource"
     }
 }

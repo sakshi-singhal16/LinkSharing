@@ -2,7 +2,6 @@ package com.tothenew.linksharing
 
 import grails.transaction.Transactional
 
-import javax.annotation.Resources
 
 @Transactional
 class UserService {

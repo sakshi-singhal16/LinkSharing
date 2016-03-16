@@ -14,7 +14,7 @@ class ApplicationFilters {
 					redirect(controller: 'login', action: 'index')
 			}
 		}*/
-		userIndex(controller: 'user', action: 'index', controllerExclude: 'console') {
+		/*userIndex(controller: 'user', action: 'index', controllerExclude: 'console') {
 			before = {
 				if (!session.user) {
 					redirect(controller: 'login', action: 'index')
@@ -26,8 +26,9 @@ class ApplicationFilters {
 			before = {
 				if (!session.user.isAdmin) {
 					redirect(controller: 'user', action: 'index')
+					false
 				}
 			}
-		}
+		}*/
 	}
 }

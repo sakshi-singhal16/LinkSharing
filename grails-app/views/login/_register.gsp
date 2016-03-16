@@ -81,6 +81,17 @@
 <script>
     $(document).ready(function () {
 //        alert("yes i am running!!..")
+        jQuery.validator.addMethod("matchesPassword", function (value, element) {
+            var result = true;
+//            var email = $("#email").val();
+            var password = $("form#registrationForm input[id=password]").val();
+            if (value != password) {
+                result = false;
+            }
+            return result;
+        }, "Confirmed password does not match password");
+
+
         $('#registrationForm').validate({
             rules: {
                 firstName: {
@@ -106,8 +117,8 @@
                     minlength: 5
                 },
                 confirmPassword: {
-                    required: true
-//                    matchesPassword: true
+                    required: true,
+                    matchesPassword: true
                 }
             },
             messages: {

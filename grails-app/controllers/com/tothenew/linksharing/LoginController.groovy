@@ -22,12 +22,14 @@ class LoginController {
 				session.user = user
 				flash.message = "Welcome, ${user.getName()}"
 				redirect(controller: 'user', action: 'index')
-			} else
+			} else {
+
 				flash.error = "Your account is not active"
-			render(view: 'index', model: [user: user])
+				render(view: 'index', model: [user: user, topPosts: Resource.getTopPosts(), recentPosts: Resource.getRecentPosts()])
+			}
 		} else {
 			flash.error = "Please enter valid user details"
-			render(view: 'index', model: [user: user])
+			render(view: 'index', model: [user: user, topPosts: Resource.getTopPosts(), recentPosts: Resource.getRecentPosts()])
 
 		}
 	}

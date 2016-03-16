@@ -3,6 +3,12 @@
 <head>
     <meta name="layout" content="ApplicationLayout">
     <title>Link Sharing | Post</title>
+    <script type="text/javascript">
+        $(document).ready(function () {
+//            alert("hello out")
+
+        });
+    </script>
 </head>
 
 <body>
@@ -43,9 +49,9 @@
                         <div class="col-md-3 col-md-offset-6">
                             <g:form controller="resourceRating" action="save" params="[resourceId: resource.id]">
                                 <g:if test="${session.user}">
-                                    <g:select from="${1..5}" name="newRating"
-                                              value="${session.user.getScore(resource.id)}"/>
-                                    <g:submitButton name="rate" value="Rate"/>
+                                    <g:select from="${1..5}" name="newRating" id="newRating"
+                                              value="${session.user.getScore(resource.id)}"
+                                              resourceId="${resource.id}"/>
                                 </g:if>
 
                             </g:form>

@@ -108,4 +108,11 @@ $(document).ready(function () {
     $(".inviteIcon").click(function(){
         $("#inviteModal").modal()
     });
+    $("form #newRating").change(function () {
+        $.ajax({
+            url: '/resourceRating/save',
+            data: {resourceId: $(this).attr('resourceId'), newRating: $(this).val()},
+            success: successHandler
+        })
+    });
 });

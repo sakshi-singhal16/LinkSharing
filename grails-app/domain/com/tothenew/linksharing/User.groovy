@@ -66,7 +66,7 @@ class User {
 
 
 	String toString() {
-		"User --> $name"
+		"$name"
 	}
 
 	List<Topic> getSubscribedTopics() {
@@ -82,7 +82,6 @@ class User {
 	List<ReadingItem> getReadingItems() {
 		List<ReadingItem> readingItems = ReadingItem.createCriteria().list {
 			eq('user', this)
-			eq('isRead', false)
 		}
 		readingItems
 	}
@@ -96,7 +95,7 @@ class User {
 
 	}
 
-	Boolean isSubscribed(Long topicId) {
+	boolean isSubscribed(Long topicId) {
 		Subscription result = Subscription.createCriteria().get {
 			eq('user', this)
 			'topic' {
@@ -129,8 +128,6 @@ class User {
 	}
 
 	List<Resource> unreadResources() {
-
-//		println ">>>>>" + this.properties
 		ReadingItem.createCriteria().list {
 
 			projections {
@@ -139,7 +136,5 @@ class User {
 			eq('isRead', false)
 			eq('user', this)
 		}
-
-
 	}
 }

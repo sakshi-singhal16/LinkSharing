@@ -46,12 +46,7 @@ class ResourceController {
 			render(view: '/shared/search', model: [results: resources, topics: trendingTopics, posts: topPosts, q: co.q])
 		} else {
 			flash.error = "No search text entered"
-			if (!session.user) {
-				List<Resource> topPosts = Resource.getTopPosts()
-				List<Resource> recentPosts = Resource.getRecentPosts()
-				render(view: '/login/index', model: [topPosts: topPosts, recentPosts: recentPosts])
-			} else
-				render(view: '/user/index', model: [userObj: session.user])
+			redirect(url: request.getHeader('referer'))
 
 		}
 	}

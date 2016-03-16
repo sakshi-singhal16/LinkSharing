@@ -8,6 +8,6 @@ class LinkResource extends Resource {
     }
 
     String toString() {
-        "Link Resource --> $url"
+        "$url"
     }
 }

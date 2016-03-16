@@ -22,7 +22,6 @@ abstract class Resource {
 	static transients = ['ratingInfo']
 	static mapping = {
 		description(type: 'text')
-//		tablePerHierarchy(false)
 	}
 	static namedQueries = {
 		search { ResourceSearchCO co ->
@@ -53,7 +52,6 @@ abstract class Resource {
 				avg('rating')
 			}
 			eq('resource', this)
-			//order('accountCount', 'desc')
 		}
 
 		new RatingInfoVO(totalVotes: result[0], totalScore: result[1], avgScore: result[2])
@@ -81,9 +79,6 @@ abstract class Resource {
 			order("lastUpdated", "desc")
 		}
 		result
-		/*
-		List<Resource> topResources=Resource.getAll(result.collect {it[0]})
-		topResources*/
 	}
 
 	Boolean canBeViewedBy(User user) {
@@ -104,21 +99,6 @@ abstract class Resource {
 		"in resource delete"
 	}
 
-	/*def afterInsert() {
-		Resource.withNewSession {
-			List<User> subscribedUsers = this.topic.getSubscribedUsers()
-			subscribedUsers.each {
-
-				ReadingItem readingItem = new ReadingItem(isRead: false, user: it, resource: this)
-				if (it == this.createdBy) {
-					readingItem.isRead = true
-				}
-				readingItem.save(flush: true)
-				log.info("--------${readingItem} saved!!!!!!!!!!!!")
-			}
-		}
-	}*/
-
 	static List<User> getUsersWithUnreadResources() {
 		ReadingItem.createCriteria().listDistinct {
 			projections {
@@ -126,5 +106,9 @@ abstract class Resource {
 			}
 			eq('isRead', false)
 		}
+	}
+
+	String toString() {
+		""
 	}
 }

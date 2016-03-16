@@ -13,7 +13,7 @@ class DocumentResource extends Resource {
 	}
 
 	String toString() {
-		"Document Resource --> $filePath\n $description"
+		"$filePath"
 	}
 
 	String getFileName() {
@@ -24,7 +24,6 @@ class DocumentResource extends Resource {
 	@Override
 	String deleteFile() {
 		super.deleteFile()
-//		Resource documentResource = Resource.get(resourceId)
 		File file = new File("${this.filePath}")
 		if (file.delete()) {
 			"file deleted successfully"
@@ -33,5 +32,5 @@ class DocumentResource extends Resource {
 		}
 
 	}
-
+	\
 }
