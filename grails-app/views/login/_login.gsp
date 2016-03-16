@@ -9,7 +9,7 @@
                 <label class="control-label col-sm-4" for="userName">Username</label>
 
                 <div class="col-sm-8">
-                    <g:textField class="form-control" name="userName" value="Username.."/>
+                    <g:textField class="form-control" name="userName"/>
                     %{--<g:fieldError field="userName" bean="${user}" message="${message}"/>--}%
                 </div>
             </div>

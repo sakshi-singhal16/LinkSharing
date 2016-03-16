@@ -124,12 +124,14 @@ class ApplicationTagLib {
 	}
 	def showActivateLink = { attrs ->
 		User user = User.get(attrs.userId)
-		out << link(controller: 'user', action: 'toggleActive', params: [userId: attrs.userId], user.isActive ? 'Deactivate' : 'Activate')
+		out << link(controller: 'user', action: 'toggleActive', params: [userId: attrs.userId], user.isActive ? 'Deactivate' : 'Activate', style: 'color:yellow'
+				/*user.isActive?(style:'back'):() */)
 
 	}
 	def showResourceEdit = { attrs, body ->
 		Resource resource = Resource.get(attrs.id)
 		if (session.user == resource.createdBy || session.user.isAdmin)
+//			out << "<a id=\"openModal\" data-target=\"#editModal\" data-toggle=\"modal\">Edit</a>"
 			out << body()
 	}
 }

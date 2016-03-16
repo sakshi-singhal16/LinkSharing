@@ -14,7 +14,7 @@ class User {
 	String email
 	byte[] photo
 	Boolean isAdmin
-	Boolean isActive
+	Boolean isActive=true;
 	Date dateCreated
 	Date lastUpdated
 	String confirmPassword

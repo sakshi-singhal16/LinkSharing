@@ -56,17 +56,19 @@ class TopicController {
 	def save(TopicCO topicCO) {
 		if (topicCO.topicName && topicCO.visibility) {
 			Topic topic = new Topic(topicName: topicCO.topicName, createdBy: session.user,
-					visibility: Visibility.convertToEnum(topicCO.visibility))
+					visibility: Visibility.getVisibility(topicCO.visibility))
 			if (topic.save(flush: true)) {
 				flash.message = "New topic created"
 			} else {
 				log.error("Error saving topic!")
-				flash.error = "Error saving topic!"
-				redirect(controller: 'topic', action: 'index')
+				topic.errors.allErrors.each {
+					flash.error = g.message(error: it)
+				}
 			}
 		} else {
 			flash.error = "Please enter topic details"
 		}
+		redirect(url: request.getHeader('referer'))
 	}
 
 	def update(String topicName, Long id, String visibility) {
@@ -85,10 +87,11 @@ class TopicController {
 		if (Topic.get(topicId)) {
 			EmailDTO emailDTO = new EmailDTO(to: email, model: [topicId: topicId], view: "/email/_invite", subject: "Link Sharing| Invitation to follow topic")
 			emailService.sendMail(emailDTO)
-			render "email sent!"
+			flash.message="Email sent to: $email"
 		} else {
-			render("error inviting: topic not found!")
+			flash.error="Error sending invitation: topic not found!"
 		}
+		redirect(url: request.getHeader('referer'))
 	}
 
 	def join(Long topicId) {
@@ -105,14 +108,15 @@ class TopicController {
 		if (session.user.isAdmin || session.user == topic.createdBy) {
 			try {
 				topic.delete(flush: true)
-				render([message: "topic deleted successfully"] as JSON)
+				flash.message= "Topic deleted successfully"
 			}
 			catch (Exception e) {
 				log.error "Error: ${e.message}"
-				render([error: "could not delete topic"] as JSON)
+				flash.error= "Could not delete topic"
 			}
+			redirect(url: request.getHeader('referer'))
 		} else {
-			render "you are not authorised to delete this topic"
+			flash.error= "You are not authorised to delete this topic"
 		}
 	}
 }

@@ -15,7 +15,7 @@
                         <label class="control-label col-sm-4">File Path</label>
 
                         <div class="col-sm-8">
-                            <input type="file" name="docResource"/>
+                            <input type="file" name="docResource" accept="application/pdf"/>
                         </div>
                     </div>
 
@@ -40,11 +40,17 @@
                     </div>
 
 
-                %{--<div class="modal-footer">--}%
-                    <g:submitButton type="submit" name="createDoc" value="Create"
-                                    class="btn btn-block btn-primary"/>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                %{--</div>--}%
+
+
+                    <div class="row">
+                        <div class="col-md-5 col-md-offset-2">
+                            <g:submitButton type="submit" name="createDoc" value="Create" class="btn btn-block btn-primary"/>
+                        </div>
+
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
 
                 </g:form>
             </div><!--.modal-body-->

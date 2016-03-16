@@ -19,13 +19,14 @@ function successHandler(result) {
             /*            setTimeout(function () {
              location.reload()
              }, 2000)*/
-
+console.log(result.message)
         }
         else {
             jsonResponseDiv.text(result.error);
             jsonResponseDiv.addClass("alert alert-danger");
             /*       setTimeout(function () {
              }, 2000)*/
+            console.log(result.error)
         }
         jsonResponseDiv.css({'display': 'block'})
     }
@@ -70,7 +71,13 @@ $(document).ready(function () {
         $.ajax({
             url: "/subscription/delete",
             data: {topicId: $(this).attr('topicId')},
-            success: successHandler
+            success: function (result) {
+                successHandler(result)
+                /*setTimeout(function () {
+                    location.reload()
+                }, 2000)*/
+            }
+
         });
     });
 
@@ -97,5 +104,8 @@ $(document).ready(function () {
 
     $('#openModal').click(function () {
         $('#editdModal').modal()
+    });
+    $(".inviteIcon").click(function(){
+        $("#inviteModal").modal()
     });
 });

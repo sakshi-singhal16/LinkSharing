@@ -24,8 +24,8 @@ class ApplicationFilters {
 		}
 		consoleCheck(controller: 'console', action: '*') {
 			before = {
-				if (session.user) {
-					redirect(controller: 'login', action: 'index')
+				if (!session.user.isAdmin) {
+					redirect(controller: 'user', action: 'index')
 				}
 			}
 		}

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <asset:stylesheet src="application.css"/>
     <asset:javascript src="application.js"/>
-    <asset:javascript src="jquery.validate.min.js"/>
+   %{-- <asset:javascript src="jquery.validate.min.js"/>--}%
     <g:layoutHead/>
 </head>
 

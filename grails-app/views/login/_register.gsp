@@ -4,7 +4,7 @@
     </div>
 
     <div class="panel-body">
-        <g:uploadForm id="registrationForm" class="form-horizontal" controller="user" action="register"
+        <g:uploadForm name="registrationForm" class="form-horizontal" controller="user" action="register"
                       enctype="multipart/form-data">
 
             <div class="form-group">
@@ -35,7 +35,7 @@
                 <label class="control-label col-sm-4">User Name</label>
 
                 <div class="col-sm-8">
-                    <g:field type="text" class="form-control" name="userName" value="${user?.email}"/>
+                    <g:field type="text" class="form-control" name="userName" value="${user?.userName}"/>
                 </div>
             </div>
 
@@ -72,53 +72,56 @@
         </g:uploadForm>
     </div> <!--.panel-body-->
 
-    <script>
-        $(document).ready(function () {
-            $(function () {
-                $('#registrationForm').validate({
-                    rules: {
-                        firstName: {
-                            required: true
-                        },
-                        lastName: {
-                            required: true
-                        },
-                        email: {
-                            required: true,
-                            remote: "/user/validateEmail"
-                        },
-                        userName: {
-                            required: true,
-                            remote: {
-                                url: "/user/validateUserName",
-                                type: "post"
-
-                            }
-                        },
-                        password: {
-                            required: true,
-                            minlength: 5
-                        },
-                        confirmPassword: {
-                            required: true
-//                    matchesPassword: true
-                        }
-                    },
-                    messages: {
-                        firstName: {
-                            required: "First Name is required"
-                        },
-                        email: {
-                            remote: "Email already exists"
-                        },
-                        userName: {
-                            remote: "Username already exists"
-                        }
-                    }
-                });
-            });
-
-
-        });
-    </script>
 </div>
+
+%{--<g:javascript ></g:javascript>--}%
+
+<g:javascript src="jquery.validate.min.js">
+</g:javascript>
+<script>
+    $(document).ready(function () {
+//        alert("yes i am running!!..")
+        $('#registrationForm').validate({
+            rules: {
+                firstName: {
+                    required: true
+                },
+                lastName: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                    remote: "/user/validateEmail"
+                },
+                userName: {
+                    required: true,
+                    remote: {
+                        url: "/user/validateUserName",
+                        type: "post"
+
+                    }
+                },
+                password: {
+                    required: true,
+                    minlength: 5
+                },
+                confirmPassword: {
+                    required: true
+//                    matchesPassword: true
+                }
+            },
+            messages: {
+                firstName: {
+                    required: "First Name is required"
+                },
+                email: {
+                    remote: "Email already exists"
+                },
+                userName: {
+                    remote: "Username already exists"
+                }
+            }
+        });
+    });
+
+</script>

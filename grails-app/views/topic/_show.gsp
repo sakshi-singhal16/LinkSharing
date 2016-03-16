@@ -87,7 +87,7 @@
             </div>
 
             <div class="col-md-1">
-                <span class="glyphicon glyphicon-envelope" href="#"/>
+                <span class="glyphicon glyphicon-envelope inviteIcon"/>
             </div>
         </g:if>
 

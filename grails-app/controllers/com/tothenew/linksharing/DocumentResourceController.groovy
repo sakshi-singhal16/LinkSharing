@@ -5,30 +5,32 @@ import org.springframework.web.multipart.MultipartFile
 class DocumentResourceController extends ResourceController {
 
 	def save(DocumentResource documentResource) {
-		UUID fileName = UUID.randomUUID()
-		String path = "/home/sakshi/${grailsApplication.config.linksharing.documents.folderPath}/${fileName}"
-		documentResource.filePath = path
-		documentResource.createdBy = session.user
+		if (documentResource.description && documentResource.topic && params.docResource) {
+			String path = "/home/sakshi/${grailsApplication.config.linksharing.documents.folderPath}/${UUID.randomUUID()}"
+			documentResource.filePath = path
+			documentResource.createdBy = session.user
 
-		MultipartFile myFile = params.docResource
-		File file = new File(path)
-		documentResource.contentType = myFile.contentType
-		documentResource.validate()
-		if (documentResource.errors.getFieldError('contentType')) {
-			render "file is not a pdf<br/> ${documentResource.errors.allErrors}"
-		} else {
-			myFile.transferTo(file)
-			render "Done uploading!!!------------------<br/>"
-
-			if (documentResource.save()) {
-				flash.message = "$documentResource saved"
-				addToReadingItems(documentResource.id)
-				render(flash.message)
+			MultipartFile myFile = params.docResource
+			File file = new File(path)
+			documentResource.contentType = myFile.contentType
+			documentResource.validate()
+			def error = documentResource.errors.getFieldError('contentType')
+			if (error) {
+				flash.error = g.message(error: error)
 			} else {
-				flash.error = "could not save document resource"
-				redirect(controller: 'user', action: 'index')
+				myFile.transferTo(file)
+				flash.message = "File uploaded, "
+				if (documentResource.save(flush: true)) {
+					addToReadingItems(documentResource.id)
+					flash.message += "Document Resource saved"
+				} else {
+					flash.error = "Could not save document resource"
+				}
 			}
+		} else {
+			flash.error = "Please provide complete details"
 		}
+		redirect(url: request.getHeader('referer'))
 	}
 
 	def download(Long resourceId) {
