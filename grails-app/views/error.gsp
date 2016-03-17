@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+%{--
 <html>
 	<head>
 		<title><g:if env="development">Grails Runtime Exception</g:if><g:else>Error</g:else></title>
@@ -16,7 +17,7 @@
 		</g:else>
 	</body>
 </html>
-%{--
+--}%
 <html>
 <head>
     <asset:stylesheet src="application.css"/>
@@ -31,4 +32,3 @@
 <div class="col-md-5 col-md-offset-1 alert alert-danger">Error 500: Internal server error</div>
 </body>
 </html>
---}%
