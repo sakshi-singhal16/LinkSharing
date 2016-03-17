@@ -10,5 +10,4 @@
         http://localhost:8080/topic/join/${topicId}
     </a>
 
-    --${session.user.getName()}
 </div>

@@ -41,6 +41,8 @@ grails.views.default.codec = "html"
 // The default scope for controllers. May be prototype, session or singleton.
 // If unspecified, controllers are prototype scoped.
 grails.controllers.defaultScope = 'singleton'
+grails.plugins.remotepagination.max = 5
+grails.plugins.remotepagination.enableBootstrap = true
 
 // GSP settings
 grails {

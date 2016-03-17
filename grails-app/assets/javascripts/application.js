@@ -85,12 +85,12 @@ $(document).ready(function () {
         $.ajax({
             url: "/readingItem/changeIsRead",
             data: {resourceId: $(this).attr('resourceId'), isRead: $(this).attr('isRead')},
-            success: function (result) {
+            /*success: function (result) {
                 //successHandler(result)
                 setTimeout(function () {
                     location.reload()
                 }, 3000)
-            }
+             }*/
         });
     });
 

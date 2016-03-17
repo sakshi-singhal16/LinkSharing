@@ -17,7 +17,7 @@
         </div>
 
 
-        <div class="panel panel-info" style="margin-top: 20px">
+        <div class="panel panel-info" style="margin-top: 20px;overflow-y: auto;height: 238px">
             <div class="panel-heading">
                 <div>
                     Topics
@@ -30,13 +30,10 @@
                     <g:render template="/topic/show" model="[topicObj: topic]"/>
                     <hr/>
                 </g:each>
-                <g:paginate total="20" controller="user" action="profile"
-                            params='[id: "${resourceSearchCo.id}", visibility: "${resourceSearchCo.visibility}"]'
-                            max="${resourceSearchCo.max}" offset="${resourceSearchCo.offset}"/>
             </div>
         </div>
 
-        <div class="panel panel-info" style="margin-top: 20px">
+        <div class="panel panel-info" style="margin-top: 20px;overflow-y: auto;height: 300px">
             <div class="panel-heading">
                 Subscriptions
             </div>
@@ -46,17 +43,14 @@
                     <g:render template="/topic/show" model="[topicObj: topic]"/>
                     <hr/>
                 </g:each>
-                <g:paginate total="20" controller="user" action="profile"
-                            params='[id: "${resourceSearchCo.id}", visibility: "${resourceSearchCo.visibility}"]'
-                            max="${resourceSearchCo.max}" offset="${resourceSearchCo.offset}"
-                            next="Next" prev="Back"/>
+
             </div>
         </div>
 
     </div>
 
     <div class="col-md-7">
-        <div class="panel panel-info">
+        <div class="panel panel-info" style="overflow-y: auto;height: 500px">
 
             <div class="panel-heading">Posts
             </div>
@@ -67,9 +61,6 @@
                     <g:render template="/resource/show" model="${resourceObj}"/>
                     <hr/>
                 </g:each>
-                <g:paginate total="20" controller="user" action="profile"
-                            params='[id: "${resourceSearchCo.id}", visibility: "${resourceSearchCo.visibility}"]'
-                            max="${resourceSearchCo.max}" offset="${resourceSearchCo.offset}"/>
             </div>
         </div>
     </div>

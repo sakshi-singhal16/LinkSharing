@@ -6,6 +6,7 @@ import com.tothenew.linksharing.CO.UpdatePasswordCO
 import com.tothenew.linksharing.CO.UserCO
 import com.tothenew.linksharing.CO.UserSearchCO
 import com.tothenew.linksharing.CO.Util
+import com.tothenew.linksharing.Enums.Visibility
 import com.tothenew.linksharing.VO.TopicVO
 
 class UserController {
@@ -56,10 +57,13 @@ class UserController {
 	}
 
 	def profile(ResourceSearchCO co) {
-		co.max = co.max ?: 5
-		co.offset = co.offset ?: 0
-		TopicSearchCO topicSearchCO = new TopicSearchCO(userId: co.id, visibility: co.visibility, max: params.max, offset: params.offset)
+//		co.max = co.max ?: 5
+//		co.offset = co.offset ?: 0
+		TopicSearchCO topicSearchCO = new TopicSearchCO(userId: co.id, visibility: Visibility.PUBLIC)
+		println "*********************${topicSearchCO.properties}*******************************"
 		List<Topic> topicsCreated = topicService.search(topicSearchCO)
+//		int totalCount = Resource.countByCreatedBy(User.get(co.id))
+//		render ("$topicsCreated---------------")
 		List<Resource> postsCreated = resourceService.search(co)
 		List<Topic> subscribedTopics = subscriptionService.search(topicSearchCO)
 		render(view: 'profile', model: [
@@ -100,6 +104,9 @@ class UserController {
 		if (session.user.isAdmin) {
 			List<User> filteredUsers = User.search(co).list([max: 20, sort: co.sort, order: co.order])
 			render(view: 'showUsers', model: [users: filteredUsers])
+			/*else {
+			   render(view: 'showUsers', model: [users: User.list()])
+		   }*/
 		} else {
 			redirect(controller: 'user', action: 'index')
 		}
@@ -150,6 +157,7 @@ class UserController {
 				if (user.save(flush: true)) {
 					session.user = user
 					flash.message = "Password updated successfully"
+
 				} else {
 					flash.error = "Error saving user"
 				}
