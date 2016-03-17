@@ -19,7 +19,7 @@ function successHandler(result) {
             /*            setTimeout(function () {
              location.reload()
              }, 2000)*/
-console.log(result.message)
+            console.log(result.message)
         }
         else {
             jsonResponseDiv.text(result.error);
@@ -34,7 +34,7 @@ console.log(result.message)
 
 $(document).ready(function () {
 
-    $("#seriousness").change(function () {
+    $(".seriousness").change(function () {
         $.ajax({
             url: "/subscription/update",
             data: {id: $(this).attr('topicId'), seriousness: $(this).val()},
@@ -74,8 +74,8 @@ $(document).ready(function () {
             success: function (result) {
                 successHandler(result)
                 /*setTimeout(function () {
-                    location.reload()
-                }, 2000)*/
+                 location.reload()
+                 }, 2000)*/
             }
 
         });
@@ -85,9 +85,15 @@ $(document).ready(function () {
         $.ajax({
             url: "/readingItem/changeIsRead",
             data: {resourceId: $(this).attr('resourceId'), isRead: $(this).attr('isRead')},
-            success: location.reload()
+            success: function (result) {
+                //successHandler(result)
+                setTimeout(function () {
+                    location.reload()
+                }, 3000)
+            }
         });
     });
+
     $(".saveTopicNameButton").click(function () {
         var topicId = $(this).attr('topicId')
         $.ajax({
@@ -105,7 +111,7 @@ $(document).ready(function () {
     $('#openModal').click(function () {
         $('#editdModal').modal()
     });
-    $(".inviteIcon").click(function(){
+    $(".inviteIcon").click(function () {
         $("#inviteModal").modal()
     });
     $("form #newRating").change(function () {

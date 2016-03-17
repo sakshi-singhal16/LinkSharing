@@ -86,7 +86,7 @@ class ApplicationTagLib {
 			if (session.user) {
 				User user = session.user
 				if (user.isSubscribed(attrs.topicId)) {
-//					Subscription subscription = Subscription.findByUserAndTopic(user, Topic.get(attrs.topicId))
+					if (user != Topic.get(attrs.topicId).createdBy)
 					out << link('Unsubscribe', class: 'unsubscribe', topicId: attrs.topicId)
 				} else {
 					out << link('Subscribe', class: 'subscribe', topicId: attrs.topicId)
@@ -113,7 +113,7 @@ class ApplicationTagLib {
 		User user = session.user
 		Topic topic = Topic.get(attrs.id)
 		List values = Seriousness.values()
-		out << g.select(from: values, value: user?.getSubscription(topic), name: 'seriousness', id: 'seriousness', topicId: attrs.id)
+		out << g.select(from: values, value: user?.getSubscription(topic), name: 'seriousness', class: 'seriousness', topicId: attrs.id)
 	}
 	def showActiveStatus = { attrs ->
 		User user = User.get(attrs.userId)

@@ -7,7 +7,6 @@ import com.tothenew.linksharing.CO.UserCO
 import com.tothenew.linksharing.CO.UserSearchCO
 import com.tothenew.linksharing.CO.Util
 import com.tothenew.linksharing.VO.TopicVO
-import grails.converters.JSON
 
 class UserController {
 	def assetResourceLocator
@@ -101,9 +100,6 @@ class UserController {
 		if (session.user.isAdmin) {
 			List<User> filteredUsers = User.search(co).list([max: 20, sort: co.sort, order: co.order])
 			render(view: 'showUsers', model: [users: filteredUsers])
-			/*else {
-			   render(view: 'showUsers', model: [users: User.list()])
-		   }*/
 		} else {
 			redirect(controller: 'user', action: 'index')
 		}

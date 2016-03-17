@@ -18,6 +18,8 @@ class SubscriptionController {
 	def update(Long id, String seriousness) {
 		Subscription subscription1 = Subscription.get(id)
 		if (subscription1) {
+			if (seriousness == "Very Serious")
+				seriousness = "Very_Serious"
 			subscription1.seriousness = Seriousness.getSeriousness(seriousness)
 			if (subscription1.save(flush: true)) {
 				render([message: "Subscription information updated"] as JSON)

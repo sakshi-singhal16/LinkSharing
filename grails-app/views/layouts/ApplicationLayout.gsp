@@ -69,7 +69,7 @@
 
                                 <g:link controller="user" action="showEditProfile"
                                 params="[id: session.user.id, visibility: com.tothenew.linksharing.Enums.Visibility.PUBLIC, topicId: 0]">
-                                Edit Profile
+                                EdProfile
                                 </g:link>
                                 <g:if test="${session.user.isAdmin}">
                                     <li><a href="${createLink(controller: 'user', action: 'showUsers')}">Users</a></li>
@@ -115,7 +115,6 @@
             </div>
 
         </div>
-
     </nav>
 
 </g:else>
@@ -125,6 +124,7 @@
 
     <div class="row">
         <g:if test="${flash.message}">
+
             <div class="col-xs-12 alert alert-success">
                 <button type="button" class="close" data-dismiss="alert">×</button>
                 <label><%=flash.message%></label>
