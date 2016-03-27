@@ -86,10 +86,10 @@ $(document).ready(function () {
             url: "/readingItem/changeIsRead",
             data: {resourceId: $(this).attr('resourceId'), isRead: $(this).attr('isRead')},
             /*success: function (result) {
-                //successHandler(result)
-                setTimeout(function () {
-                    location.reload()
-                }, 3000)
+             //successHandler(result)
+             setTimeout(function () {
+             location.reload()
+             }, 3000)
              }*/
         });
     });
@@ -121,4 +121,33 @@ $(document).ready(function () {
             success: successHandler
         })
     });
+    $("#facebook-share").click(function (e) {
+        e.preventDefault();
+        FB.ui(
+            {
+                method: 'feed',
+                name: 'Link Sharing .',
+                //link: "http://localhost:8080/resource/showPostPage/id=1",
+                picture: 'http://www.servicespace.org/inc/ckfinder/userfiles/images/dgood/sharing-information.jpg',
+                caption: 'Link Sharing resource',
+                description: 'Hi! Check out this interesting resource I found on Link Sharing. The link property is not working.',
+                message: ''
+            });
+    });
+    window.twttr = (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function (f) {
+            t._e.push(f);
+        };
+
+        return t;
+    }(document, "script", "twitter-wjs"));
 });

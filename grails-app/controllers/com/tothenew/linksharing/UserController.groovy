@@ -60,7 +60,6 @@ class UserController {
 //		co.max = co.max ?: 5
 //		co.offset = co.offset ?: 0
 		TopicSearchCO topicSearchCO = new TopicSearchCO(userId: co.id, visibility: Visibility.PUBLIC)
-		println "*********************${topicSearchCO.properties}*******************************"
 		List<Topic> topicsCreated = topicService.search(topicSearchCO)
 //		int totalCount = Resource.countByCreatedBy(User.get(co.id))
 //		render ("$topicsCreated---------------")

@@ -1,9 +1,7 @@
 package com.tothenew.linksharing
 
-import com.tothenew.linksharing.Enums.Seriousness
-import com.tothenew.linksharing.Enums.Visibility
-import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
+import spock.lang.IgnoreRest
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -11,8 +9,6 @@ import spock.lang.Unroll
 class UserSpec extends Specification {
 
 	User user
-
-
 
 	void "test"() {
 		expect:
@@ -23,7 +19,7 @@ class UserSpec extends Specification {
 	def "test user validations"() {
 		given:
 		User user = new User(firstName: fn,
-				lastName: ln, password: pwd, email: em, userName: uname)
+				lastName: ln, password: pwd, email: em, userName: uname, confirmPassword: cpwd)
 
 		when:
 		Boolean result = user.validate()
@@ -32,19 +28,23 @@ class UserSpec extends Specification {
 		result == expectedResult
 
 		where:
-		sno | fn       | ln        | pwd        | em               | uname | expectedResult
-		1   | null     | "singhal" | "password" | "sakshi@ttn.com" | "ss"  | false
-		2   | ""       | "singhal" | "password" | "sakshi@ttn.com" | "ss"  | false
-		3   | "sakshi" | null      | "password" | "sakshi@ttn.com" | "ss"  | false
-		4   | "sakshi" | ""        | "password" | "sakshi@ttn.com" | "ss"  | false
-		5   | "sakshi" | "singhal" | null       | "sakshi@ttn.com" | "ss"  | false
-		6   | "sakshi" | "singhal" | ""         | "sakshi@ttn.com" | "ss"  | false
-		7   | "sakshi" | "singhal" | "p"        | "sakshi@ttn.com" | "ss"  | false
-		8   | "sakshi" | "singhal" | "password" | null             | "ss"  | false
-		9   | "sakshi" | "singhal" | "password" | ""               | "ss"  | false
-		10  | "sakshi" | "singhal" | "password" | "sakshi@ttn.com" | null  | false
-		11  | "sakshi" | "singhal" | "password" | "sakshi@ttn.com" | ""    | false
-		12  | "sakshi" | "singhal" | "password" | "sakshi@ttn.com" | "ss"  | true
+		sno | fn       | ln        | pwd        | cpwd       | em               | uname | expectedResult
+		1   | null     | "singhal" | "password" | "password" | "sakshi@ttn.com" | "ss"  | false
+		2   | ""       | "singhal" | "password" | "password" | "sakshi@ttn.com" | "ss"  | false
+		3   | "sakshi" | null      | "password" | "password" | "sakshi@ttn.com" | "ss"  | false
+		4   | "sakshi" | ""        | "password" | "password" | "sakshi@ttn.com" | "ss"  | false
+		5   | "sakshi" | "singhal" | null       | null       | "sakshi@ttn.com" | "ss"  | false
+		6   | "sakshi" | "singhal" | ""         | ""         | "sakshi@ttn.com" | "ss"  | false
+		7   | "sakshi" | "singhal" | "p"        | "p"        | "sakshi@ttn.com" | "ss"  | false
+		8   | "sakshi" | "singhal" | "password" | "password" | null             | "ss"  | false
+		9   | "sakshi" | "singhal" | "password" | "password" | ""               | "ss"  | false
+		10  | "sakshi" | "singhal" | "password" | "password" | "sakshi@ttn.com" | null  | false
+		11  | "sakshi" | "singhal" | "password" | "password" | "sakshi@ttn.com" | ""    | false
+		12  | "sakshi" | "singhal" | "password" | "password" | "sakshi@ttn.com" | "ss"  | true
+		13  | "sakshi" | "singhal" | "password" | null       | "sakshi@ttn.com" | "ss"  | false
+		14  | "sakshi" | "singhal" | "password" | "pw"       | "sakshi@ttn.com" | "ss"  | false
+		15  | "sakshi" | "singhal" | "password" | "password" | "sakshi@ttn.com" | "ss"  | true
+
 
 	}
 
@@ -95,6 +95,7 @@ class UserSpec extends Specification {
 
 	}
 
+
 	def "Test toString method of User class"() {
 		given:
 		user.firstName = "test"
@@ -108,117 +109,5 @@ class UserSpec extends Specification {
 
 	}
 
-	@Mock([Topic, User, Subscription])
-	@TestFor(SubscriptionController)
-	static class SubscriptionControllerSpec extends Specification {
-		User user
-		Topic topic
-		Subscription subscription
 
-		def setup() {
-			user = new User(firstName: "test", lastName: "user", userName: "testuser1", password: "default", email: "testuser@test.com")
-			topic = new Topic(createdBy: user, visibility: Visibility.PUBLIC, topicName: "Topic1")
-			subscription = new Subscription(topic: topic, user: user, seriousness: Seriousness.SERIOUS)
-		}
-
-
-
-		def "test save action"() {
-			given:
-			user.save()
-			session.user = user
-
-			and:
-			topic.save()
-
-			and:
-
-			subscription.save()
-
-			when:
-			controller.save(testId)
-
-			then:
-			response.text == expectedRender
-
-			where:
-			testId | expectedRender
-			1      | "Subscription saved successfully"
-			2      | "Error saving subscription!!"
-		}
-
-		def "update: if subscription updated successfully, render"() {
-			given:
-			user.save()
-			topic.save()
-			subscription.save(validate: false)
-
-
-			when:
-			controller.update(subscription.id, "casual")
-
-			then:
-			response.text == "Subscription information updated"
-			subscription.seriousness == Seriousness.CASUAL
-		}
-
-		//@Ignore
-		//HOW TO DO THIS
-		/*def "update: if subscription not updated, render"() {
-			given:
-	//		user.save()
-	//		topic.save()
-	//		subscription.save()
-			Subscription subscription1 = new Subscription(seriousness: Seriousness.SERIOUS)
-			subscription1.save()
-
-			when:
-			controller.update(subscription1.id, "casual")
-
-			then:
-			response.text == "Error updating subscription information!!"
-		}*/
-
-		def "update: subscription not found"() {
-			when:
-			controller.update(1, "casual")
-
-			then:
-			response.text == "Subscription not found!"
-		}
-
-
-		def "delete: delete resource successfully "() {
-			given:
-			user.save()
-			topic.save()
-			subscription.save()
-
-			when:
-			controller.delete(topic.id)
-
-			then:
-			response.text == "could not delete Subscription --> User --> test user for Topic --> Topic1"
-		}
-
-
-		def "delete: could not delete resource "() {
-			given:
-			subscription.save()
-
-			when:
-			controller.delete(topic.id)
-
-			then:
-			response.text == "could not delete Subscription --> User --> test user for Topic --> Topic1"
-		}
-
-		def "delete: resource not found"() {
-			when:
-			controller.delete(1)
-
-			then:
-			response.text == "Subscription not found!!"
-		}
-	}
 }

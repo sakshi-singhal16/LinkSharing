@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired
 class UtilController {
 
 	def UtilService
-	def newBean
-	def newBeanUsingConst
-	@Autowired
-	Person beanByType
+//	def newBean
+//	def newBeanUsingConst
+	def employeeBean
+//	@Autowired
+//	Person beanByType
 
 	def index() {
 		//render(grailsApplication.config.grails.var)
@@ -46,5 +47,9 @@ class UtilController {
 		}
 
 
+	}
+
+	def testBean(){
+		render "------------------${employeeBean.properties}"
 	}
 }

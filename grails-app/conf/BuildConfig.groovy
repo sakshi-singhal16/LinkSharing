@@ -66,7 +66,7 @@ grails.project.dependency.resolution = {
         // asset-pipeline 2.0+ requires Java 7, use version 1.9.x with Java 6
         compile ":asset-pipeline:2.2.3"
 		compile "org.grails.plugins:quartz:1.0.2"
-        compile "org.grails.plugins:codenarc:0.25.1"
+        build "org.grails.plugins:codenarc:0.25.1"
         test "org.grails.plugins:code-coverage:2.0.3-3"
 		compile ":remote-pagination:0.4.8"
         // plugins needed at runtime but not for compilation

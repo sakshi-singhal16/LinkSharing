@@ -1,6 +1,6 @@
 package com.tothenew.linksharing
 
-
+import com.tothenew.linksharing.Enums.Visibility
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -51,7 +51,7 @@ class TopicSpec extends Specification {
 		String s = "$topic"
 
 		then:
-		s == "TopicCO --> Grails"
+		s == "Grails"
 
 	}
 }

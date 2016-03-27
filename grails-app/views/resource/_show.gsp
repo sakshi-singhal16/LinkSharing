@@ -27,9 +27,12 @@
 
         <div class="row">
             <div class="col-md-3">
-                <span class="fa fa-facebook-square"></span>
-                <span class="fa fa-twitter-square"></span>
-                <span class="fa fa-google-plus-square"></span>
+                <a class="fa fa-facebook-square" id="facebook-share" style="font-size: 16px"></a>
+                <a class="fa fa-twitter-square" href="https://twitter.com/intent/tweet" style="font-size: 16px"></a>
+                <a href="https://plus.google.com/share?url={URL}" onclick="javascript:window.open(this.href,
+                        '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+                return false;">
+                    <img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Google+"/></a>
             </div>
 
             <div class="col-md-3  col-md-offset-6">

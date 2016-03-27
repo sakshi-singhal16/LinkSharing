@@ -1,6 +1,8 @@
+import com.tothenew.linksharing.Employee
+
 // Place your Spring DSL code here
 beans = {
-	newBean(com.tothenew.linksharing.Person) { bean ->
+	/*newBean(com.tothenew.linksharing.Person) { bean ->
 		firstName = "sakshi"
 		age = 23
 		bean.scope = 'prototype'
@@ -10,5 +12,9 @@ beans = {
 	}
 	beanByType(com.tothenew.linksharing.Person, "SAKSHI") {
 
+	}*/
+	employeeBean(Employee){
+		firstName="Sakshi"
+		age=23
 	}
 }
