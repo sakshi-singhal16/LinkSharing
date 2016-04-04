@@ -102,15 +102,18 @@
                 },
                 email: {
                     required: true,
-                    remote: "/user/validateEmail"
+                    /*remote: {
+                     url: "/user/validateEmail",
+                     type: "post"
+                     }*/
                 },
                 userName: {
                     required: true,
-                    remote: {
+                    /*remote: {
                         url: "/user/validateUserName",
                         type: "post"
 
-                    }
+                     }*/
                 },
                 password: {
                     required: true,

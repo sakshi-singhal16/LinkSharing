@@ -103,9 +103,6 @@ class UserController {
 		if (session.user.isAdmin) {
 			List<User> filteredUsers = User.search(co).list([max: 20, sort: co.sort, order: co.order])
 			render(view: 'showUsers', model: [users: filteredUsers])
-			/*else {
-			   render(view: 'showUsers', model: [users: User.list()])
-		   }*/
 		} else {
 			redirect(controller: 'user', action: 'index')
 		}
@@ -156,7 +153,6 @@ class UserController {
 				if (user.save(flush: true)) {
 					session.user = user
 					flash.message = "Password updated successfully"
-
 				} else {
 					flash.error = "Error saving user"
 				}
@@ -176,7 +172,6 @@ class UserController {
 			true
 		else
 			false
-
 	}
 
 	def validateUserName() {
@@ -184,6 +179,5 @@ class UserController {
 			true
 		else
 			false
-
 	}
 }
